@@ -1,0 +1,265 @@
+/* ソリューションフロー - イラスト中心型 */
+#solution {
+  background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg) 100%);
+  position: relative;
+  padding: 6rem 3rem;
+  overflow: hidden;
+}
+
+.solution-flow {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 500px;
+}
+
+/* 中央のイラストエリア */
+.illustration-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 中央のメインビジュアル */
+.central-visual {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: morphing 15s ease-in-out infinite;
+  box-shadow:
+    0 30px 60px rgba(30, 58, 138, 0.3),
+    0 10px 20px rgba(0, 0, 0, 0.1),
+    inset 0 2px 10px rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+@keyframes morphing {
+  0%,
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+  33% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+  }
+  66% {
+    border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%;
+  }
+}
+
+/* 中央のアイコン群 - 非表示にしてシンプルに */
+.visual-icons {
+  display: none;
+}
+
+/* 中央メッセージ */
+.central-message {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 2rem;
+}
+
+.central-message h3 {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.02em;
+}
+
+.central-message p {
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.95;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 吹き出しステップ */
+.bubble-step {
+  position: absolute;
+  background: white;
+  border-radius: 20px;
+  padding: 1.25rem;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 2px solid var(--border-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  width: 220px;
+  z-index: 2;
+}
+
+/* 吹き出しの尻尽 */
+.bubble-step::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 2px solid var(--border-light);
+  transform: rotate(45deg);
+}
+
+/* 各ステップの位置 */
+.bubble-step-1 {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bubble-step-1::before {
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-top: none;
+  border-left: none;
+}
+
+.bubble-step-2 {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+.bubble-step-2::before {
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: none;
+  border-top: none;
+}
+
+.bubble-step-3 {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bubble-step-3::before {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-bottom: none;
+  border-right: none;
+}
+
+.bubble-step-4 {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+.bubble-step-4::before {
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  border-left: none;
+  border-bottom: none;
+}
+
+.bubble-step:hover {
+  box-shadow:
+    0 12px 32px rgba(30, 58, 138, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary);
+  z-index: 100;
+}
+
+.bubble-step-1:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.bubble-step-2:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.bubble-step-3:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.bubble-step-4:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* 番号バッジ */
+.bubble-number {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+  border: 3px solid white;
+  z-index: 2;
+}
+
+.bubble-content {
+  position: relative;
+}
+
+.bubble-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bubble-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--primary);
+}
+
+.bubble-text {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+.bubble-detail {
+  font-size: 0.7rem;
+  color: var(--primary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease;
+}
+
+.bubble-step:hover .bubble-detail {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 非表示要素 */
+.circle-center,
+.circle-path,
+.steps-grid {
+  display: none;
+}

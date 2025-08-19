@@ -1,0 +1,320 @@
+/* 価値提案 - ダイナミックカウンターデザイン */
+.value {
+  background: linear-gradient(
+    180deg,
+    var(--primary-light) 0%,
+    var(--bg) 50%,
+    var(--primary-light) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  padding: 7rem 3rem;
+}
+
+.value::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(30, 58, 138, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(30, 64, 175, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(59, 130, 246, 0.03) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+.metrics {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.metric-card {
+  text-align: center;
+  position: relative;
+  animation: float 6s ease-in-out infinite;
+}
+
+.metric-card:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.metric-card:nth-child(2) {
+  animation-delay: 2s;
+  transform: scale(1.3);
+}
+
+.metric-card:nth-child(3) {
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) scale(var(--scale, 1));
+  }
+  50% {
+    transform: translateY(-20px) scale(var(--scale, 1));
+  }
+}
+
+.metric-card:nth-child(2) {
+  --scale: 1.3;
+}
+
+.metric-visual {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-card:nth-child(2) .metric-visual {
+  width: 260px;
+  height: 260px;
+}
+
+.metric-card:nth-child(1) .metric-visual,
+.metric-card:nth-child(3) .metric-visual {
+  width: 180px;
+  height: 180px;
+}
+
+/* グローエフェクト */
+.metric-glow {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.3) 0%,
+    transparent 70%
+  );
+  opacity: 0.4;
+  filter: blur(25px);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* メインコンテンツ - ウルトラ光沢ディープブルーメタリックカード */
+.metric-content {
+  position: relative;
+  background: 
+                /* トップレイヤー: 光沢 */
+    linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.2) 45%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 60%
+    ),
+    /* ミドルレイヤー: メタリック反射 */
+      linear-gradient(
+        180deg,
+        rgba(147, 197, 253, 0.15) 0%,
+        transparent 20%,
+        transparent 80%,
+        rgba(30, 58, 138, 0.2) 100%
+      ),
+    /* ベースレイヤー: ディープブルーグラデーション */
+      linear-gradient(
+        135deg,
+        #0a0e27 0%,
+        #151e3f 10%,
+        #1e3a8a 30%,
+        #2563eb 50%,
+        #1e40af 70%,
+        #1e3a8a 90%,
+        #0f172a 100%
+      );
+  background-size:
+    200% 200%,
+    100% 100%,
+    150% 150%;
+  animation: ultraShine 8s ease-in-out infinite;
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow: 
+                /* 外側の影 */
+    0 30px 60px rgba(15, 23, 42, 0.6),
+    0 15px 30px rgba(30, 58, 138, 0.3),
+    /* 内側の光沢 */ inset 0 3px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.6),
+    inset 0 0 20px rgba(147, 197, 253, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+@keyframes ultraShine {
+  0%,
+  100% {
+    background-position:
+      -100% 0%,
+      0% 0%,
+      0% 0%;
+  }
+  50% {
+    background-position:
+      200% 0%,
+      0% 0%,
+      100% 100%;
+  }
+}
+
+.metric-content::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+                /* 複数の光の筋 */ linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.4) 35%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(255, 255, 255, 0.4) 45%,
+    transparent 50%,
+    transparent 80%,
+    rgba(147, 197, 253, 0.3) 82%,
+    rgba(147, 197, 253, 0.2) 84%,
+    transparent 86%
+  );
+  animation: glossSweep 4s ease-in-out infinite;
+}
+
+@keyframes glossSweep {
+  0% {
+    transform: translate(-100%, -100%) rotate(45deg);
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(45deg);
+  }
+}
+
+.metric-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+                /* トップグロス */
+    radial-gradient(
+      ellipse at top,
+      rgba(255, 255, 255, 0.25) 0%,
+      transparent 40%
+    ),
+    /* ボトムシャドウ */
+      radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.3) 0%, transparent 40%),
+    /* センターグロー */
+      radial-gradient(
+        circle at center,
+        rgba(147, 197, 253, 0.1) 0%,
+        transparent 50%
+      );
+  pointer-events: none;
+  border-radius: 24px;
+  mix-blend-mode: soft-light;
+}
+
+.metric-card:hover .metric-content {
+  transform: scale(1.05) translateY(-8px) rotateX(-2deg);
+  box-shadow: 
+                /* 強化された影 */
+    0 40px 80px rgba(15, 23, 42, 0.7),
+    0 20px 40px rgba(30, 58, 138, 0.4),
+    /* 強い内側光沢 */ inset 0 5px 10px rgba(255, 255, 255, 0.5),
+    inset 0 -5px 10px rgba(0, 0, 0, 0.7),
+    inset 0 0 30px rgba(147, 197, 253, 0.2),
+    /* グロー */ 0 0 60px rgba(59, 130, 246, 0.4);
+}
+
+.metric-value {
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f9fafb 15%,
+    #e5e7eb 30%,
+    #cbd5e1 50%,
+    #e5e7eb 70%,
+    #f9fafb 85%,
+    #ffffff 100%
+  );
+  background-size: 100% 150%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+  animation: shimmerText 10s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+}
+
+.metric-card:nth-child(2) .metric-value {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4));
+}
+
+.metric-label {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1e293b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.metric-desc {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 250px;
+  margin: 0 auto;
+  font-weight: 500;
+}
