@@ -1988,101 +1988,342 @@
             }
         }
 
-        /* 比較セクション */
+        /* 比較セクション - プロフェッショナルデザイン */
         .comparison {
-            background: var(--bg-section);
+            background: linear-gradient(180deg, 
+                var(--bg) 0%, 
+                rgba(241, 245, 249, 0.5) 50%, 
+                var(--bg) 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 7rem 3rem;
         }
+        
 
+        .compare-wrapper {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .compare-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 5rem;
+            align-items: stretch;
+            width: 100%;
         }
+        
+        /* 中央の矢印コンテナ */
+        .arrow-container {
+            position: absolute;
+            left: calc(50% - 30px);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 10px 30px rgba(30, 58, 138, 0.3),
+                0 0 0 4px rgba(255, 255, 255, 0.9),
+                0 0 0 8px rgba(30, 58, 138, 0.1);
+            z-index: 10;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .arrow-icon {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            animation: slideRight 2s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+        }
+        
 
         .compare-card {
             background: white;
-            border-radius: 20px;
-            padding: 3rem;
+            border-radius: 24px;
+            padding: 2.5rem;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .compare-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .compare-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .before-card {
-            border: 2px solid var(--border);
+            background: linear-gradient(135deg, 
+                rgba(248, 250, 252, 1) 0%, 
+                rgba(241, 245, 249, 1) 100%);
+            border: 2px solid rgba(203, 213, 225, 0.5);
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.04),
+                inset 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+        
+        .before-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                transparent 30%,
+                rgba(148, 163, 184, 0.05) 50%,
+                transparent 70%);
+            animation: shimmerSlow 8s ease-in-out infinite;
+        }
+        
+        @keyframes shimmerSlow {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
         }
 
         .after-card {
-            border: 2px solid var(--primary);
-            box-shadow: var(--shadow-xl);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(239, 246, 255, 1) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(30, 58, 138, 0.12),
+                0 8px 16px rgba(59, 130, 246, 0.08),
+                inset 0 1px 3px rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+        
+        .after-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--primary) 0%, 
+                var(--accent) 50%, 
+                var(--primary) 100%);
+            background-size: 200% 100%;
+            animation: gradientSlide 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientSlide {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        .after-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(30, 58, 138, 0.15),
+                0 15px 30px rgba(59, 130, 246, 0.1);
+        }
+        
+        .before-card:hover {
+            transform: translateY(-3px);
         }
 
+        /* バッジシステム */
         .compare-badge {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            top: -2px;
+            right: 2rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0 0 16px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .compare-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
         }
 
         .before-badge {
-            background: var(--border-light);
-            color: var(--text-light);
+            background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+            color: white;
+        }
+        
+        .before-badge::before {
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .after-badge {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
         }
-
-        .compare-card h3 {
-            font-size: 1.5rem;
+        
+        .after-badge::before {
+            background: #10B981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* カードヘッダー */
+        .compare-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 2rem;
-            font-weight: 700;
         }
-
-        .before-card h3 {
-            color: var(--text-light);
+        
+        .compare-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 24px;
         }
-
-        .after-card h3 {
+        
+        .before-card .compare-icon-wrapper {
+            background: rgba(148, 163, 184, 0.1);
+            color: #64748b;
+        }
+        
+        .after-card .compare-icon-wrapper {
+            background: rgba(59, 130, 246, 0.1);
             color: var(--primary);
         }
 
+        .compare-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0;
+            flex: 1;
+        }
+
+        .before-card h3 {
+            color: #475569;
+        }
+
+        .after-card h3 {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* リストスタイル */
         .compare-list {
             list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         .compare-list li {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-light);
-            color: var(--text-light);
+            padding: 1.25rem 0 1.25rem 3rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
             font-size: 0.95rem;
-            padding-left: 2rem;
             position: relative;
             line-height: 1.7;
+            transition: all 0.3s ease;
         }
 
         .compare-list li:last-child {
             border-bottom: none;
         }
-
-        .before-card .compare-list li:before {
-            content: '×';
-            position: absolute;
-            left: 0;
-            color: #EF4444;
-            font-weight: 700;
+        
+        .compare-list li:hover {
+            padding-left: 3.5rem;
         }
-
-        .after-card .compare-list li:before {
-            content: '✓';
+        
+        /* アイコンバッジ */
+        .compare-list li::before {
             position: absolute;
             left: 0;
-            color: var(--success);
+            top: 1.25rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
             font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .before-card .compare-list li {
+            color: #64748b;
+        }
+        
+        .before-card .compare-list li::before {
+            content: '✕';
+            background: rgba(239, 68, 68, 0.1);
+            color: #DC2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .before-card .compare-list li:hover::before {
+            transform: rotate(90deg) scale(1.1);
+            background: rgba(239, 68, 68, 0.15);
+        }
+        
+        .after-card .compare-list li {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .after-card .compare-list li::before {
+            content: '✓';
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .after-card .compare-list li:hover::before {
+            transform: scale(1.2);
+            background: rgba(16, 185, 129, 0.15);
+            animation: checkBounce 0.6s ease;
+        }
+        
+        @keyframes checkBounce {
+            0%, 100% { transform: scale(1.2); }
+            50% { transform: scale(1.3); }
         }
 
         /* CTA セクション */
@@ -2299,10 +2540,18 @@
 
             .solution-flow,
             .metrics,
-            .compare-grid,
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+            
+            .compare-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .arrow-container {
+                display: none;
             }
 
             .flow-step::after {
@@ -2885,10 +3134,16 @@
                 <p class="section-subtitle">記録から対話へ、医療の本質を取り戻す</p>
             </div>
 
-            <div class="compare-grid">
-                <div class="compare-card before-card">
-                    <span class="compare-badge before-badge">導入前</span>
-                    <h3>従来の記録方法</h3>
+            <div class="compare-wrapper">
+                <div class="compare-grid">
+                    <div class="compare-card before-card">
+                    <span class="compare-badge before-badge">Before</span>
+                    <div class="compare-card-header">
+                        <div class="compare-icon-wrapper">
+                            <i data-feather="alert-circle"></i>
+                        </div>
+                        <h3>従来の記録方法</h3>
+                    </div>
                     <ul class="compare-list">
                         <li>PCへの入力に気を取られ、患者との対話が中断</li>
                         <li>診察後に曖昧な記憶を頼りに記録を作成</li>
@@ -2897,14 +3152,24 @@
                     </ul>
                 </div>
                 <div class="compare-card after-card">
-                    <span class="compare-badge after-badge">導入後</span>
-                    <h3>コエカル導入後</h3>
+                    <span class="compare-badge after-badge">After</span>
+                    <div class="compare-card-header">
+                        <div class="compare-icon-wrapper">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                        <h3>コエカル導入後</h3>
+                    </div>
                     <ul class="compare-list">
                         <li>患者の目を見て、じっくりと対話ができる</li>
                         <li>診察中の会話がそのまま正確な記録に</li>
                         <li>文脈が伝わる詳細で質の高い医療記録</li>
                         <li>定時退社が可能になり、ワークライフバランスが向上</li>
                     </ul>
+                </div>
+                </div>
+                <!-- 中央の矢印 -->
+                <div class="arrow-container">
+                    <span class="arrow-icon">→</span>
                 </div>
             </div>
         </div>
