@@ -74,19 +74,34 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #000000;
             text-decoration: none;
-            letter-spacing: -0.02em;
-            transition: opacity 0.2s;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: inline-block;
+            padding: 0.25rem 0;
         }
         
         .logo:hover {
-            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #000000;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .logo:hover::after {
+            width: 100%;
         }
 
         .nav-links {
@@ -792,14 +807,13 @@
         }
 
         .footer-brand h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            font-weight: 800;
+            color: #000000;
+            letter-spacing: 0.05em;
+            position: relative;
+            display: inline-block;
         }
 
         .footer-brand p {
