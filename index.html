@@ -1253,14 +1253,16 @@
                     transparent 20%,
                     transparent 80%,
                     rgba(30, 58, 138, 0.2) 100%),
-                /* ベースレイヤー: ディープブルー */
-                linear-gradient(145deg, 
-                    #0f172a 0%, 
-                    #1e3a8a 25%, 
-                    #1e40af 50%, 
-                    #1e3a8a 75%, 
+                /* ベースレイヤー: ディープブルーグラデーション */
+                linear-gradient(135deg, 
+                    #0a0e27 0%, 
+                    #151e3f 10%,
+                    #1e3a8a 30%, 
+                    #2563eb 50%, 
+                    #1e40af 70%,
+                    #1e3a8a 90%,
                     #0f172a 100%);
-            background-size: 200% 200%, 100% 100%, 200% 200%;
+            background-size: 200% 200%, 100% 100%, 150% 150%;
             animation: ultraShine 8s ease-in-out infinite;
             border-radius: 24px;
             padding: 2.5rem 2rem;
@@ -1278,10 +1280,10 @@
         
         @keyframes ultraShine {
             0%, 100% { 
-                background-position: -100% 0%, 0% 0%, 0% 50%;
+                background-position: -100% 0%, 0% 0%, 0% 0%;
             }
             50% { 
-                background-position: 200% 0%, 0% 0%, 100% 50%;
+                background-position: 200% 0%, 0% 0%, 100% 100%;
             }
         }
         
