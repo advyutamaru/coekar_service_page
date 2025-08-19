@@ -1122,23 +1122,25 @@
             }
         }
 
-        /* 価値提案 - 円形プログレスデザイン */
+        /* 価値提案 - ダイナミックカウンターデザイン */
         .value {
-            background: var(--bg);
+            background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg) 100%);
             position: relative;
             overflow: hidden;
+            padding: 7rem 3rem;
         }
         
         .value::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150%;
-            height: 150%;
-            background: radial-gradient(circle, var(--primary-light) 0%, transparent 60%);
-            opacity: 0.3;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(30, 58, 138, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 64, 175, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -1146,98 +1148,124 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 6rem;
+            gap: 5rem;
             position: relative;
+            z-index: 1;
         }
 
         .metric-card {
             text-align: center;
             position: relative;
+            animation: float 6s ease-in-out infinite;
         }
         
-        /* メインの数値 */
+        .metric-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
         .metric-card:nth-child(2) {
-            transform: scale(1.2);
+            animation-delay: 2s;
+            transform: scale(1.3);
+        }
+        
+        .metric-card:nth-child(3) {
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(var(--scale, 1)); }
+            50% { transform: translateY(-20px) scale(var(--scale, 1)); }
+        }
+        
+        .metric-card:nth-child(2) {
+            --scale: 1.3;
         }
 
-        .metric-circle {
-            width: 180px;
-            height: 180px;
+        .metric-visual {
+            width: 200px;
+            height: 200px;
             margin: 0 auto 2rem;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .metric-card:nth-child(2) .metric-circle {
-            width: 220px;
-            height: 220px;
+        .metric-card:nth-child(2) .metric-visual {
+            width: 260px;
+            height: 260px;
         }
         
-        .metric-card:nth-child(1) .metric-circle,
-        .metric-card:nth-child(3) .metric-circle {
-            width: 160px;
-            height: 160px;
+        .metric-card:nth-child(1) .metric-visual,
+        .metric-card:nth-child(3) .metric-visual {
+            width: 180px;
+            height: 180px;
         }
         
-        /* SVGサークル */
-        .metric-svg {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-        
-        .metric-bg {
-            fill: none;
-            stroke: var(--bg-light);
-            stroke-width: 8;
-        }
-        
-        .metric-progress {
-            fill: none;
-            stroke: url(#gradient);
-            stroke-width: 8;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .metric-content {
+        /* グローエフェクト */
+        .metric-glow {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.15;
+            filter: blur(40px);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+        
+        /* メインコンテンツ */
+        .metric-content {
+            position: relative;
+            background: white;
+            border: 2px solid var(--primary-light);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 
+                0 20px 40px rgba(30, 58, 138, 0.1),
+                0 0 0 1px rgba(30, 58, 138, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover .metric-content {
+            transform: scale(1.05);
+            box-shadow: 
+                0 30px 60px rgba(30, 58, 138, 0.15),
+                0 0 0 2px var(--primary-light);
         }
 
         .metric-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text);
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
         
         .metric-card:nth-child(2) .metric-value {
-            font-size: 3rem;
-        }
-        
-        .metric-card:nth-child(1) .metric-value,
-        .metric-card:nth-child(3) .metric-value {
-            font-size: 2.25rem;
+            font-size: 4.5rem;
         }
 
         .metric-label {
-            font-size: 0.9rem;
+            font-size: 1.125rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: var(--text);
+            letter-spacing: -0.01em;
         }
 
         .metric-desc {
             font-size: 0.95rem;
             color: var(--text-light);
-            line-height: 1.5;
-            max-width: 200px;
+            line-height: 1.6;
+            max-width: 250px;
             margin: 0 auto;
         }
 
@@ -1752,6 +1780,10 @@
                 font-size: 1.05rem;
             }
             
+            .value {
+                padding: 5rem 1.5rem;
+            }
+            
             .metrics {
                 flex-direction: column;
                 gap: 3rem;
@@ -1759,28 +1791,27 @@
             
             .metric-card:nth-child(2) {
                 transform: scale(1);
+                --scale: 1;
             }
             
-            .metric-circle {
-                width: 160px;
-                height: 160px;
+            .metric-visual {
+                width: 180px;
+                height: 180px;
             }
             
-            .metric-card:nth-child(2) .metric-circle,
-            .metric-card:nth-child(1) .metric-circle,
-            .metric-card:nth-child(3) .metric-circle {
-                width: 160px;
-                height: 160px;
+            .metric-card:nth-child(2) .metric-visual,
+            .metric-card:nth-child(1) .metric-visual,
+            .metric-card:nth-child(3) .metric-visual {
+                width: 180px;
+                height: 180px;
             }
             
             .metric-value {
-                font-size: 2.25rem;
+                font-size: 3rem;
             }
             
-            .metric-card:nth-child(2) .metric-value,
-            .metric-card:nth-child(1) .metric-value,
-            .metric-card:nth-child(3) .metric-value {
-                font-size: 2.25rem;
+            .metric-card:nth-child(2) .metric-value {
+                font-size: 3.5rem;
             }
             
             .compare-card {
@@ -1816,13 +1847,32 @@
                 font-size: 1.5rem;
             }
             
-            .metric-circle {
-                width: 140px;
-                height: 140px;
+            .value {
+                padding: 4rem 1rem;
+            }
+            
+            .metric-visual {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .metric-card:nth-child(2) .metric-visual,
+            .metric-card:nth-child(1) .metric-visual,
+            .metric-card:nth-child(3) .metric-visual {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .metric-content {
+                padding: 1.5rem 1.25rem;
             }
             
             .metric-value {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .metric-card:nth-child(2) .metric-value {
+                font-size: 3rem;
             }
             
             .metric-label {
@@ -1830,7 +1880,7 @@
             }
             
             .metric-desc {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             
             .flow-step {
@@ -2108,57 +2158,36 @@
 
             <div class="metrics">
                 <div class="metric-card">
-                    <div class="metric-circle">
-                        <svg class="metric-svg">
-                            <defs>
-                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:var(--primary);stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:var(--accent);stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <circle class="metric-bg" cx="80" cy="80" r="70"></circle>
-                            <circle class="metric-progress" cx="80" cy="80" r="70" 
-                                    stroke-dasharray="440" 
-                                    stroke-dashoffset="110"></circle>
-                        </svg>
+                    <div class="metric-visual">
+                        <div class="metric-glow"></div>
                         <div class="metric-content">
                             <div class="metric-value">75%</div>
                         </div>
                     </div>
                     <div class="metric-label">記録時間削減</div>
-                    <div class="metric-desc">記録作成時間を大幅に短縮</div>
+                    <div class="metric-desc">記録作成時間を大幅に短縮し、本来の診療に集中</div>
                 </div>
                 
                 <div class="metric-card">
-                    <div class="metric-circle">
-                        <svg class="metric-svg">
-                            <circle class="metric-bg" cx="110" cy="110" r="100"></circle>
-                            <circle class="metric-progress" cx="110" cy="110" r="100" 
-                                    stroke-dasharray="628" 
-                                    stroke-dashoffset="63"></circle>
-                        </svg>
+                    <div class="metric-visual">
+                        <div class="metric-glow"></div>
                         <div class="metric-content">
                             <div class="metric-value">600h</div>
                         </div>
                     </div>
                     <div class="metric-label">年間削減時間</div>
-                    <div class="metric-desc">診療に還元できる時間を創出</div>
+                    <div class="metric-desc">診療に還元できる時間を創出し、患者と向き合う</div>
                 </div>
                 
                 <div class="metric-card">
-                    <div class="metric-circle">
-                        <svg class="metric-svg">
-                            <circle class="metric-bg" cx="80" cy="80" r="70"></circle>
-                            <circle class="metric-progress" cx="80" cy="80" r="70" 
-                                    stroke-dasharray="440" 
-                                    stroke-dashoffset="44"></circle>
-                        </svg>
+                    <div class="metric-visual">
+                        <div class="metric-glow"></div>
                         <div class="metric-content">
-                            <div class="metric-value">90%</div>
+                            <div class="metric-value">95%</div>
                         </div>
                     </div>
                     <div class="metric-label">認識精度</div>
-                    <div class="metric-desc">医療用語も正確に認識</div>
+                    <div class="metric-desc">医療用語も正確に認識し、信頼できる記録を作成</div>
                 </div>
             </div>
         </div>
