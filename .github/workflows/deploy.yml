@@ -1,14 +1,29 @@
-name: Optimize and Deploy
+name: Deploy
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+
+# Pagesデプロイに必要な権限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時実行を防ぐ
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  optimize:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
     - uses: actions/checkout@v4
@@ -164,44 +179,29 @@ jobs:
         img_size=$(find image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) -exec du -ch {} + | grep total$ | cut -f1)
         echo "| Images | $img_count | $img_size |" >> $GITHUB_STEP_SUMMARY
     
-    # アーティファクトとして保存
-    - name: Upload optimized site
-      uses: actions/upload-artifact@v4
+    # GitHub Pages設定（mainブランチのみ）
+    - name: Setup Pages
+      if: github.ref == 'refs/heads/main'
+      uses: actions/configure-pages@v4
+    
+    # Pagesアーティファクトアップロード（mainブランチのみ）
+    - name: Upload Pages artifact
+      if: github.ref == 'refs/heads/main'
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: optimized-site
-        path: |
-          index.html
-          css/
-          js/
-          image/
-          koekar-icons/
+        path: .
     
-  deploy:
-    needs: optimize
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    
-    steps:
-    # 最適化されたファイルをダウンロード
-    - name: Download optimized site
-      uses: actions/download-artifact@v4
-      with:
-        name: optimized-site
-    
-    # GitHub Pagesへデプロイ
+    # GitHub Pagesへデプロイ（mainブランチのみ）
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
-        force_orphan: true
-        enable_jekyll: false
-        cname: # ここにカスタムドメインがあれば記載
+      if: github.ref == 'refs/heads/main'
+      id: deployment
+      uses: actions/deploy-pages@v4
     
     # デプロイ完了通知
     - name: Deployment summary
+      if: github.ref == 'refs/heads/main'
       run: |
         echo "## ✅ Deployment Complete!" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "🚀 Site has been deployed to GitHub Pages" >> $GITHUB_STEP_SUMMARY
-        echo "📍 URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
+        echo "📍 URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
