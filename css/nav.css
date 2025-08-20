@@ -26,7 +26,7 @@ nav.scrolled {
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   font-weight: 700;
   color: #000000;
   text-decoration: none;
@@ -35,15 +35,17 @@ nav.scrolled {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.125rem 0;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
 }
 
 .logo-icon {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  margin-top: 2px;
 }
 
 .logo:hover .logo-icon {
