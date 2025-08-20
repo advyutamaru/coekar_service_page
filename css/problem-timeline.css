@@ -1,221 +1,300 @@
-/* 課題セクション - タイムライン型 */
+/* 課題セクション - ミニマルデザイン */
 .problem {
-  background: linear-gradient(180deg, var(--bg-section) 0%, var(--bg) 100%);
+  background: #ffffff;
   position: relative;
+  padding: 100px 20px;
   overflow: hidden;
-  padding: 7rem 3rem;
 }
 
 .problem::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(
-    circle,
-    rgba(239, 68, 68, 0.03) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-.timeline-container {
-  position: relative;
-  padding: 2rem 0;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.timeline-line {
-  position: absolute;
-  left: 50%;
   top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(239, 68, 68, 0.12) 15%,
-    rgba(239, 68, 68, 0.15) 50%,
-    rgba(239, 68, 68, 0.12) 85%,
-    transparent 100%
-  );
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
 }
 
-.timeline-item {
-  display: flex;
-  margin-bottom: 3rem;
-  position: relative;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-  align-items: flex-start;
+/* セクションヘッダー */
+.problem .section-header {
+  margin-bottom: 80px;
 }
 
-.timeline-item:nth-child(even) {
-  flex-direction: row-reverse;
-  animation-delay: 0.2s;
+.problem .section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: #111827;
+  margin-bottom: 12px;
+  line-height: 1.2;
 }
 
-.timeline-item:nth-child(odd) {
-  animation-delay: 0.1s;
+.problem .section-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* 統計カード */
+.problem-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #e5e7eb;
+  margin: 0 auto 100px;
+  max-width: 900px;
 }
 
-.timeline-content {
-  width: calc(50% - 3rem);
-  padding: 1.75rem;
+.stat-card {
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(226, 232, 240, 0.4);
+  padding: 48px 32px;
+  text-align: center;
   position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.timeline-content:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 50px rgba(239, 68, 68, 0.12);
-  border-color: rgba(239, 68, 68, 0.25);
-}
-
-.timeline-item:nth-child(odd) .timeline-content {
-  margin-right: auto;
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-  margin-left: auto;
-}
-
-.timeline-dot {
-  position: absolute;
-  left: 50%;
-  top: 2rem;
-  width: 16px;
-  height: 16px;
-  background: white;
-  border: 3px solid #ef4444;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.1);
   transition: all 0.3s ease;
 }
 
-.timeline-item:hover .timeline-dot {
-  transform: translateX(-50%) scale(1.15);
-  box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.15);
+.stat-card:hover {
+  background: #fafafa;
 }
 
-.timeline-time {
+.stat-card::after {
+  content: "";
   position: absolute;
-  top: 2rem;
-  font-weight: 700;
-  color: var(--text);
-  font-size: 1rem;
-  white-space: nowrap;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #ef4444;
+  transition: width 0.3s ease;
+}
+
+.stat-card:hover::after {
+  width: 60px;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 200;
+  color: #111827;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 4px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.stat-detail {
+  font-size: 0.875rem;
+  color: #111827;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* 課題グリッド */
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto 80px;
+}
+
+.problem-card {
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.problem-header {
+  padding: 0 0 16px;
+  background: transparent;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+}
+
+.problem-header h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111827;
   letter-spacing: -0.01em;
-  opacity: 0.9;
-}
-
-.timeline-item:nth-child(odd) .timeline-time {
-  right: -4.5rem;
-}
-
-.timeline-item:nth-child(even) .timeline-time {
-  left: -4.5rem;
-}
-
-.timeline-content h3 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 0.875rem;
-  color: var(--text);
   display: flex;
   align-items: center;
-  gap: 1rem;
-  letter-spacing: -0.01em;
+  gap: 12px;
 }
 
-.timeline-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(
-    135deg,
-    rgba(239, 68, 68, 0.12),
-    rgba(239, 68, 68, 0.06)
-  );
-  border-radius: 10px;
+.problem-icon {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ef4444;
+  color: #6b7280;
   flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: none;
 }
 
-.timeline-icon i {
+.problem-card:hover .problem-icon {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+.problem-icon i {
   width: 18px;
   height: 18px;
 }
 
-.timeline-problems {
-  list-style: none;
-  margin-top: 0.75rem;
+.problem-content {
+  padding: 0;
 }
 
-.timeline-problems li {
-  padding: 0.625rem 0;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  padding-left: 1.5rem;
+.problem-quote {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
   position: relative;
+}
+
+.quote-icon {
+  display: none;
+}
+
+.problem-quote p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.quote-author {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 400;
+  display: block;
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* problem-impactsを削除 */
+
+/* CTA */
+.problem-cta {
+  text-align: center;
+  margin-top: 100px;
+  padding-top: 60px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cta-message {
+  font-size: 1.125rem;
+  color: #374151;
+  font-weight: 400;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
   line-height: 1.6;
 }
 
-.timeline-problems li:before {
-  content: "•";
-  position: absolute;
-  left: 0.5rem;
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1;
-  top: 0.625rem;
+.cta-arrow {
+  width: 24px;
+  height: 24px;
+  color: #9ca3af;
+  animation: subtle-bounce 3s ease-in-out infinite;
 }
 
-.timeline-stat {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  background: linear-gradient(
-    135deg,
-    rgba(239, 68, 68, 0.12),
-    rgba(239, 68, 68, 0.08)
-  );
-  color: #dc2626;
-  padding: 0.375rem 0.75rem;
-  border-radius: 100px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  letter-spacing: -0.01em;
-  border: 1px solid rgba(239, 68, 68, 0.15);
+@keyframes subtle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
-.timeline-stat::before {
-  content: "⚠";
-  font-size: 0.875rem;
+/* タブレット */
+@media (max-width: 1024px) {
+  .problems-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .problem-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* モバイル */
+@media (max-width: 768px) {
+  .problem {
+    padding: 60px 20px;
+  }
+  
+  .problem .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .problem .section-header h2 {
+    font-size: 1.875rem;
+  }
+  
+  .problem-stats {
+    grid-template-columns: 1fr;
+    margin-bottom: 60px;
+  }
+  
+  .stat-card {
+    padding: 32px 24px;
+  }
+  
+  .stat-number {
+    font-size: 2.25rem;
+  }
+  
+  .problems-grid {
+    gap: 48px;
+  }
+  
+  .problem-header h3 {
+    font-size: 1.125rem;
+  }
+  
+  .problem-cta {
+    margin-top: 60px;
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .problem {
+    padding: 48px 16px;
+  }
+  
+  .problem .section-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 24px 16px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .cta-message {
+    font-size: 1rem;
+  }
 }

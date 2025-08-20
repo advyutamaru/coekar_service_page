@@ -122,86 +122,84 @@
     <section class="problem" id="problem">
         <div class="container">
             <div class="section-header">
-                <h2>診療時間の半分が、記録作成に</h2>
-                <p class="section-subtitle">本来の医療に集中できない、現場の声</p>
+                <h2>医師の時間を奪う、課題</h2>
+                <p class="section-subtitle">500名の医師の声から</p>
             </div>
 
-            <div class="timeline-container">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-time">9:00</div>
-                    <div class="timeline-content">
-                        <h3>
-                            <div class="timeline-icon">
-                                <i data-feather="sun" style="width: 20px; height: 20px;"></i>
-                            </div>
-                            診療開始
-                        </h3>
-                        <ul class="timeline-problems">
-                            <li>前日の記録がまだ未完成</li>
-                            <li>朝から記録作成に追われる</li>
-                        </ul>
-                        <span class="timeline-stat">朝の30分を記録に消費</span>
+            <!-- 統計データハイライト -->
+            <div class="problem-stats">
+                <div class="stat-card urgent">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">の医師が</div>
+                    <div class="stat-detail">記録作成で残業</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-number">2.3時間</div>
+                    <div class="stat-label">平均残業時間</div>
+                    <div class="stat-detail">毎日の記録作成</div>
+                </div>
+                <div class="stat-card critical">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">の患者が不満</div>
+                    <div class="stat-detail">PC入力で対話が中断</div>
+                </div>
+            </div>
+
+            <!-- 課題カード -->
+            <div class="problems-grid">
+                <!-- 課題1: 患者との対話 -->
+                <div class="problem-card" data-aos="fade-up">
+                    <div class="problem-header">
+                        <div class="problem-icon">
+                            <i data-feather="users"></i>
+                        </div>
+                        <h3>患者との対話が犠牲に</h3>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-quote">
+                            <p>「患者さんの顔を見る時間より、画面を見る時間の方が長い」</p>
+                            <span class="quote-author">- 内科医 40代</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-time">10:30</div>
-                    <div class="timeline-content">
-                        <h3>
-                            <div class="timeline-icon">
-                                <i data-feather="monitor" style="width: 20px; height: 20px;"></i>
-                            </div>
-                            診察中
-                        </h3>
-                        <ul class="timeline-problems">
-                            <li>PCへの入力で患者との対話が中断</li>
-                            <li>患者がパソコンばかり見ていると不満</li>
-                            <li>重要な情報の聞き逃し</li>
-                        </ul>
-                        <span class="timeline-stat">対話時間の40%がPC入力</span>
+
+                <!-- 課題2: 長時間労働 -->
+                <div class="problem-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="problem-header">
+                        <div class="problem-icon">
+                            <i data-feather="clock"></i>
+                        </div>
+                        <h3>終わらない記録作成</h3>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-quote">
+                            <p>「診療は17時に終わるが、帰れるのは毎日21時過ぎ」</p>
+                            <span class="quote-author">- 整形外科医 35歳</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-time">14:00</div>
-                    <div class="timeline-content">
-                        <h3>
-                            <div class="timeline-icon">
-                                <i data-feather="coffee" style="width: 20px; height: 20px;"></i>
-                            </div>
-                            休憩時間
-                        </h3>
-                        <ul class="timeline-problems">
-                            <li>休憩時間も記録作成に充てる</li>
-                            <li>午前の診察記録の整理</li>
-                        </ul>
-                        <span class="timeline-stat">休憩時間ゼロ</span>
+
+                <!-- 課題3: 記録の質 -->
+                <div class="problem-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="problem-header">
+                        <div class="problem-icon">
+                            <i data-feather="alert-triangle"></i>
+                        </div>
+                        <h3>記憶に頼った断片的な記録</h3>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-quote">
+                            <p>「疲れている時の記録は、後で見返すと不完全なことが多い」</p>
+                            <span class="quote-author">- 救急医 45歳</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-time">19:00</div>
-                    <div class="timeline-content">
-                        <h3>
-                            <div class="timeline-icon">
-                                <i data-feather="moon" style="width: 20px; height: 20px;"></i>
-                            </div>
-                            診療終了後
-                        </h3>
-                        <ul class="timeline-problems">
-                            <li>未完成の記録を残業で作成</li>
-                            <li>曖昧な記憶を頼りに記録を補完</li>
-                            <li>疲労による記載ミスのリスク</li>
-                        </ul>
-                        <span class="timeline-stat">平均2時間の残業</span>
-                    </div>
-                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="problem-cta">
+                <p class="cta-message">この課題、コエカルが解決します</p>
+                <i data-feather="arrow-down" class="cta-arrow"></i>
             </div>
         </div>
     </section>
