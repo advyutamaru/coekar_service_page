@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/hero-responsive.css">
     <link rel="stylesheet" href="css/voice.css">
-    <link rel="stylesheet" href="css/problem-timeline.css">
+    <link rel="stylesheet" href="css/problem-minimal.css">
     <link rel="stylesheet" href="css/solution.css">
     <link rel="stylesheet" href="css/value.css">
     <link rel="stylesheet" href="css/value-responsive.css">
@@ -145,75 +145,56 @@
     <section class="problem" id="problem">
         <div class="container">
             <div class="section-header">
-                <h2>医師のカルテ記載の悩み</h2>
-                <p class="section-subtitle">全国の医師の声</p>
+                <h2>カルテ記載に費やす時間</h2>
             </div>
 
-            <!-- 統計データハイライト -->
-            <div class="problem-stats">
-                <div class="stat-card urgent">
-                    <div class="stat-number">70%</div>
-                    <div class="stat-label">の医師が</div>
-                    <div class="stat-detail">記録作成で残業</div>
-                </div>
-                <div class="stat-card warning">
-                    <div class="stat-number">2.3時間</div>
-                    <div class="stat-label">平均残業時間</div>
-                    <div class="stat-detail">毎日の記録作成</div>
-                </div>
-                <div class="stat-card critical">
-                    <div class="stat-number">65%</div>
-                    <div class="stat-label">の患者が不満</div>
-                    <div class="stat-detail">PC入力で対話が中断</div>
-                </div>
+            <!-- メイン統計 -->
+            <div class="problem-main-stat">
+                <div class="main-stat-number">2.3<span class="stat-unit">時間</span></div>
+                <div class="main-stat-text">毎日カルテ記載に費やす時間</div>
+                <div class="main-stat-subtext">年間600時間以上をカルテ記載に費やす現実</div>
             </div>
 
-            <!-- 課題カード -->
-            <div class="problems-grid">
-                <!-- 課題1: 患者との対話 -->
-                <div class="problem-card" data-aos="fade-up">
-                    <div class="problem-header">
-                        <div class="problem-icon">
-                            <i data-feather="users"></i>
+            <!-- 課題リスト -->
+            <div class="problems-list">
+                <div class="problem-item">
+                    <div class="problem-number">01</div>
+                    <div class="problem-text">
+                        <div class="problem-title">患者とのコミュニケーション不足</div>
+                        <div class="problem-description">
+                            PC入力に集中し、患者の目を見て話せない。
+                            信頼関係の構築が難しくなっています。
                         </div>
-                        <h3>患者との対話が犠牲に</h3>
-                    </div>
-                    <div class="problem-content">
                         <div class="problem-quote">
-                            <p>「患者さんの顔を見る時間より、画面を見る時間の方が長い」</p>
-                            <span class="quote-author">- 内科医 40代</span>
+                            「画面ばかり見て、私の話を聞いていない」 - 患者の声
                         </div>
                     </div>
                 </div>
-
-                <!-- 課題2: 長時間労働 -->
-                <div class="problem-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="problem-header">
-                        <div class="problem-icon">
-                            <i data-feather="clock"></i>
+                
+                <div class="problem-item">
+                    <div class="problem-number">02</div>
+                    <div class="problem-text">
+                        <div class="problem-title">終わらない残業と疲弊</div>
+                        <div class="problem-description">
+                            診療後もカルテ記載に追われ、
+                            プライベートの時間が確保できません。
                         </div>
-                        <h3>終わらない記録作成</h3>
-                    </div>
-                    <div class="problem-content">
                         <div class="problem-quote">
-                            <p>「診療は17時に終わるが、帰れるのは毎日21時過ぎ」</p>
-                            <span class="quote-author">- 整形外科医 35歳</span>
+                            「家族との時間よりカルテと向き合う時間が長い」 - 内科医
                         </div>
                     </div>
                 </div>
-
-                <!-- 課題3: 記録の質 -->
-                <div class="problem-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="problem-header">
-                        <div class="problem-icon">
-                            <i data-feather="alert-triangle"></i>
+                
+                <div class="problem-item">
+                    <div class="problem-number">03</div>
+                    <div class="problem-text">
+                        <div class="problem-title">診察後の記憶に頼った不完全な記録</div>
+                        <div class="problem-description">
+                            診察中はメモを取る余裕もなく、後から記憶を辿って記録を作成。
+                            患者の細かな訴えや重要な所見が抜け落ちてしまいます。
                         </div>
-                        <h3>記憶に頼った断片的な記録</h3>
-                    </div>
-                    <div class="problem-content">
                         <div class="problem-quote">
-                            <p>「疲れている時の記録は、後で見返すと不完全なことが多い」</p>
-                            <span class="quote-author">- 救急医 45歳</span>
+                            「10人診察した後では、誰が何を言ったか曖昧になる」 - 内科医
                         </div>
                     </div>
                 </div>

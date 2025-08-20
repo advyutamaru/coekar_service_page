@@ -1,0 +1,303 @@
+/* 課題セクション - シンプル＆洗練されたデザイン */
+.problem {
+  background: #ffffff;
+  position: relative;
+  padding: 120px 20px;
+  overflow: hidden;
+}
+
+/* セクションヘッダー */
+.problem .section-header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.problem .section-header h2 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0;
+  line-height: 1.15;
+}
+
+.problem .section-subtitle {
+  display: none;
+}
+
+/* メイン統計 - 大きく中央に配置 */
+.problem-main-stat {
+  text-align: center;
+  margin: 0 auto 120px;
+  max-width: 600px;
+}
+
+.main-stat-number {
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 700;
+  color: #ef4444;
+  line-height: 1;
+  margin-bottom: 24px;
+  letter-spacing: -0.05em;
+}
+
+.stat-unit {
+  font-size: 0.4em;
+  font-weight: 500;
+  margin-left: 0.2em;
+  color: #dc2626;
+}
+
+.main-stat-text {
+  font-size: 1.5rem;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.main-stat-subtext {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-top: 12px;
+  font-weight: 400;
+}
+
+/* 統計バー - 横並び最小デザイン */
+.problem-stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin: 0 auto 100px;
+  padding: 40px 0;
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+  max-width: 800px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* 課題リスト - テキストベース */
+.problems-list {
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+
+.problem-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 32px 0;
+  border-bottom: 1px solid #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.problem-item:last-child {
+  border-bottom: none;
+}
+
+.problem-item:hover {
+  padding-left: 8px;
+}
+
+.problem-number {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ef4444;
+  min-width: 24px;
+  padding-top: 4px;
+}
+
+.problem-text {
+  flex: 1;
+}
+
+.problem-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.problem-description {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.problem-quote {
+  font-size: 0.9rem;
+  color: var(--text-lighter);
+  font-style: italic;
+  padding-left: 20px;
+  border-left: 2px solid #f3f4f6;
+  line-height: 1.5;
+}
+
+/* インパクトメッセージ */
+.problem-impact {
+  text-align: center;
+  margin: 120px auto 0;
+  max-width: 700px;
+}
+
+.impact-message {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.impact-emphasis {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* CTA - 他セクションと統一 */
+.problem-cta {
+  text-align: center;
+  margin-top: 100px;
+  padding-top: 60px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cta-message {
+  font-size: 1.25rem;
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+.cta-arrow {
+  width: 24px;
+  height: 24px;
+  color: #9ca3af;
+  animation: subtleBounce 3s ease-in-out infinite;
+}
+
+/* タブレット */
+@media (max-width: 1024px) {
+  .problem {
+    padding: 100px 20px;
+  }
+  
+  .problem-stats-bar {
+    gap: 60px;
+  }
+  
+  .main-stat-number {
+    font-size: 6rem;
+  }
+}
+
+/* モバイル */
+@media (max-width: 768px) {
+  .problem {
+    padding: 80px 20px;
+  }
+  
+  .problem .section-header {
+    margin-bottom: 60px;
+  }
+  
+  .problem .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .problem-main-stat {
+    margin-bottom: 80px;
+  }
+  
+  .main-stat-number {
+    font-size: 4rem;
+  }
+  
+  .main-stat-text {
+    font-size: 1.25rem;
+  }
+  
+  .problem-stats-bar {
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 0;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+  }
+  
+  .problem-item {
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 0;
+  }
+  
+  .problem-title {
+    font-size: 1.125rem;
+  }
+  
+  .problem-description {
+    font-size: 0.95rem;
+  }
+  
+  .impact-message {
+    font-size: 1.5rem;
+  }
+  
+  .problem-impact {
+    margin: 80px auto 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .problem {
+    padding: 60px 16px;
+  }
+  
+  .problem .section-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .main-stat-number {
+    font-size: 3rem;
+  }
+  
+  .main-stat-text {
+    font-size: 1.125rem;
+  }
+  
+  .stat-value {
+    font-size: 1.75rem;
+  }
+  
+  .impact-message {
+    font-size: 1.25rem;
+  }
+  
+  .cta-button {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
+}
