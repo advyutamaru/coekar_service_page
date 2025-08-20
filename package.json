@@ -1,0 +1,29 @@
+{
+  "name": "coekar-service-page",
+  "version": "1.0.0",
+  "description": "コエカル - 声をカルテに",
+  "scripts": {
+    "build": "npm run optimize",
+    "optimize": "npm run optimize:html && npm run optimize:css && npm run optimize:js && npm run optimize:images",
+    "optimize:html": "html-minifier-terser --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o dist/index.html index.html",
+    "optimize:css": "postcss css/*.css --dir dist/css",
+    "optimize:js": "for file in js/*.js; do terser \"$file\" --compress --mangle --output \"dist/$file\"; done",
+    "optimize:images": "imagemin 'image/*.{jpg,jpeg,png}' --out-dir=dist/image --plugin=pngquant --plugin=mozjpeg",
+    "serve": "npx serve dist",
+    "dev": "npx serve ."
+  },
+  "devDependencies": {
+    "html-minifier-terser": "^7.2.0",
+    "clean-css-cli": "^5.6.2",
+    "terser": "^5.26.0",
+    "imagemin-cli": "^7.0.0",
+    "imagemin-webp": "^8.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-mozjpeg": "^10.0.0",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.2",
+    "serve": "^14.2.1"
+  }
+}

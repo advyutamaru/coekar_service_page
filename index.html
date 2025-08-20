@@ -40,6 +40,9 @@
     <link rel="stylesheet" href="css/cta.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- パフォーマンス最適化 -->
+    <link rel="stylesheet" href="css/performance-optimizations.css">
 </head>
 
 <body>
@@ -522,21 +525,11 @@
     <!-- 3D Wave Animation Script -->
     <!-- <script src="js/hero-wave.js"></script> -->
     
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script>
-        feather.replace();
-        
-        // スクロール時のナビゲーションスタイル変更
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 20) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-        
-    </script>
+    <!-- パフォーマンス最適化スクリプト -->
+    <script src="js/performance.js"></script>
+    
+    <!-- Featherアイコン（非同期読み込み） -->
+    <script async src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" onload="feather.replace()"></script>
 </body>
 
 </html>

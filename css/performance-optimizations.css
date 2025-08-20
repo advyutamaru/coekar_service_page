@@ -1,0 +1,141 @@
+/* パフォーマンス最適化CSS */
+/* backdrop-filterとfilterを削除/軽量化し、代替デザインを提供 */
+
+/* ナビゲーション最適化 */
+nav {
+  /* backdrop-filterを削除し、単純な背景色に置き換え */
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+nav.scrolled {
+  /* box-shadowを軽量化 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 音声アニメーションセクション最適化 */
+.voice-animation-container {
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.crystallization-stage {
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* カード最適化 */
+.feature-card,
+.comparison-card,
+.solution-card {
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* フィーチャーセクション最適化 */
+.features-gradient-orb,
+.features-accent-orb,
+.feature-glow {
+  /* blurを削除またはopacityで代替 */
+  filter: none !important;
+  opacity: 0.15 !important;
+}
+
+/* 価値セクション最適化 */
+.value-gradient-bg {
+  filter: none !important;
+  opacity: 0.2 !important;
+}
+
+/* ユーティリティ最適化 */
+.gradient-orb,
+.gradient-blob {
+  filter: none !important;
+  opacity: 0.15 !important;
+}
+
+/* アニメーション最適化 - GPU加速を活用 */
+* {
+  /* will-changeを削除（過度の使用はメモリを消費） */
+  will-change: auto !important;
+}
+
+/* 特定の要素のみGPU加速 */
+.hero-title,
+.hero-visual,
+.device-wrapper {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* アニメーションの簡略化 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 重いアニメーションを無効化 */
+.shimmer-effect::before,
+.shimmer-slow::before,
+.gloss-sweep::before {
+  display: none !important;
+}
+
+/* トランジションを高速化 */
+* {
+  transition-duration: 0.2s !important;
+}
+
+/* box-shadowを軽量化 */
+.btn-primary,
+.btn-secondary,
+.nav-cta {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.nav-cta:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* スクロールパフォーマンス改善 */
+html {
+  scroll-behavior: smooth;
+  /* スクロール時のレンダリング最適化 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 画像最適化 */
+img {
+  /* 画像のレンダリング品質を調整 */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* フォント最適化 */
+body {
+  /* フォントレンダリング最適化 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* レイアウトシフト防止 */
+.device-image,
+.logo-icon {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* 不要な再描画を防ぐ */
+.static-content {
+  contain: layout style paint;
+}

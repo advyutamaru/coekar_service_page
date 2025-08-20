@@ -1,0 +1,208 @@
+name: Optimize and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Node.js環境のセットアップ
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    # 依存関係のインストール
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install --save-dev \
+          html-minifier-terser \
+          clean-css-cli \
+          terser \
+          imagemin-cli \
+          imagemin-webp \
+          imagemin-pngquant \
+          imagemin-mozjpeg \
+          postcss \
+          postcss-cli \
+          autoprefixer \
+          cssnano
+    
+    # HTMLの最適化
+    - name: Minify HTML
+      run: |
+        npx html-minifier-terser \
+          --collapse-whitespace \
+          --remove-comments \
+          --remove-optional-tags \
+          --remove-redundant-attributes \
+          --remove-script-type-attributes \
+          --remove-tag-whitespace \
+          --use-short-doctype \
+          --minify-css true \
+          --minify-js true \
+          -o index.html \
+          index.html
+    
+    # CSSの最適化
+    - name: Optimize CSS
+      run: |
+        # PostCSSの設定を作成
+        echo '{
+          "plugins": {
+            "autoprefixer": {},
+            "cssnano": {
+              "preset": ["default", {
+                "discardComments": { "removeAll": true },
+                "normalizeWhitespace": true,
+                "colormin": true,
+                "mergeLonghand": true,
+                "mergeRules": true,
+                "minifyFontValues": true,
+                "minifyGradients": true,
+                "minifyParams": true,
+                "minifySelectors": true,
+                "normalizeCharset": true,
+                "normalizeUrl": true,
+                "reduceTransforms": true
+              }]
+            }
+          }
+        }' > postcss.config.json
+        
+        # 各CSSファイルを最適化
+        for file in css/*.css; do
+          if [ -f "$file" ]; then
+            npx postcss "$file" -o "$file"
+          fi
+        done
+    
+    # JavaScriptの最適化
+    - name: Minify JavaScript
+      run: |
+        for file in js/*.js; do
+          if [ -f "$file" ]; then
+            npx terser "$file" \
+              --compress \
+              --mangle \
+              --output "$file"
+          fi
+        done
+    
+    # 画像の最適化とWebP変換
+    - name: Optimize Images
+      run: |
+        # WebP変換用ディレクトリ作成
+        mkdir -p image/webp
+        
+        # PNG/JPG画像を最適化
+        npx imagemin 'image/*.{jpg,jpeg,png}' \
+          --out-dir=image \
+          --plugin=pngquant \
+          --plugin=mozjpeg
+        
+        # WebP版を生成
+        for file in image/*.{jpg,jpeg,png}; do
+          if [ -f "$file" ]; then
+            filename=$(basename "$file")
+            name="${filename%.*}"
+            npx imagemin "$file" \
+              --out-dir=image/webp \
+              --plugin=webp
+            mv "image/webp/${filename}" "image/webp/${name}.webp" 2>/dev/null || true
+          fi
+        done
+    
+    # 不要なファイルの削除
+    - name: Clean up
+      run: |
+        # 開発用ファイルを削除
+        rm -f .gitignore README.md package*.json postcss.config.json
+        
+        # ソースマップを削除
+        find . -name "*.map" -type f -delete
+    
+    # gzip圧縮版の作成
+    - name: Create compressed versions
+      run: |
+        # HTML, CSS, JSファイルのgzip版を作成
+        find . -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" \) \
+          -exec gzip -9 -k {} \;
+    
+    # ビルド結果のサイズレポート
+    - name: Generate size report
+      run: |
+        echo "## 📊 Build Size Report" >> $GITHUB_STEP_SUMMARY
+        echo "| File Type | Count | Total Size |" >> $GITHUB_STEP_SUMMARY
+        echo "|-----------|-------|------------|" >> $GITHUB_STEP_SUMMARY
+        
+        # HTML
+        html_count=$(find . -name "*.html" -type f | wc -l)
+        html_size=$(find . -name "*.html" -type f -exec du -ch {} + | grep total$ | cut -f1)
+        echo "| HTML | $html_count | $html_size |" >> $GITHUB_STEP_SUMMARY
+        
+        # CSS
+        css_count=$(find css -name "*.css" -type f | wc -l)
+        css_size=$(find css -name "*.css" -type f -exec du -ch {} + | grep total$ | cut -f1)
+        echo "| CSS | $css_count | $css_size |" >> $GITHUB_STEP_SUMMARY
+        
+        # JavaScript
+        js_count=$(find js -name "*.js" -type f | wc -l)
+        js_size=$(find js -name "*.js" -type f -exec du -ch {} + | grep total$ | cut -f1)
+        echo "| JavaScript | $js_count | $js_size |" >> $GITHUB_STEP_SUMMARY
+        
+        # Images
+        img_count=$(find image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) | wc -l)
+        img_size=$(find image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) -exec du -ch {} + | grep total$ | cut -f1)
+        echo "| Images | $img_count | $img_size |" >> $GITHUB_STEP_SUMMARY
+    
+    # アーティファクトとして保存
+    - name: Upload optimized site
+      uses: actions/upload-artifact@v3
+      with:
+        name: optimized-site
+        path: |
+          index.html
+          css/
+          js/
+          image/
+          koekar-icons/
+    
+  deploy:
+    needs: optimize
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    # 最適化されたファイルをダウンロード
+    - name: Download optimized site
+      uses: actions/download-artifact@v3
+      with:
+        name: optimized-site
+    
+    # GitHub Pagesへデプロイ
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
+        force_orphan: true
+        enable_jekyll: false
+        cname: # ここにカスタムドメインがあれば記載
+    
+    # デプロイ完了通知
+    - name: Deployment summary
+      run: |
+        echo "## ✅ Deployment Complete!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🚀 Site has been deployed to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+        echo "📍 URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
