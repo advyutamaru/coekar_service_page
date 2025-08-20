@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
     
+    <!-- Three.js for 3D animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <!-- 基本スタイル -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/typography.css">
@@ -25,6 +28,7 @@
     <!-- 各セクション -->
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/hero-responsive.css">
     <link rel="stylesheet" href="css/voice.css">
     <link rel="stylesheet" href="css/problem-timeline.css">
     <link rel="stylesheet" href="css/solution.css">
@@ -57,15 +61,18 @@
 
     <!-- ヒーロー -->
     <section class="hero">
+        <!-- 3D音声ウェーブ背景 -->
+        <div id="hero-canvas-container"></div>
+        
         <div class="hero-container">
             <div class="hero-content">
-                <h1>声が、記録になる。</h1>
+                <h1 class="hero-title">声が、記録になる。</h1>
                 <p class="subtitle">
                     医師と患者の対話を自動で医療記録に。<br>
                     記録作成の負担から解放され、診療に集中できる環境を実現します。
                 </p>
                 <div class="hero-actions">
-                    <a href="#" class="btn-primary">無料デモを申し込む</a>
+                    <a href="#" class="btn-primary hero-cta">無料デモを申し込む</a>
                     <a href="#" class="btn-secondary">資料ダウンロード</a>
                 </div>
             </div>
@@ -530,6 +537,10 @@
             <p>© 2024 ADVATEC. All rights reserved.</p>
         </div>
     </footer>
+    
+    <!-- 3D Wave Animation Script -->
+    <script src="js/hero-wave.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
         feather.replace();
