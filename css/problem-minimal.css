@@ -29,23 +29,43 @@
 .problem-main-stat {
   text-align: center;
   margin: 0 auto 120px;
-  max-width: 600px;
+  max-width: 700px;
+  position: relative;
+  padding: 0 20px;
+}
+
+.problem-main-stat::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
+  background: radial-gradient(ellipse at center, rgba(30, 58, 138, 0.05) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .main-stat-number {
   font-size: clamp(5rem, 10vw, 8rem);
   font-weight: 700;
-  color: #ef4444;
+  background: linear-gradient(180deg, var(--primary-dark) 0%, var(--accent) 50%, var(--text) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
   margin-bottom: 24px;
   letter-spacing: -0.05em;
+  position: relative;
+  display: inline-block;
 }
 
 .stat-unit {
   font-size: 0.4em;
   font-weight: 500;
-  margin-left: 0.2em;
-  color: #dc2626;
+  margin-left: 0.1em;
+  display: inline-block;
 }
 
 .main-stat-text {
@@ -120,7 +140,7 @@
 .problem-number {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #ef4444;
+  color: var(--primary);
   min-width: 24px;
   padding-top: 4px;
 }
@@ -169,7 +189,7 @@
 }
 
 .impact-emphasis {
-  color: #ef4444;
+  color: var(--primary-dark);
   font-weight: 500;
 }
 
