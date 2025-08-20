@@ -1,511 +1,415 @@
-// 医療記録サービス「コエカル」専用3Dビジュアライザー
-let scene, camera, renderer, composer;
-let voiceWaveform, textParticles, dataFlow;
-let animationId;
+// ミニマリスト音声結晶化ビジュアライザー
+let scene, camera, renderer;
+let waterFlow, crystalFormation, textCanvas;
+let animationFrame;
 let time = 0;
 let mouseX = 0, mouseY = 0;
-let scrollProgress = 0;
 
-// サービスコンセプトの状態管理
-const serviceState = {
-    voiceIntensity: 0.3,
-    conversionProgress: 0,
-    recordingActive: false,
-    textGeneration: [],
-    pulsePhase: 0
+// 状態管理（シンプル化）
+const state = {
+    phase: 'idle', // idle, flowing, crystallizing, complete
+    flowIntensity: 0,
+    crystallization: 0,
+    completion: 0
 };
 
-// 医療系カラーパレット（信頼感・清潔感）
-const medicalColors = {
-    primary: 0x0ea5e9,     // スカイブルー（清潔感）
-    secondary: 0x0284c7,   // オーシャンブルー（信頼感）
-    accent: 0x38bdf8,      // ライトブルー（技術）
-    text: 0xe0f2fe,        // テキストホワイト
-    pulse: 0x7dd3fc,       // パルス
-    success: 0x10b981      // 成功グリーン
+// ミニマルカラーパレット（2色のみ）
+const palette = {
+    primary: 0x0ea5e9,   // 水色（流体）
+    secondary: 0xffffff,  // 白（結晶）
+    background: 0x000510  // 深い藍色
 };
 
 function initWaveAnimation() {
-    // シーン設定
+    // シーン設定（シンプル）
     scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x001220, 100, 500);
+    scene.fog = new THREE.Fog(palette.background, 200, 800);
 
-    // カメラ設定（より落ち着いた視点）
+    // カメラ設定（固定視点）
     camera = new THREE.PerspectiveCamera(
-        60, 
+        50, 
         window.innerWidth / window.innerHeight, 
         0.1, 
         1000
     );
-    camera.position.set(0, 20, 80);
+    camera.position.set(0, 0, 100);
     camera.lookAt(0, 0, 0);
 
-    // レンダラー設定
+    // レンダラー設定（最小限）
     renderer = new THREE.WebGLRenderer({ 
         antialias: true, 
-        alpha: true,
-        powerPreference: "high-performance"
+        alpha: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
+    renderer.setClearColor(palette.background, 0.05);
     
     const container = document.getElementById('hero-canvas-container');
     if (container) {
         container.appendChild(renderer.domElement);
     }
 
-    // 医療的な清潔感のあるライティング
-    setupMedicalLighting();
+    // 最小限のライティング
+    setupMinimalLighting();
     
-    // コアビジュアル要素
-    createVoiceWaveform();      // 音声波形
-    createTextTransformation(); // テキスト変換
-    createDataFlowSystem();     // データフロー
-    createMedicalGrid();        // 背景グリッド
+    // コア要素（水のメタファー）
+    createWaterFlow();
+    createCrystallization();
+    createTextFormation();
     
-    // ユーザーインタラクション
-    setupServiceInteractions();
+    // シンプルなインタラクション
+    setupMinimalInteractions();
     
     // リサイズ対応
     window.addEventListener('resize', onWindowResize);
 }
 
-function setupMedicalLighting() {
-    // 明るく清潔感のある環境光
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+function setupMinimalLighting() {
+    // 単一の環境光
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
-
-    // メインライト（上からの柔らかい光）
-    const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    mainLight.position.set(0, 100, 50);
-    mainLight.castShadow = false; // パフォーマンス優先
-    scene.add(mainLight);
     
-    // フィルライト（横からの補助光）
-    const fillLight = new THREE.DirectionalLight(medicalColors.accent, 0.3);
-    fillLight.position.set(50, 20, 0);
-    scene.add(fillLight);
+    // 単一のポイントライト
+    const pointLight = new THREE.PointLight(palette.primary, 0.5, 200);
+    pointLight.position.set(0, 0, 50);
+    scene.add(pointLight);
 }
 
-function createVoiceWaveform() {
-    // 中央の音声波形ビジュアライザー
-    const waveformGroup = new THREE.Group();
+function createWaterFlow() {
+    // 水の流れ（音声メタファー）
+    const flowGroup = new THREE.Group();
     
-    // 波形バーを作成（シンプルで見やすいデザイン）
-    const barCount = 64;
-    const barWidth = 1.5;
-    const barSpacing = 2;
-    
-    for (let i = 0; i < barCount; i++) {
-        const geometry = new THREE.BoxGeometry(barWidth, 1, barWidth);
-        const material = new THREE.MeshPhongMaterial({
-            color: medicalColors.primary,
-            emissive: medicalColors.secondary,
-            emissiveIntensity: 0.1,
-            transparent: true,
-            opacity: 0.9
-        });
-        
-        const bar = new THREE.Mesh(geometry, material);
-        bar.position.x = (i - barCount / 2) * barSpacing;
-        bar.position.y = 0;
-        bar.userData = {
-            index: i,
-            baseHeight: 1,
-            frequency: Math.random() * 0.03 + 0.01
-        };
-        
-        waveformGroup.add(bar);
-    }
-    
-    waveformGroup.position.y = -10;
-    voiceWaveform = waveformGroup;
-    scene.add(waveformGroup);
-    
-    // 音声入力インジケーター
-    createVoiceIndicator();
-}
-
-function createVoiceIndicator() {
-    // マイクアイコンの3D表現
-    const micGroup = new THREE.Group();
-    
-    // マイク本体
-    const micGeometry = new THREE.CylinderGeometry(2, 2, 6, 16);
-    const micMaterial = new THREE.MeshPhongMaterial({
-        color: medicalColors.accent,
-        emissive: medicalColors.pulse,
-        emissiveIntensity: 0.2
-    });
-    const mic = new THREE.Mesh(micGeometry, micMaterial);
-    micGroup.add(mic);
-    
-    // パルスリング（録音中を表現）
-    for (let i = 0; i < 3; i++) {
-        const ringGeometry = new THREE.RingGeometry(4 + i * 2, 5 + i * 2, 32);
-        const ringMaterial = new THREE.MeshBasicMaterial({
-            color: medicalColors.pulse,
-            transparent: true,
-            opacity: 0.3 - i * 0.1,
-            side: THREE.DoubleSide
-        });
-        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-        ring.rotation.x = -Math.PI / 2;
-        ring.userData.ringIndex = i;
-        micGroup.add(ring);
-    }
-    
-    micGroup.position.set(-60, 0, 0);
-    scene.add(micGroup);
-}
-
-function createTextTransformation() {
-    // テキスト変換パーティクルシステム
-    const particleCount = 500;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const sizes = new Float32Array(particleCount);
-    
-    // 文字のようなパーティクル配置
-    for (let i = 0; i < particleCount; i++) {
-        // 右側に配置（変換後のテキストエリア）
-        const angle = (i / particleCount) * Math.PI * 2;
-        const radius = 20 + Math.random() * 30;
-        
-        positions[i * 3] = 60 + Math.cos(angle) * radius * 0.5;
-        positions[i * 3 + 1] = Math.sin(angle) * radius * 0.5;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-        
-        // テキストカラー（白っぽい）
-        colors[i * 3] = 0.88;
-        colors[i * 3 + 1] = 0.95;
-        colors[i * 3 + 2] = 0.99;
-        
-        sizes[i] = Math.random() * 2 + 1;
-    }
-    
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-    
-    // テキストパーティクルマテリアル
-    const material = new THREE.PointsMaterial({
-        size: 3,
-        vertexColors: true,
+    // シンプルな流体シェーダー
+    const flowGeometry = new THREE.PlaneGeometry(120, 60, 64, 32);
+    const flowMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+            time: { value: 0 },
+            flowIntensity: { value: 0 },
+            mousePosition: { value: new THREE.Vector2(0, 0) },
+            primaryColor: { value: new THREE.Color(palette.primary) },
+            opacity: { value: 0.6 }
+        },
+        vertexShader: `
+            uniform float time;
+            uniform float flowIntensity;
+            uniform vec2 mousePosition;
+            varying vec2 vUv;
+            varying float vElevation;
+            
+            void main() {
+                vUv = uv;
+                vec3 pos = position;
+                
+                // 水の波紋効果
+                float wave = sin(position.x * 0.1 + time) * cos(position.y * 0.1 + time * 0.5);
+                wave *= flowIntensity;
+                
+                // マウス影響（控えめ）
+                float mouseDistance = distance(position.xy, mousePosition * 50.0);
+                float mouseInfluence = smoothstep(30.0, 0.0, mouseDistance) * 0.3;
+                
+                pos.z = wave * 10.0 + mouseInfluence * 5.0;
+                vElevation = pos.z;
+                
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 primaryColor;
+            uniform float opacity;
+            uniform float time;
+            varying vec2 vUv;
+            varying float vElevation;
+            
+            void main() {
+                // グラデーション効果
+                float gradient = smoothstep(0.0, 1.0, vUv.x);
+                
+                // 深度による透明度
+                float alpha = opacity * (1.0 - abs(vElevation) * 0.02);
+                
+                // 流れる効果
+                vec3 color = primaryColor;
+                color *= 1.0 + sin(vUv.x * 10.0 + time) * 0.1;
+                
+                gl_FragColor = vec4(color, alpha * gradient);
+            }
+        `,
         transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
         depthWrite: false
     });
     
-    textParticles = new THREE.Points(geometry, material);
-    scene.add(textParticles);
+    const flowMesh = new THREE.Mesh(flowGeometry, flowMaterial);
+    flowMesh.position.x = -30;
+    flowGroup.add(flowMesh);
     
-    // 変換矢印
-    createTransformArrow();
-}
-
-function createTransformArrow() {
-    // 音声→テキストの変換を示す矢印
-    const arrowGroup = new THREE.Group();
-    
-    // 矢印のシャフト
-    const shaftGeometry = new THREE.BoxGeometry(30, 0.5, 0.5);
-    const shaftMaterial = new THREE.MeshPhongMaterial({
-        color: medicalColors.success,
-        emissive: medicalColors.success,
-        emissiveIntensity: 0.3
-    });
-    const shaft = new THREE.Mesh(shaftGeometry, shaftMaterial);
-    arrowGroup.add(shaft);
-    
-    // 矢印の先端
-    const headGeometry = new THREE.ConeGeometry(2, 4, 8);
-    const headMaterial = new THREE.MeshPhongMaterial({
-        color: medicalColors.success,
-        emissive: medicalColors.success,
-        emissiveIntensity: 0.3
-    });
-    const head = new THREE.Mesh(headGeometry, headMaterial);
-    head.rotation.z = -Math.PI / 2;
-    head.position.x = 17;
-    arrowGroup.add(head);
-    
-    arrowGroup.position.set(0, 0, 0);
-    scene.add(arrowGroup);
-}
-
-function createDataFlowSystem() {
-    // データフローのビジュアライゼーション
-    const flowGroup = new THREE.Group();
-    
-    // フローライン（音声データの流れ）
-    const curve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-60, 0, 0),
-        new THREE.Vector3(-30, 10, 0),
-        new THREE.Vector3(0, 5, 0),
-        new THREE.Vector3(30, 10, 0),
-        new THREE.Vector3(60, 0, 0)
-    ]);
-    
-    const points = curve.getPoints(100);
-    const flowGeometry = new THREE.BufferGeometry().setFromPoints(points);
-    
-    const flowMaterial = new THREE.LineBasicMaterial({
-        color: medicalColors.accent,
-        transparent: true,
-        opacity: 0.3,
-        linewidth: 2
-    });
-    
-    const flowLine = new THREE.Line(flowGeometry, flowMaterial);
-    flowGroup.add(flowLine);
-    
-    // データパケット（動くドット）
-    for (let i = 0; i < 10; i++) {
-        const dotGeometry = new THREE.SphereGeometry(0.8, 8, 8);
-        const dotMaterial = new THREE.MeshPhongMaterial({
-            color: medicalColors.pulse,
-            emissive: medicalColors.pulse,
-            emissiveIntensity: 0.5
-        });
-        const dot = new THREE.Mesh(dotGeometry, dotMaterial);
-        dot.userData = {
-            progress: i * 0.1,
-            curve: curve
-        };
-        flowGroup.add(dot);
-    }
-    
-    dataFlow = flowGroup;
+    waterFlow = flowGroup;
     scene.add(flowGroup);
 }
 
-function createMedicalGrid() {
-    // 背景の医療的グリッド（清潔感のある背景）
-    const gridHelper = new THREE.GridHelper(200, 40, 0x0891b2, 0x0c4a6e);
-    gridHelper.position.y = -20;
-    gridHelper.material.opacity = 0.2;
-    gridHelper.material.transparent = true;
-    scene.add(gridHelper);
+function createCrystallization() {
+    // 結晶化プロセス（変換メタファー）
+    const crystalGroup = new THREE.Group();
     
-    // 垂直グリッド（データ感を演出）
-    const verticalGrid = gridHelper.clone();
-    verticalGrid.rotation.x = Math.PI / 2;
-    verticalGrid.position.z = -50;
-    verticalGrid.position.y = 0;
-    scene.add(verticalGrid);
+    // 結晶パーティクル（最小限）
+    const particleCount = 200;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const scales = new Float32Array(particleCount);
+    const opacities = new Float32Array(particleCount);
+    
+    for (let i = 0; i < particleCount; i++) {
+        // 中央付近に配置
+        positions[i * 3] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+        
+        scales[i] = Math.random() * 3 + 1;
+        opacities[i] = 0;
+    }
+    
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
+    geometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1));
+    
+    // カスタムシェーダーで結晶表現
+    const crystalMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+            time: { value: 0 },
+            crystallization: { value: 0 },
+            color: { value: new THREE.Color(palette.secondary) }
+        },
+        vertexShader: `
+            attribute float scale;
+            attribute float opacity;
+            uniform float crystallization;
+            varying float vOpacity;
+            
+            void main() {
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                gl_PointSize = scale * crystallization * 10.0 * (300.0 / -mvPosition.z);
+                gl_Position = projectionMatrix * mvPosition;
+                vOpacity = opacity * crystallization;
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 color;
+            varying float vOpacity;
+            
+            void main() {
+                // 六角形の結晶形状
+                vec2 coord = gl_PointCoord - vec2(0.5);
+                float dist = length(coord);
+                
+                // シャープなエッジ
+                float alpha = 1.0 - smoothstep(0.4, 0.5, dist);
+                alpha *= vOpacity;
+                
+                gl_FragColor = vec4(color, alpha);
+            }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+    });
+    
+    const crystals = new THREE.Points(geometry, crystalMaterial);
+    crystalGroup.add(crystals);
+    
+    crystalFormation = crystalGroup;
+    scene.add(crystalGroup);
 }
 
-function setupServiceInteractions() {
-    // マウス移動（控えめな反応）
+function createTextFormation() {
+    // テキスト形成（最終形態）
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    
+    // 初期状態（透明）
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    
+    const textGeometry = new THREE.PlaneGeometry(60, 30);
+    const textMaterial = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,
+        opacity: 0
+    });
+    
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh.position.x = 30;
+    scene.add(textMesh);
+    
+    textCanvas = {
+        mesh: textMesh,
+        canvas: canvas,
+        ctx: ctx,
+        texture: texture
+    };
+}
+
+function setupMinimalInteractions() {
+    // マウス移動（最小限の反応）
     document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-        mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     });
     
-    // スクロール（パララックス効果）
-    window.addEventListener('scroll', () => {
-        scrollProgress = window.scrollY / window.innerHeight;
-    });
-    
-    // CTAボタンとの連携
+    // CTAボタン連携
     const ctaButton = document.querySelector('.hero-cta');
     if (ctaButton) {
         ctaButton.addEventListener('mouseenter', () => {
-            serviceState.recordingActive = true;
-            serviceState.voiceIntensity = 0.8;
+            startTransformation();
         });
         
         ctaButton.addEventListener('mouseleave', () => {
-            serviceState.recordingActive = false;
-            serviceState.voiceIntensity = 0.3;
+            if (state.phase !== 'complete') {
+                resetTransformation();
+            }
         });
         
         ctaButton.addEventListener('click', (e) => {
             e.preventDefault();
-            triggerConversionAnimation();
+            completeTransformation();
         });
     }
 }
 
-function triggerConversionAnimation() {
-    // 音声→テキスト変換のデモアニメーション
-    serviceState.conversionProgress = 0;
+function startTransformation() {
+    state.phase = 'flowing';
+    state.flowIntensity = 0;
     
-    const conversionInterval = setInterval(() => {
-        serviceState.conversionProgress += 0.02;
+    // 流れ開始
+    const flowInterval = setInterval(() => {
+        state.flowIntensity += 0.02;
+        if (state.flowIntensity >= 1) {
+            state.flowIntensity = 1;
+            clearInterval(flowInterval);
+            startCrystallization();
+        }
+    }, 20);
+}
+
+function startCrystallization() {
+    state.phase = 'crystallizing';
+    state.crystallization = 0;
+    
+    // 結晶化プロセス
+    const crystalInterval = setInterval(() => {
+        state.crystallization += 0.02;
+        if (state.crystallization >= 1) {
+            state.crystallization = 1;
+            clearInterval(crystalInterval);
+            formText();
+        }
+    }, 20);
+}
+
+function formText() {
+    state.phase = 'complete';
+    state.completion = 0;
+    
+    // テキスト形成
+    const ctx = textCanvas.ctx;
+    const canvas = textCanvas.canvas;
+    
+    const completeInterval = setInterval(() => {
+        state.completion += 0.05;
         
-        if (serviceState.conversionProgress >= 1) {
-            serviceState.conversionProgress = 0;
-            clearInterval(conversionInterval);
-            
-            // 成功フィードバック
-            showSuccessAnimation();
+        // テキストを徐々に描画
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = `rgba(255, 255, 255, ${state.completion})`;
+        ctx.font = '32px "Noto Sans JP", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // 医療記録のサンプルテキスト
+        ctx.fillText('診察記録', canvas.width / 2, canvas.height / 2 - 40);
+        ctx.font = '20px "Noto Sans JP", sans-serif';
+        ctx.fillText('音声から自動生成', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('2024.01.20 10:30', canvas.width / 2, canvas.height / 2 + 40);
+        
+        textCanvas.texture.needsUpdate = true;
+        textCanvas.mesh.material.opacity = state.completion;
+        
+        if (state.completion >= 1) {
+            state.completion = 1;
+            clearInterval(completeInterval);
         }
     }, 50);
 }
 
-function showSuccessAnimation() {
-    // 変換成功のビジュアルフィードバック
-    const successGroup = new THREE.Group();
+function resetTransformation() {
+    state.phase = 'idle';
+    state.flowIntensity = 0;
+    state.crystallization = 0;
+    state.completion = 0;
     
-    // チェックマーク
-    const checkShape = new THREE.Shape();
-    checkShape.moveTo(-5, 0);
-    checkShape.lineTo(-2, -3);
-    checkShape.lineTo(5, 4);
-    
-    const checkGeometry = new THREE.ShapeGeometry(checkShape);
-    const checkMaterial = new THREE.MeshBasicMaterial({
-        color: medicalColors.success,
-        transparent: true,
-        opacity: 0.9
-    });
-    const checkMark = new THREE.Mesh(checkGeometry, checkMaterial);
-    checkMark.position.set(60, 10, 0);
-    successGroup.add(checkMark);
-    
-    scene.add(successGroup);
-    
-    // フェードアウト
-    setTimeout(() => {
-        scene.remove(successGroup);
-    }, 2000);
+    // テキストをクリア
+    const ctx = textCanvas.ctx;
+    ctx.clearRect(0, 0, textCanvas.canvas.width, textCanvas.canvas.height);
+    textCanvas.texture.needsUpdate = true;
+    textCanvas.mesh.material.opacity = 0;
+}
+
+function completeTransformation() {
+    // 即座に完了状態へ
+    state.phase = 'complete';
+    state.flowIntensity = 1;
+    state.crystallization = 1;
+    formText();
 }
 
 function updateAnimation() {
-    time++;
+    time += 0.01;
     
-    // 音声波形の更新
-    updateVoiceWaveform();
-    
-    // テキストパーティクルの更新
-    updateTextParticles();
-    
-    // データフローの更新
-    updateDataFlow();
-    
-    // マイクインジケーターの更新
-    updateMicIndicator();
-    
-    // カメラの微細な動き
-    updateCamera();
-}
-
-function updateVoiceWaveform() {
-    if (!voiceWaveform) return;
-    
-    voiceWaveform.children.forEach((bar, index) => {
-        const userData = bar.userData;
-        
-        // 音声シミュレーション
-        const audioWave = Math.sin(time * userData.frequency + index * 0.1) * 
-                         serviceState.voiceIntensity * 10;
-        const randomNoise = Math.random() * 2 - 1;
-        
-        // 高さの更新
-        const targetHeight = Math.abs(audioWave + randomNoise) + userData.baseHeight;
-        bar.scale.y = targetHeight;
-        bar.position.y = targetHeight / 2;
-        
-        // 録音中は色を変更
-        if (serviceState.recordingActive) {
-            bar.material.color.setHex(medicalColors.success);
-            bar.material.emissiveIntensity = 0.3;
-        } else {
-            bar.material.color.setHex(medicalColors.primary);
-            bar.material.emissiveIntensity = 0.1;
-        }
-    });
-}
-
-function updateTextParticles() {
-    if (!textParticles) return;
-    
-    const positions = textParticles.geometry.attributes.position.array;
-    const particleCount = positions.length / 3;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const index = i * 3;
-        
-        // テキスト生成アニメーション
-        if (serviceState.conversionProgress > 0) {
-            const progress = Math.min(1, serviceState.conversionProgress * 2 - i / particleCount);
+    // 水の流れ更新
+    if (waterFlow) {
+        const flowMesh = waterFlow.children[0];
+        if (flowMesh && flowMesh.material.uniforms) {
+            flowMesh.material.uniforms.time.value = time;
+            flowMesh.material.uniforms.flowIntensity.value = state.flowIntensity;
+            flowMesh.material.uniforms.mousePosition.value.set(mouseX, mouseY);
             
-            if (progress > 0) {
-                // 文字が形成される動き
-                positions[index + 1] += Math.sin(time * 0.02 + i) * 0.1;
-                
-                // 整列アニメーション
-                const targetX = 60 + (i % 20) * 2;
-                const targetY = Math.floor(i / 20) * 2 - 10;
-                
-                positions[index] += (targetX - positions[index]) * progress * 0.1;
-                positions[index + 1] += (targetY - positions[index + 1]) * progress * 0.1;
+            // 流れている時は右へ移動
+            if (state.phase === 'flowing') {
+                flowMesh.position.x = -30 + state.flowIntensity * 30;
             }
-        } else {
-            // アイドル時の浮遊
-            positions[index + 1] += Math.sin(time * 0.01 + i * 0.1) * 0.05;
         }
     }
     
-    textParticles.geometry.attributes.position.needsUpdate = true;
-    
-    // 全体の回転
-    textParticles.rotation.y = Math.sin(time * 0.0005) * 0.1;
-}
-
-function updateDataFlow() {
-    if (!dataFlow) return;
-    
-    dataFlow.children.forEach((child) => {
-        if (child.userData.curve) {
-            // データパケットの移動
-            child.userData.progress += 0.005;
-            if (child.userData.progress > 1) {
-                child.userData.progress = 0;
+    // 結晶化更新
+    if (crystalFormation) {
+        const crystals = crystalFormation.children[0];
+        if (crystals && crystals.material.uniforms) {
+            crystals.material.uniforms.time.value = time;
+            crystals.material.uniforms.crystallization.value = state.crystallization;
+            
+            // 結晶の成長
+            if (state.phase === 'crystallizing') {
+                const opacities = crystals.geometry.attributes.opacity.array;
+                for (let i = 0; i < opacities.length; i++) {
+                    opacities[i] = Math.min(1, opacities[i] + Math.random() * 0.02);
+                }
+                crystals.geometry.attributes.opacity.needsUpdate = true;
             }
-            
-            const position = child.userData.curve.getPoint(child.userData.progress);
-            child.position.copy(position);
-            
-            // パルス効果
-            const scale = 1 + Math.sin(time * 0.05 + child.userData.progress * Math.PI * 2) * 0.3;
-            child.scale.set(scale, scale, scale);
         }
-    });
-}
-
-function updateMicIndicator() {
-    scene.traverse((object) => {
-        if (object.userData.ringIndex !== undefined) {
-            // パルスリングのアニメーション
-            const index = object.userData.ringIndex;
-            const scale = 1 + Math.sin(time * 0.02 + index * 0.5) * 0.2 * serviceState.voiceIntensity;
-            object.scale.set(scale, scale, 1);
-            object.material.opacity = (0.3 - index * 0.1) * serviceState.voiceIntensity;
-        }
-    });
-}
-
-function updateCamera() {
-    // 穏やかなカメラ移動
-    camera.position.x = Math.sin(time * 0.0001) * 10 + mouseX * 5;
-    camera.position.y = 20 + Math.cos(time * 0.0002) * 5 + mouseY * 2;
-    camera.position.z = 80 - scrollProgress * 20;
+    }
     
-    camera.lookAt(0, 0, 0);
+    // カメラの微細な呼吸
+    camera.position.z = 100 + Math.sin(time * 0.5) * 2;
 }
 
 function animate() {
-    animationId = requestAnimationFrame(animate);
+    animationFrame = requestAnimationFrame(animate);
     
     updateAnimation();
     
-    // 低負荷でスムーズなレンダリング
     renderer.render(scene, camera);
 }
 
@@ -515,27 +419,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// パフォーマンス最適化
-function optimizePerformance() {
-    // モバイルデバイスの検出
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        // モバイルでは簡略化
-        renderer.setPixelRatio(1);
-        renderer.shadowMap.enabled = false;
-    }
-    
-    // 低スペックデバイス対応
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        // アニメーションを最小限に
-        serviceState.voiceIntensity = 0.1;
-    }
-}
-
 // 初期化
 document.addEventListener('DOMContentLoaded', function() {
     initWaveAnimation();
-    optimizePerformance();
     animate();
 });
