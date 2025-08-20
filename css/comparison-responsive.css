@@ -1,0 +1,290 @@
+/* 比較セクション - レスポンシブ対応 */
+
+/* タブレット横向き */
+@media (max-width: 1024px) {
+  .comparison {
+    padding: 5rem 2rem;
+  }
+
+  .compare-grid {
+    gap: 3rem;
+  }
+
+  .compare-card {
+    padding: 2rem;
+  }
+
+  .compare-badge {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.7rem;
+  }
+
+  .compare-card h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* タブレット縦向き */
+@media (max-width: 768px) {
+  .comparison {
+    padding: 4rem 1.5rem;
+  }
+
+  .compare-wrapper {
+    max-width: 100%;
+  }
+
+  .compare-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    position: relative;
+  }
+
+  /* 矢印を縦向きに変更 */
+  .arrow-container {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 30px);
+    transform: translateX(-50%) rotate(90deg);
+    width: 50px;
+    height: 50px;
+  }
+
+  .arrow-icon {
+    font-size: 1.5rem;
+  }
+
+  @keyframes slideRight {
+    0%, 100% {
+      transform: translateY(-3px);
+    }
+    50% {
+      transform: translateY(3px);
+    }
+  }
+
+  .compare-card {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Beforeカードを上に */
+  .before-card {
+    order: 1;
+  }
+
+  /* Afterカードを下に */
+  .after-card {
+    order: 2;
+    margin-top: 2rem;
+  }
+
+  .compare-badge {
+    right: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.65rem;
+  }
+
+  .compare-card-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .compare-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .compare-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .compare-list li {
+    padding: 1rem 0 1rem 2.5rem;
+    font-size: 0.9rem;
+  }
+
+  .compare-list li::before {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    top: 1rem;
+  }
+
+  .compare-list li:hover {
+    padding-left: 3rem;
+  }
+}
+
+/* スマートフォン */
+@media (max-width: 480px) {
+  .comparison {
+    padding: 3rem 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .compare-grid {
+    gap: 2.5rem;
+  }
+
+  .arrow-container {
+    width: 40px;
+    height: 40px;
+    top: calc(50% - 20px);
+  }
+
+  .arrow-icon {
+    font-size: 1.2rem;
+  }
+
+  .compare-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .compare-badge {
+    right: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .compare-badge::before {
+    width: 6px;
+    height: 6px;
+  }
+
+  .compare-card-header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .compare-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+
+  .compare-card h3 {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .compare-list li {
+    padding: 0.875rem 0 0.875rem 2rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .compare-list li::before {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+    top: 0.875rem;
+    border-radius: 6px;
+  }
+
+  .compare-list li:hover {
+    padding-left: 2.25rem;
+  }
+
+  /* アニメーション調整 */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .after-card:hover {
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  .before-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* 非常に小さい画面 */
+@media (max-width: 360px) {
+  .comparison {
+    padding: 2.5rem 0.75rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .compare-card {
+    padding: 1.25rem;
+  }
+
+  .compare-badge {
+    right: 0.75rem;
+    font-size: 0.55rem;
+  }
+
+  .compare-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .compare-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .compare-list li {
+    padding: 0.75rem 0 0.75rem 1.75rem;
+    font-size: 0.8rem;
+  }
+
+  .compare-list li::before {
+    width: 20px;
+    height: 20px;
+    font-size: 0.8rem;
+    top: 0.75rem;
+  }
+}
+
+/* 横向きモバイル対応 */
+@media (max-width: 896px) and (orientation: landscape) {
+  .comparison {
+    padding: 3rem 2rem;
+  }
+
+  .compare-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .arrow-container {
+    left: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+  }
+
+  .compare-card {
+    padding: 1.5rem;
+  }
+
+  .compare-list li {
+    padding: 0.875rem 0 0.875rem 2.5rem;
+    font-size: 0.85rem;
+  }
+}
