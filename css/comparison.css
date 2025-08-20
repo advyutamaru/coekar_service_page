@@ -61,15 +61,7 @@
   height: 100%;
 }
 
-@keyframes slideRight {
-  0%,
-  100% {
-    transform: translateX(-3px);
-  }
-  50% {
-    transform: translateX(3px);
-  }
-}
+/* slideRightアニメーションはanimations.cssに移動済み */
 
 .compare-card {
   background: white;
@@ -89,16 +81,7 @@
   animation-delay: 0.3s;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* fadeInUpアニメーションはanimations.cssに移動済み */
 
 .before-card {
   background: linear-gradient(
@@ -128,14 +111,7 @@
   animation: shimmerSlow 8s ease-in-out infinite;
 }
 
-@keyframes shimmerSlow {
-  0% {
-    transform: rotate(45deg) translateX(-100%);
-  }
-  100% {
-    transform: rotate(45deg) translateX(100%);
-  }
-}
+/* shimmerSlowアニメーションはanimations.cssに移動済み */
 
 .after-card {
   background: linear-gradient(
@@ -168,14 +144,7 @@
   animation: gradientSlide 3s ease-in-out infinite;
 }
 
-@keyframes gradientSlide {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 200% 0%;
-  }
-}
+/* gradientSlideアニメーションはanimations.cssに移動済み */
 
 .after-card:hover {
   transform: translateY(-5px) scale(1.02);
@@ -356,12 +325,4 @@
   animation: checkBounce 0.6s ease;
 }
 
-@keyframes checkBounce {
-  0%,
-  100% {
-    transform: scale(1.2);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-}
+/* checkBounceアニメーションはanimations.cssに移動済み */

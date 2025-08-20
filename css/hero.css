@@ -45,125 +45,7 @@
   gap: 1.25rem;
 }
 
-.btn-primary {
-  position: relative;
-  background: 
-                /* トップ光沢 */
-    linear-gradient(
-      105deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.2) 45%,
-      rgba(255, 255, 255, 0.1) 50%,
-      transparent 60%
-    ),
-    /* メタリック反射 */
-      linear-gradient(
-        180deg,
-        rgba(147, 197, 253, 0.1) 0%,
-        transparent 50%,
-        rgba(30, 58, 138, 0.15) 100%
-      ),
-    /* ベースグラデーション */
-      linear-gradient(
-        135deg,
-        #0a0e27 0%,
-        #151e3f 10%,
-        #1e3a8a 30%,
-        #2563eb 50%,
-        #1e40af 70%,
-        #1e3a8a 90%,
-        #0f172a 100%
-      );
-  background-size:
-    200% 200%,
-    100% 100%,
-    150% 150%;
-  color: white;
-  padding: 1rem 2.5rem;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-block;
-  border: none;
-  box-shadow:
-    0 6px 12px rgba(15, 23, 42, 0.4),
-    inset 0 1px 3px rgba(255, 255, 255, 0.2),
-    inset 0 -1px 3px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  overflow: hidden;
-  animation: btnShine 12s ease-in-out infinite;
-}
-
-@keyframes btnShine {
-  0%,
-  100% {
-    background-position:
-      -100% 0%,
-      0% 0%,
-      0% 0%;
-  }
-  50% {
-    background-position:
-      200% 0%,
-      0% 0%,
-      100% 100%;
-  }
-}
-
-.btn-primary::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 70%
-  );
-  transform: rotate(45deg) translateX(-100%);
-  transition: transform 0.6s;
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow:
-    0 10px 20px rgba(15, 23, 42, 0.5),
-    inset 0 2px 4px rgba(255, 255, 255, 0.3),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(59, 130, 246, 0.4);
-}
-
-.btn-primary:hover::before {
-  transform: rotate(45deg) translateX(100%);
-}
-
-.btn-secondary {
-  background: white;
-  color: var(--primary);
-  padding: 1rem 2.5rem;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  border: 2px solid var(--primary);
-  transition: all 0.3s;
-  display: inline-block;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-}
-
-.btn-secondary:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2);
-}
+/* ボタンスタイルはbuttons.cssに移動済み */
 
 /* ビジュアル */
 .hero-visual {
@@ -255,15 +137,7 @@
   animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
+/* pulseアニメーションはanimations.cssに移動済み */
 
 .waveform {
   display: flex;
@@ -293,12 +167,4 @@
   animation-delay: 0.3s;
 }
 
-@keyframes wave {
-  0%,
-  100% {
-    height: 20px;
-  }
-  50% {
-    height: 45px;
-  }
-}
+/* waveアニメーションはanimations.cssに移動済み */

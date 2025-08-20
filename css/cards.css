@@ -1,0 +1,290 @@
+/* 共通カードコンポーネント */
+
+/* カード基本スタイル */
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.card-compact {
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.card-large {
+  padding: 3rem;
+  border-radius: 28px;
+}
+
+/* カード背景バリエーション */
+.card-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.98) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.card-light {
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 1) 0%,
+    rgba(241, 245, 249, 1) 100%
+  );
+  border: 2px solid rgba(203, 213, 225, 0.5);
+}
+
+.card-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(239, 246, 255, 1) 100%
+  );
+  border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+/* カードシャドウ */
+.card-shadow-sm {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.card-shadow-md {
+  box-shadow: 
+    20px 20px 60px rgba(30, 58, 138, 0.08),
+    -20px -20px 60px rgba(255, 255, 255, 0.9);
+}
+
+.card-shadow-lg {
+  box-shadow:
+    0 20px 40px rgba(30, 58, 138, 0.12),
+    0 8px 16px rgba(59, 130, 246, 0.08);
+}
+
+/* カードホバーエフェクト */
+.card-hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 30px 60px rgba(30, 58, 138, 0.15),
+    0 15px 30px rgba(59, 130, 246, 0.1);
+}
+
+.card-hover-scale:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.card-hover-glow:hover {
+  box-shadow:
+    0 30px 60px rgba(30, 58, 138, 0.15),
+    0 0 60px rgba(59, 130, 246, 0.2);
+}
+
+/* カードアクセント */
+.card-accent-top::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #3b82f6 20%,
+    #1e40af 50%,
+    #3b82f6 80%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-accent-top:hover::before {
+  opacity: 1;
+}
+
+/* カードグロスエフェクト */
+.card-gloss::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(59, 130, 246, 0.1) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.card-gloss:hover::after {
+  opacity: 1;
+  transform: rotate(45deg) translateX(100%);
+}
+
+/* カード回転エフェクト */
+.card-tilt-left {
+  transform: rotate(-1deg);
+}
+
+.card-tilt-right {
+  transform: rotate(0.5deg);
+}
+
+.card-tilt-left:hover,
+.card-tilt-right:hover {
+  transform: rotate(0deg);
+}
+
+/* メタリックカード */
+.card-metallic {
+  background: 
+    /* トップレイヤー: 光沢 */
+    linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.2) 45%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 60%
+    ),
+    /* ミドルレイヤー: メタリック反射 */
+    linear-gradient(
+      180deg,
+      rgba(147, 197, 253, 0.15) 0%,
+      transparent 20%,
+      transparent 80%,
+      rgba(30, 58, 138, 0.2) 100%
+    ),
+    /* ベースレイヤー: ディープブルーグラデーション */
+    linear-gradient(
+      135deg,
+      #0a0e27 0%,
+      #151e3f 10%,
+      #1e3a8a 30%,
+      #2563eb 50%,
+      #1e40af 70%,
+      #1e3a8a 90%,
+      #0f172a 100%
+    );
+  background-size: 200% 200%, 100% 100%, 150% 150%;
+  animation: ultraShine 8s ease-in-out infinite;
+  box-shadow: 
+    0 30px 60px rgba(15, 23, 42, 0.6),
+    0 15px 30px rgba(30, 58, 138, 0.3),
+    inset 0 3px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.card-metallic::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.4) 35%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(255, 255, 255, 0.4) 45%,
+    transparent 50%
+  );
+  animation: glossSweep 4s ease-in-out infinite;
+}
+
+.card-metallic:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 
+    0 40px 80px rgba(15, 23, 42, 0.7),
+    0 20px 40px rgba(30, 58, 138, 0.4),
+    inset 0 5px 10px rgba(255, 255, 255, 0.5),
+    inset 0 -5px 10px rgba(0, 0, 0, 0.7),
+    0 0 60px rgba(59, 130, 246, 0.4);
+}
+
+/* カードヘッダー */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-icon-primary {
+  background: linear-gradient(
+    135deg,
+    rgba(239, 246, 255, 1) 0%,
+    rgba(219, 234, 254, 1) 100%
+  );
+  color: var(--primary);
+  border: 1px solid rgba(30, 58, 138, 0.1);
+  box-shadow:
+    0 4px 12px rgba(30, 58, 138, 0.08),
+    inset 0 -1px 3px rgba(30, 58, 138, 0.05);
+}
+
+.card:hover .card-icon-primary {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+  box-shadow:
+    0 8px 20px rgba(30, 58, 138, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  border-color: transparent;
+}
+
+/* カード番号バッジ */
+.card-number {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--primary);
+  background: rgba(239, 246, 255, 0.8);
+  border-radius: 50%;
+  border: 2px solid var(--primary-light);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.card:hover .card-number {
+  opacity: 1;
+  transform: scale(1.1);
+  background: var(--primary);
+  color: white;
+}

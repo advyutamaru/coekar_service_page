@@ -46,18 +46,7 @@
   z-index: 1;
 }
 
-@keyframes morphing {
-  0%,
-  100% {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  }
-  33% {
-    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-  }
-  66% {
-    border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%;
-  }
-}
+/* morphingアニメーションはanimations.cssに移動済み */
 
 /* 中央のアイコン群 - 非表示にしてシンプルに */
 .visual-icons {
