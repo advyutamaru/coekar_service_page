@@ -13,21 +13,21 @@
   --card-primary-light: #60a5fa;
   --card-primary-lighter: #93bbfc;
   
-  /* 背景グラデーション */
-  --card-bg-gradient: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #f8fbff 20%,
-    #f0f7ff 40%,
-    #e8f3ff 60%,
-    #ffffff 100%
+  /* メタリックグラスモーフィズム背景 */
+  --card-bg-gradient: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(248, 251, 255, 0.88) 25%,
+    rgba(240, 247, 255, 0.85) 50%,
+    rgba(232, 243, 255, 0.88) 75%,
+    rgba(255, 255, 255, 0.95) 100%
   );
   
-  --card-bg-hover: linear-gradient(135deg, 
-    #ffffff 0%, 
-    #fafcff 20%,
-    #f3f8ff 40%,
-    #ecf5ff 60%,
-    #ffffff 100%
+  --card-bg-hover: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(250, 252, 255, 0.92) 25%,
+    rgba(243, 248, 255, 0.90) 50%,
+    rgba(236, 245, 255, 0.92) 75%,
+    rgba(255, 255, 255, 0.98) 100%
   );
   
   /* テキストカラー */
@@ -43,21 +43,26 @@
   --card-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   --card-transition-fast: all 0.3s ease;
   
-  /* シャドウ */
+  /* メタリックシャドウ */
   --card-shadow: 
-    0 0 0 1px rgba(59, 130, 246, 0.08),
-    0 1px 2px rgba(59, 130, 246, 0.04),
-    0 4px 8px rgba(30, 58, 138, 0.06),
-    0 12px 24px rgba(30, 58, 138, 0.08),
-    0 24px 48px rgba(30, 58, 138, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    0 0 0 0.5px rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(59, 130, 246, 0.12),
+    0 2px 4px rgba(59, 130, 246, 0.08),
+    0 8px 16px rgba(30, 58, 138, 0.12),
+    0 20px 40px rgba(30, 58, 138, 0.15),
+    0 40px 80px rgba(30, 58, 138, 0.18),
+    inset 0 2px 4px rgba(255, 255, 255, 0.98),
+    inset 0 -1px 2px rgba(59, 130, 246, 0.08);
     
   --card-shadow-hover: 
-    0 0 0 1px rgba(59, 130, 246, 0.12),
-    0 2px 4px rgba(59, 130, 246, 0.06),
-    0 8px 16px rgba(30, 58, 138, 0.08),
-    0 20px 40px rgba(30, 58, 138, 0.12),
-    0 40px 80px rgba(30, 58, 138, 0.16);
+    0 0 0 0.5px rgba(255, 255, 255, 0.95),
+    0 0 0 1.5px rgba(59, 130, 246, 0.18),
+    0 4px 8px rgba(59, 130, 246, 0.12),
+    0 12px 24px rgba(30, 58, 138, 0.16),
+    0 30px 60px rgba(30, 58, 138, 0.20),
+    0 60px 120px rgba(30, 58, 138, 0.25),
+    inset 0 3px 6px rgba(255, 255, 255, 1),
+    inset 0 -2px 4px rgba(59, 130, 246, 0.12);
 }
 
 /* ----------------------------------------
@@ -74,29 +79,30 @@
   position: relative;
 }
 
-/* フローティングシャドウ */
+/* グラスモーフィズムリフレクション */
 .medical-record-animation::after {
   content: '';
   position: absolute;
-  bottom: -20px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 400px;
-  height: 20px;
+  width: 450px;
+  height: 30px;
   background: radial-gradient(
     ellipse at center,
-    rgba(59, 130, 246, 0.15) 0%,
+    rgba(59, 130, 246, 0.25) 0%,
+    rgba(59, 130, 246, 0.1) 40%,
     transparent 70%
   );
-  filter: blur(20px);
+  filter: blur(25px);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.6s ease;
   z-index: -1;
   pointer-events: none;
 }
 
 .medical-record-animation:hover::after {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 /* ----------------------------------------
@@ -108,10 +114,17 @@
   width: 100%;
   padding: var(--card-padding);
   
-  /* ビジュアル */
-  background: var(--card-bg-gradient);
+  /* メタリックグラスモーフィズム */
+  background: 
+    var(--card-bg-gradient),
+    linear-gradient(125deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+  background-blend-mode: overlay, normal;
   border-radius: var(--card-radius);
-  border: 1px solid rgba(59, 130, 246, 0.12);
+  border: none;
   box-shadow: var(--card-shadow);
   
   /* 3D効果 */
@@ -120,62 +133,74 @@
   transition: var(--card-transition);
   will-change: transform;
   
-  /* その他 */
-  backdrop-filter: blur(20px) saturate(1.8);
+  /* グラスモーフィズム */
+  backdrop-filter: blur(40px) saturate(1.5) brightness(1.05);
+  -webkit-backdrop-filter: blur(40px) saturate(1.5) brightness(1.05);
   overflow: hidden;
 }
 
-/* 背景装飾レイヤー */
+/* メタリックグラデーションレイヤー */
 .record-card::before {
   content: '';
   position: absolute;
   inset: 0;
   background: 
     radial-gradient(
-      circle at 20% 80%,
-      rgba(59, 130, 246, 0.03) 0%,
+      ellipse at 30% 0%,
+      rgba(255, 255, 255, 0.5) 0%,
       transparent 50%
     ),
     radial-gradient(
-      circle at 80% 20%,
-      rgba(37, 99, 235, 0.02) 0%,
+      ellipse at 70% 100%,
+      rgba(59, 130, 246, 0.1) 0%,
       transparent 50%
     ),
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(255, 255, 255, 0.95) 0%,
-      transparent 100%
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 50%,
+      rgba(59, 130, 246, 0.05) 100%
     );
+  mix-blend-mode: overlay;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
-/* 光沢効果レイヤー */
+/* メタリック光沢効果 */
 .record-card::after {
   content: '';
   position: absolute;
   inset: -100%;
   background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(147, 197, 253, 0.15) 50%,
-    transparent 70%
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.7) 45%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 60%
   );
   transform: rotate(45deg) translateY(100%);
-  transition: transform 0.6s ease;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
+  mix-blend-mode: overlay;
 }
 
 /* ホバー状態 */
 .record-card:hover {
   transform: 
-    rotateX(-6deg) 
-    rotateY(4deg) 
-    translateZ(20px)
-    scale(1.02);
+    rotateX(-8deg) 
+    rotateY(5deg) 
+    translateZ(30px)
+    scale(1.03);
   box-shadow: var(--card-shadow-hover);
-  background: var(--card-bg-hover);
+  background: 
+    var(--card-bg-hover),
+    linear-gradient(125deg,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0.3) 40%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
+  background-blend-mode: overlay, normal;
 }
 
 .record-card:hover::after {
@@ -266,25 +291,30 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba(248, 250, 255, 0.5) 0%,
-    rgba(240, 247, 255, 0.3) 100%
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(248, 250, 255, 0.2) 100%
   );
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.06);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: none;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(59, 130, 246, 0.05),
+    0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
 .record-section:hover {
   background: linear-gradient(
     135deg,
-    rgba(248, 250, 255, 0.8) 0%,
-    rgba(240, 247, 255, 0.5) 100%
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(250, 252, 255, 0.3) 100%
   );
-  transform: translateX(4px) translateY(-1px);
+  transform: translateX(4px) translateY(-2px);
   box-shadow: 
-    0 4px 12px rgba(59, 130, 246, 0.12),
-    0 8px 24px rgba(30, 58, 138, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  border-color: rgba(59, 130, 246, 0.15);
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(59, 130, 246, 0.08),
+    0 4px 8px rgba(59, 130, 246, 0.15),
+    0 8px 16px rgba(30, 58, 138, 0.1);
 }
 
 /* ----------------------------------------
@@ -299,13 +329,22 @@
   justify-content: center;
   flex-shrink: 0;
   
-  /* ビジュアル */
-  background: linear-gradient(
-    145deg,
-    var(--card-primary) 0%,
-    var(--card-primary-dark) 50%,
-    var(--card-primary-darker) 100%
-  );
+  /* メタリックブルーグラデーション */
+  background: 
+    linear-gradient(
+      145deg,
+      rgba(96, 165, 250, 0.9) 0%,
+      rgba(59, 130, 246, 0.95) 45%,
+      rgba(37, 99, 235, 0.95) 50%,
+      rgba(30, 64, 175, 0.9) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  background-blend-mode: normal, overlay;
   border-radius: 10px;
   color: white;
   
@@ -313,35 +352,40 @@
   font-size: 14px;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
-  text-shadow: 0 1px 2px rgba(30, 58, 138, 0.3);
+  text-shadow: 
+    0 1px 2px rgba(30, 58, 138, 0.4),
+    0 0 4px rgba(255, 255, 255, 0.2);
   
-  /* エフェクト */
+  /* メタリックエフェクト */
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 0 rgba(30, 58, 138, 0.3),
-    0 2px 6px rgba(59, 130, 246, 0.25),
-    0 4px 12px rgba(30, 58, 138, 0.15);
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(30, 58, 138, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 4px 8px rgba(59, 130, 246, 0.3),
+    0 8px 16px rgba(30, 58, 138, 0.2);
   
   position: relative;
   overflow: hidden;
   transition: var(--card-transition-fast);
 }
 
-/* ラベル光沢効果 */
+/* メタリックハイライト */
 .section-label::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 50%;
+  height: 45%;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
     transparent 100%
   );
   border-radius: 10px 10px 0 0;
   pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 
