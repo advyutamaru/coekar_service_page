@@ -27,6 +27,8 @@
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
   --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --max-width: 1200px;
+  --max-width-content: 1100px;
+  --max-width-text: 900px;
 }
 
 body {

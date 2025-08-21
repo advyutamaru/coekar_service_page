@@ -6,6 +6,7 @@ section {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .section-header {
@@ -61,6 +62,10 @@ h2 {
     padding: 4rem 2rem;
   }
   
+  .container {
+    padding: 0 1.5rem;
+  }
+  
   .section-header {
     margin-bottom: 3rem;
   }
@@ -82,6 +87,10 @@ h2 {
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
   h2 {
     font-size: 1.5rem;
   }

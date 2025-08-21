@@ -11,7 +11,7 @@
 
 
 .voice-animation-container {
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@
 /* 音声ビジュアライザー */
 .voice-visualizer {
   width: 100%;
-  max-width: 900px;
+  max-width: var(--max-width-text);
   height: 180px;
   display: flex;
   align-items: center;
