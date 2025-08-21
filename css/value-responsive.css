@@ -47,7 +47,6 @@
 
   .metric-content {
     padding: 2rem 1.25rem;
-    border-radius: 20px;
   }
 }
 
@@ -100,7 +99,6 @@
   .metric-content {
     padding: 2rem 1.5rem;
     min-width: 120px;
-    border-radius: 18px;
   }
 
   .metric-value {
@@ -182,12 +180,6 @@
 
   .metric-content {
     padding: 1.75rem 1.25rem;
-    border-radius: 16px;
-    box-shadow: 
-      0 20px 40px rgba(15, 23, 42, 0.4),
-      0 10px 20px rgba(30, 58, 138, 0.2),
-      inset 0 2px 4px rgba(255, 255, 255, 0.3),
-      inset 0 -2px 4px rgba(0, 0, 0, 0.4);
   }
 
   .metric-value {
@@ -211,14 +203,6 @@
     max-width: 240px;
   }
 
-  /* 光沢エフェクトを簡略化 */
-  .metric-content::before {
-    animation: glossSweep 6s ease-in-out infinite;
-  }
-
-  .metric-content::after {
-    opacity: 0.8;
-  }
 
   /* ホバーエフェクトを無効化（タッチデバイス） */
   .metric-card:hover .metric-content {
@@ -262,7 +246,6 @@
 
   .metric-content {
     padding: 1.5rem 1rem;
-    border-radius: 14px;
   }
 
   .metric-value {
