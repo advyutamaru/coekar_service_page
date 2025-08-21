@@ -1,6 +1,6 @@
 /* セクション共通 */
 section {
-  padding: 6rem 3rem;
+  padding: 5rem 3rem;
 }
 
 .container {
@@ -59,7 +59,7 @@ h2 {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   section {
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
   }
   
   .container {
@@ -87,6 +87,10 @@ h2 {
 }
 
 @media (max-width: 480px) {
+  section {
+    padding: 2.5rem 1.5rem;
+  }
+  
   .container {
     padding: 0 1rem;
   }

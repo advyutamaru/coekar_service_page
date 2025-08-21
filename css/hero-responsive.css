@@ -238,14 +238,14 @@
 /* モバイル (376px-480px) */
 @media (max-width: 480px) {
     .hero {
-        padding: 6rem 1.25rem 2rem;
-        min-height: 100vh;
+        padding: 4rem 1.25rem 2rem;
+        min-height: auto;
         display: flex;
         align-items: center;
     }
     
     .hero-container {
-        gap: 2rem;
+        gap: 1.5rem;
         padding: 0;
         justify-content: center;
     }
@@ -282,7 +282,7 @@
     }
     
     .hero-visual {
-        height: 220px;
+        height: 180px;
         margin-top: 0;
         padding: 0;
         width: 100%;
@@ -323,12 +323,12 @@
 /* スモールモバイル (375px以下) */
 @media (max-width: 375px) {
     .hero {
-        padding: 5.5rem 1rem 2rem;
-        min-height: 100vh;
+        padding: 3.5rem 1rem 1.5rem;
+        min-height: auto;
     }
     
     .hero-container {
-        gap: 1.5rem;
+        gap: 1.25rem;
         justify-content: center;
     }
     
@@ -356,7 +356,7 @@
     }
     
     .hero-visual {
-        height: 200px;
+        height: 160px;
         padding: 0;
         margin-top: 0;
     }

@@ -238,12 +238,12 @@
 
 @media (max-width: 768px) {
   .voice-animation-section {
-    padding: 4rem 1rem;
-    min-height: 450px;
+    padding: 3rem 1rem;
+    min-height: auto;
   }
   
   .voice-animation-container {
-    gap: 2.5rem;
+    gap: 2rem;
   }
   
   .recording-status {
@@ -283,12 +283,12 @@
 
 @media (max-width: 480px) {
   .voice-animation-section {
-    padding: 3rem 0.75rem;
-    min-height: 400px;
+    padding: 2.5rem 0.75rem;
+    min-height: auto;
   }
   
   .voice-animation-container {
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
   .recording-status {
@@ -302,7 +302,7 @@
   }
   
   .voice-visualizer {
-    height: 120px;
+    height: 100px;
     padding: 1rem;
     gap: 3px;
   }
