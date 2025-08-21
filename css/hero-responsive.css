@@ -29,7 +29,7 @@
     }
     
     .devices-stage {
-        max-width: 900px;
+        max-width: 750px;  /* コンパクトに */
     }
     
     .mac-image {
@@ -38,7 +38,7 @@
     }
     
     .iphone-image {
-        width: 160px;  /* Macの1/3 */
+        width: 120px;  /* より現実的なサイズ */
         height: auto;
     }
 }
@@ -59,7 +59,7 @@
     }
     
     .iphone-image {
-        width: 140px;  /* Macの1/3 */
+        width: 105px;  /* より現実的なサイズ */
         height: auto;
     }
 }
@@ -106,14 +106,14 @@
     }
     
     .mac-wrapper {
-        left: 20%;
+        left: 10%;
         top: 50%;
         transform: translateY(-50%);
     }
     
     .iphone-wrapper {
-        right: 25%;
-        bottom: 15%;
+        right: 10%;
+        bottom: 20%;
     }
     
     .mac-image {
@@ -122,7 +122,7 @@
     }
     
     .iphone-image {
-        width: 120px;  /* Macの1/3 */
+        width: 90px;  /* より現実的なサイズ */
         height: auto;
     }
     
@@ -240,7 +240,7 @@
     }
     
     .iphone-image {
-        width: 100px;  /* Macの1/3 */
+        width: 75px;  /* より現実的なサイズ */
         height: auto;
     }
     
@@ -334,7 +334,7 @@
     }
     
     .iphone-image {
-        width: 80px;  /* Macの1/3 */
+        width: 60px;  /* より現実的なサイズ */
         height: auto;
     }
     
@@ -407,7 +407,7 @@
     }
     
     .iphone-image {
-        width: 70px;  /* Macの1/3 */
+        width: 52px;  /* より現実的なサイズ */
         height: auto;
     }
 }

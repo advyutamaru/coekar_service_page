@@ -82,7 +82,7 @@
 .devices-stage {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;  /* コンパクトにして重なりを防ぐ */
   height: 100%;
   margin: 0 auto;
 }
@@ -98,7 +98,7 @@
 }
 
 .mac-wrapper {
-  left: 15%;
+  left: 10%;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
@@ -106,8 +106,8 @@
 }
 
 .iphone-wrapper {
-  right: 20%;
-  bottom: 10%;
+  right: 10%;
+  bottom: 15%;
   z-index: 2;
   animation: floatPhone 4s ease-in-out infinite;
   animation-delay: -2s;
@@ -128,7 +128,7 @@
 }
 
 .iphone-image {
-  width: 150px;  /* Macの1/3サイズ */
+  width: 110px;  /* より現実的なサイズ比 */
   height: auto;
   object-fit: contain;
   display: block;
