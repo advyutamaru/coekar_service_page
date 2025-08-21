@@ -238,15 +238,16 @@
 /* モバイル (376px-480px) */
 @media (max-width: 480px) {
     .hero {
-        padding: 5rem 1.25rem 2rem;
-        min-height: calc(100vh - 60px);
+        padding: 6rem 1.25rem 2rem;
+        min-height: 100vh;
         display: flex;
         align-items: center;
     }
     
     .hero-container {
-        gap: 2.5rem;
+        gap: 2rem;
         padding: 0;
+        justify-content: center;
     }
     
     .hero-content {
@@ -281,8 +282,8 @@
     }
     
     .hero-visual {
-        height: 280px;
-        margin-top: 1.5rem;
+        height: 220px;
+        margin-top: 0;
         padding: 0;
         width: 100%;
         max-width: 400px;
@@ -322,12 +323,13 @@
 /* スモールモバイル (375px以下) */
 @media (max-width: 375px) {
     .hero {
-        padding: 4.5rem 1rem 2rem;
-        min-height: calc(100vh - 56px);
+        padding: 5.5rem 1rem 2rem;
+        min-height: 100vh;
     }
     
     .hero-container {
-        gap: 2rem;
+        gap: 1.5rem;
+        justify-content: center;
     }
     
     .hero h1 {
@@ -354,9 +356,9 @@
     }
     
     .hero-visual {
-        height: 250px;
+        height: 200px;
         padding: 0;
-        margin-top: 1rem;
+        margin-top: 0;
     }
     
     /* 超小型画面では中央に寄せて配置 */

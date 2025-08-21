@@ -11,7 +11,7 @@
 
 
 .voice-animation-container {
-  max-width: var(--max-width);
+  max-width: var(--max-width-content);
   margin: 0 auto;
   display: flex;
   flex-direction: column;

@@ -8,7 +8,7 @@
 
 .solution-flow {
   position: relative;
-  max-width: var(--max-width);
+  max-width: var(--max-width-content);
   margin: 0 auto;
   min-height: 500px;
 }

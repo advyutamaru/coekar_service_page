@@ -4,7 +4,7 @@ section {
 }
 
 .container {
-  max-width: var(--max-width);
+  max-width: var(--max-width-content);
   margin: 0 auto;
   padding: 0 2rem;
 }
