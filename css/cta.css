@@ -1,83 +1,193 @@
-/* CTA セクション */
+/* CTA セクション - インパクトのある洗練されたデザイン */
 .cta {
   text-align: center;
   padding: 7rem 3rem;
-  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
 }
 
-/* 装飾的な背景要素 */
+/* 背景のグラデーションメッシュ */
 .cta::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
+  top: -100px;
+  left: -100px;
+  right: -100px;
+  bottom: -100px;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+  opacity: 0.6;
+  animation: floatGradient 20s ease-in-out infinite;
 }
 
+/* 中央の光沢効果 */
 .cta::after {
   content: '';
   position: absolute;
-  bottom: -30%;
-  left: -15%;
-  width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
   height: 400px;
-  background: radial-gradient(circle, rgba(30, 58, 138, 0.06) 0%, transparent 70%);
-  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 60%
+  );
   pointer-events: none;
 }
 
 .cta .container {
   position: relative;
   z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* CTAセクション用のボタンカスタマイズ */
-.cta .btn-primary-simple {
-  margin-top: 2.5rem;
+/* CTAボタン - インパクトデザイン */
+.cta .btn-primary {
+  display: inline-block;
+  padding: 1.25rem 3.5rem;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  box-shadow: 
+    0 10px 30px rgba(59, 130, 246, 0.35),
+    0 5px 15px rgba(30, 58, 138, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+/* ボタンの光沢効果 */
+.cta .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.cta .btn-primary:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 15px 40px rgba(59, 130, 246, 0.45),
+    0 8px 20px rgba(30, 58, 138, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+}
+
+.cta .btn-primary:hover::before {
+  left: 100%;
+}
+
+.cta .btn-primary:active {
+  transform: translateY(-2px) scale(1.02);
 }
 
 .cta h2 {
-  font-size: 2.75rem;
-  margin-bottom: 1.75rem;
-  color: #1e293b;
-  font-weight: 600;
-  line-height: 1.25;
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  line-height: 1.2;
   letter-spacing: -0.025em;
+  position: relative;
+  display: inline-block;
+  animation: titleGlow 3s ease-in-out infinite;
 }
 
 .cta h2 br {
   display: block;
   content: "";
-  margin-top: 0.2em;
+  margin-top: 0.1em;
+}
+
+/* タイトルのアニメーション */
+.cta h2 {
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .cta p {
-  font-size: 1.125rem;
-  color: #64748b;
-  margin-bottom: 2rem;
-  max-width: 500px;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.cta .btn-primary {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* アニメーション定義 */
+@keyframes floatGradient {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+  }
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.1);
+  }
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+.cta p {
+  font-size: 1.25rem;
+  color: #475569;
+  margin-bottom: 3rem;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  font-weight: 400;
-  line-height: 1.7;
-  letter-spacing: 0.005em;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.001em;
+  opacity: 0.95;
 }
 
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
   .cta {
-    padding: 5rem 2rem;
+    padding: 4rem 2rem;
   }
   
   .cta h2 {
-    font-size: 2.25rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
   
@@ -94,9 +204,13 @@
 }
 
 @media (max-width: 480px) {
+  .cta {
+    padding: 3rem 1.5rem;
+  }
+  
   .cta h2 {
-    font-size: 1.875rem;
-    font-weight: 600;
+    font-size: 1.75rem;
+    font-weight: 700;
     letter-spacing: -0.015em;
   }
   
@@ -106,9 +220,10 @@
   }
   
   .cta .btn-primary {
-    padding: 0.9375rem 2rem;
+    padding: 1rem 2rem;
     font-size: 0.9375rem;
     width: 100%;
-    font-weight: 500;
+    max-width: 320px;
+    font-weight: 600;
   }
 }
