@@ -326,9 +326,7 @@
     padding: 0 1.5rem;
   }
 
-  .hero {
-    padding: 6rem 1.5rem 3rem;
-  }
+  /* heroのpaddingはhero-responsive.cssで管理 */
 
   .hero-container {
     grid-template-columns: 1fr;

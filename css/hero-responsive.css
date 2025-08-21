@@ -257,7 +257,7 @@
 /* モバイル (376px-480px) */
 @media (max-width: 480px) {
     .hero {
-        padding: 4rem 1.25rem 2rem;
+        padding: 10rem 1.25rem 2rem 1.25rem;
         min-height: auto;
         display: flex;
         align-items: center;
@@ -347,7 +347,7 @@
 /* スモールモバイル (375px以下) */
 @media (max-width: 375px) {
     .hero {
-        padding: 3.5rem 1rem 1.5rem;
+        padding: 10rem 1rem 1.5rem 0rem;
         min-height: auto;
     }
     
