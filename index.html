@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="css/hero-responsive.css">
     <link rel="stylesheet" href="css/particle-title.css">
     <link rel="stylesheet" href="css/voice.css">
+    <link rel="stylesheet" href="css/medical-record.css">
     <link rel="stylesheet" href="css/problem-minimal.css">
     <link rel="stylesheet" href="css/solution.css">
     <link rel="stylesheet" href="css/value.css">
@@ -142,6 +143,47 @@
             <div class="conversion-text">
                 <h3>声が、そのままカルテに</h3>
                 <p>診察の会話を瞬時に構造化された医療記録へ。<br>専門用語も、略語も、正確に。</p>
+                
+                <!-- カルテアニメーション -->
+                <div class="medical-record-animation">
+                    <div class="record-card">
+                        <div class="record-header">
+                            <div class="record-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="14 2 14 8 20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="record-title">診療記録</div>
+                            <div class="record-date">2025.05.01</div>
+                        </div>
+                        
+                        <div class="record-content">
+                            <div class="record-section">
+                                <div class="section-label">S</div>
+                                <div class="typing-text" data-text="「3日前から頭が痛くて、吐き気もします。右側がズキズキする感じです」"></div>
+                            </div>
+                            
+                            <div class="record-section">
+                                <div class="section-label">O</div>
+                                <div class="typing-text" data-text="BT 36.8℃、BP 120/80mmHg、HR 72/分。右側頭部に圧痛あり。項部硬直なし。"></div>
+                            </div>
+                            
+                            <div class="record-section">
+                                <div class="section-label">A</div>
+                                <div class="typing-text" data-text="#1 片頭痛の疑い"></div>
+                            </div>
+                            
+                            <div class="record-section">
+                                <div class="section-label">P</div>
+                                <div class="typing-text" data-text="鎮痛薬頓用処方。生活指導実施。症状増悪時は再診指示。"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

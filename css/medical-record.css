@@ -1,0 +1,293 @@
+/* カルテアニメーション */
+.medical-record-animation {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.record-card {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.04),
+        0 1px 3px rgba(0, 0, 0, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 32px;
+    max-width: 500px;
+    width: 100%;
+    transform-style: preserve-3d;
+    animation: floatCard 8s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+}
+
+/* グラデーション背景効果 */
+.record-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(59, 130, 246, 0.02) 0%,
+        transparent 50%
+    );
+    animation: rotateGradient 30s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes floatCard {
+    0%, 100% {
+        transform: translateY(0) rotateX(0deg) rotateY(0deg);
+    }
+    25% {
+        transform: translateY(-5px) rotateX(0.5deg) rotateY(0.5deg);
+    }
+    50% {
+        transform: translateY(-3px) rotateX(-0.5deg) rotateY(1deg);
+    }
+    75% {
+        transform: translateY(-4px) rotateX(1deg) rotateY(-0.5deg);
+    }
+}
+
+/* ヘッダー部分 */
+.record-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.record-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+    animation: pulseIcon 3s ease-in-out infinite;
+}
+
+@keyframes pulseIcon {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+}
+
+.record-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    flex: 1;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.record-date {
+    font-size: 14px;
+    color: #6b7280;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+/* コンテンツ部分 */
+.record-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.record-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeInSection 0.6s ease forwards;
+}
+
+.record-section:nth-child(1) { animation-delay: 0.5s; }
+.record-section:nth-child(2) { animation-delay: 1.2s; }
+.record-section:nth-child(3) { animation-delay: 1.9s; }
+.record-section:nth-child(4) { animation-delay: 2.6s; }
+
+@keyframes fadeInSection {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-label {
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3b82f6;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-label::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+/* タイピングアニメーション */
+.typing-text {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.6;
+    font-family: 'Noto Sans JP', sans-serif;
+    position: relative;
+    min-height: 1.6em;
+}
+
+.typing-text::after {
+    content: attr(data-text);
+    display: inline-block;
+    color: #374151;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #3b82f6;
+    width: 0;
+    animation: typing 2s steps(50) forwards, blink 0.6s step-end infinite;
+}
+
+.record-section:nth-child(1) .typing-text::after { animation-delay: 0.5s; }
+.record-section:nth-child(2) .typing-text::after { animation-delay: 1.5s; }
+.record-section:nth-child(3) .typing-text::after { animation-delay: 2.5s; }
+.record-section:nth-child(4) .typing-text::after { animation-delay: 3.5s; }
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        border-color: #3b82f6;
+    }
+    51%, 100% {
+        border-color: transparent;
+    }
+}
+
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .medical-record-animation {
+        margin-top: 40px;
+    }
+    
+    .record-card {
+        padding: 24px;
+        max-width: 100%;
+    }
+    
+    .record-header {
+        flex-wrap: wrap;
+    }
+    
+    .record-title {
+        font-size: 16px;
+    }
+    
+    .section-label {
+        min-width: 70px;
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+    
+    .typing-text {
+        font-size: 13px;
+    }
+    
+    .record-section {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+    .record-card {
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.4),
+            0 10px 30px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .record-header {
+        border-bottom-color: #374151;
+    }
+    
+    .record-title {
+        color: #f3f4f6;
+    }
+    
+    .record-date {
+        color: #9ca3af;
+    }
+    
+    .section-label {
+        background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+        color: #d1d5db;
+    }
+    
+    .typing-text {
+        color: #e5e7eb;
+    }
+    
+    .record-footer {
+        border-top-color: #374151;
+    }
+}
