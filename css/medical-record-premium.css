@@ -1,0 +1,616 @@
+/* プレミアムカルテカード */
+.medical-record-animation {
+    margin-top: 60px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    perspective: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.record-card {
+    background: linear-gradient(180deg, 
+        #ffffff 0%, 
+        #fafbfd 30%,
+        #f5f5f7 60%,
+        #f0f0f3 100%
+    );
+    border-radius: 24px;
+    box-shadow: 
+        0 0 0 1px rgba(168, 162, 158, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.02),
+        0 8px 16px rgba(0, 0, 0, 0.03),
+        0 16px 32px rgba(0, 0, 0, 0.04),
+        0 24px 48px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(168, 162, 158, 0.15);
+    padding: 40px;
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+/* プレミアムグラデーション背景 */
+.record-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(168, 162, 158, 0.04) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(212, 212, 216, 0.03) 0%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 255, 255, 0.9) 0%,
+            transparent 100%
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 光沢効果 */
+.record-card::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg) translateY(100%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.record-card:hover::after {
+    transform: rotate(45deg) translateY(-100%);
+}
+
+/* ホバー時の3D効果 */
+.record-card:hover {
+    transform: 
+        rotateX(-6deg) 
+        rotateY(4deg) 
+        translateZ(20px)
+        scale(1.01);
+    box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 4px 8px rgba(0, 0, 0, 0.02),
+        0 16px 32px rgba(0, 0, 0, 0.04),
+        0 32px 64px rgba(0, 0, 0, 0.06),
+        0 48px 96px rgba(0, 0, 0, 0.08);
+}
+
+/* ヘッダー */
+.record-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ヘッダー下線 */
+.record-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(168, 162, 158, 0.2) 10%,
+        rgba(168, 162, 158, 0.2) 90%,
+        transparent 100%
+    );
+}
+
+.record-title {
+    font-size: 19px;
+    font-weight: 600;
+    background: linear-gradient(
+        135deg,
+        #78716c 0%,
+        #a8a29e 25%,
+        #d4d4d8 50%,
+        #a8a29e 75%,
+        #78716c 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.03em;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.record-date {
+    font-size: 13px;
+    background: linear-gradient(
+        90deg,
+        #a8a29e 0%,
+        #d4d4d8 50%,
+        #a8a29e 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 2;
+}
+
+/* コンテンツ */
+.record-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.record-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(248, 250, 252, 0.3) 100%
+    );
+    backdrop-filter: blur(10px);
+}
+
+/* セクションホバー効果 */
+.record-section:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(250, 250, 252, 0.6) 100%
+    );
+    transform: translateX(3px);
+    box-shadow: 
+        0 2px 8px rgba(168, 162, 158, 0.08),
+        0 4px 16px rgba(0, 0, 0, 0.02),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* シルバーSOAPラベル */
+.section-label {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    border-radius: 10px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    /* シルバーグラデーション */
+    background: linear-gradient(
+        145deg,
+        #e8e8e8 0%,
+        #a8a29e 45%,
+        #78716c 50%,
+        #a8a29e 55%,
+        #e8e8e8 100%
+    );
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ラベルの光沢効果 */
+.section-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.3) 0%,
+        transparent 100%
+    );
+    border-radius: 10px 10px 0 0;
+    pointer-events: none;
+}
+
+/* ラベルのメタリック反射 */
+.section-label::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 60%
+    );
+    transform: rotate(45deg);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.record-section:hover .section-label::after {
+    transform: rotate(45deg) translate(50%, 50%);
+}
+
+.record-section:hover .section-label {
+    transform: scale(1.08) rotate(-3deg);
+    background: linear-gradient(
+        145deg,
+        #f5f5f5 0%,
+        #b8b2ae 45%,
+        #88817c 50%,
+        #b8b2ae 55%,
+        #f5f5f5 100%
+    );
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+        0 4px 8px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* テキスト */
+.typing-text {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.8;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.02em;
+    position: relative;
+}
+
+.typing-text::after {
+    content: attr(data-text);
+    display: block;
+    background: linear-gradient(
+        90deg,
+        #57534e 0%,
+        #78716c 20%,
+        #a8a29e 50%,
+        #78716c 80%,
+        #57534e 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 400;
+}
+
+/* プレミアムシャドウ効果 */
+.record-card {
+    position: relative;
+}
+
+.record-card::before {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 5%;
+    right: 5%;
+    height: 30px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.05) 0%,
+        transparent 70%
+    );
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.record-card:hover::before {
+    opacity: 1;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1024px) {
+    .medical-record-animation {
+        margin-top: 50px;
+        padding: 0 20px;
+    }
+    
+    .record-card {
+        padding: 32px 28px;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .medical-record-animation {
+        margin-top: 40px;
+        padding: 0 16px;
+        perspective: none;
+    }
+    
+    .record-card {
+        padding: 24px 20px;
+        max-width: calc(100% - 32px);
+        margin: 0 auto;
+        border-radius: 20px;
+        transform: none !important;
+    }
+    
+    .record-card:hover {
+        transform: none !important;
+        box-shadow: 
+            0 0 0 1px rgba(0, 0, 0, 0.03),
+            0 2px 4px rgba(0, 0, 0, 0.01),
+            0 8px 16px rgba(0, 0, 0, 0.02),
+            0 16px 32px rgba(0, 0, 0, 0.03);
+    }
+    
+    .record-header {
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+    }
+    
+    .record-title {
+        font-size: 17px;
+    }
+    
+    .record-date {
+        font-size: 12px;
+    }
+    
+    .record-content {
+        gap: 20px;
+    }
+    
+    .record-section {
+        padding: 12px;
+        gap: 16px;
+        border-radius: 12px;
+    }
+    
+    .record-section:hover {
+        transform: translateX(2px);
+    }
+    
+    .section-label {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+    
+    .typing-text {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .medical-record-animation {
+        margin-top: 30px;
+        padding: 0 12px;
+    }
+    
+    .record-card {
+        padding: 20px 16px;
+        max-width: calc(100% - 24px);
+        border-radius: 16px;
+    }
+    
+    .record-header {
+        padding-bottom: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .record-title {
+        font-size: 16px;
+    }
+    
+    .record-date {
+        font-size: 11px;
+    }
+    
+    .record-content {
+        gap: 16px;
+    }
+    
+    .record-section {
+        padding: 10px;
+        gap: 14px;
+        border-radius: 10px;
+    }
+    
+    .section-label {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+    
+    .typing-text {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 360px) {
+    .medical-record-animation {
+        margin-top: 24px;
+        padding: 0 8px;
+    }
+    
+    .record-card {
+        padding: 16px 14px;
+        max-width: calc(100% - 16px);
+    }
+    
+    .record-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding-bottom: 14px;
+        margin-bottom: 16px;
+    }
+    
+    .record-title {
+        font-size: 15px;
+    }
+    
+    .record-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 8px;
+    }
+    
+    .section-label {
+        width: auto;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+}
+
+/* タッチデバイス用 */
+@media (hover: none) and (pointer: coarse) {
+    .record-card {
+        transform: none !important;
+    }
+    
+    .record-card::after {
+        display: none;
+    }
+    
+    .section-label::after {
+        display: none;
+    }
+    
+    .record-section {
+        padding: 14px;
+    }
+    
+    .record-section:active {
+        background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(248, 250, 252, 0.6) 100%
+        );
+    }
+    
+    .record-section {
+        -webkit-tap-highlight-color: rgba(168, 162, 158, 0.1);
+        touch-action: manipulation;
+    }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+    .record-card {
+        background: linear-gradient(180deg, 
+            #1e293b 0%, 
+            #1a202c 50%,
+            #0f172a 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 
+            0 0 0 1px rgba(255, 255, 255, 0.05),
+            0 2px 4px rgba(0, 0, 0, 0.2),
+            0 8px 16px rgba(0, 0, 0, 0.3),
+            0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+    
+    .record-header::after {
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(148, 163, 184, 0.2) 10%,
+            rgba(148, 163, 184, 0.2) 90%,
+            transparent 100%
+        );
+    }
+    
+    .record-title {
+        color: #f1f5f9;
+    }
+    
+    .record-date {
+        color: #94a3b8;
+    }
+    
+    .record-section {
+        background: linear-gradient(
+            135deg,
+            rgba(30, 41, 59, 0.5) 0%,
+            rgba(15, 23, 42, 0.3) 100%
+        );
+    }
+    
+    .record-section:hover {
+        background: linear-gradient(
+            135deg,
+            rgba(30, 41, 59, 0.8) 0%,
+            rgba(15, 23, 42, 0.5) 100%
+        );
+    }
+    
+    .section-label {
+        background: linear-gradient(
+            145deg,
+            #4a5568 0%,
+            #2d3748 45%,
+            #1a202c 50%,
+            #2d3748 55%,
+            #4a5568 100%
+        );
+    }
+    
+    .typing-text {
+        color: #cbd5e1;
+    }
+}
