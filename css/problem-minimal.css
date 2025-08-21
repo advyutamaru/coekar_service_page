@@ -48,7 +48,7 @@
 }
 
 .main-stat-number {
-  font-size: clamp(5rem, 10vw, 8rem);
+  font-size: clamp(4rem, 8vw, 7rem);
   font-weight: 700;
   background: linear-gradient(180deg, var(--primary-dark) 0%, var(--accent) 50%, var(--text) 100%);
   -webkit-background-clip: text;
@@ -56,9 +56,10 @@
   background-clip: text;
   line-height: 1;
   margin-bottom: 24px;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
   position: relative;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .stat-unit {
@@ -228,7 +229,7 @@
   }
   
   .main-stat-number {
-    font-size: 6rem;
+    font-size: clamp(3.5rem, 7vw, 6rem);
   }
 }
 
@@ -251,7 +252,7 @@
   }
   
   .main-stat-number {
-    font-size: 4rem;
+    font-size: clamp(3rem, 6vw, 4rem);
   }
   
   .main-stat-text {
@@ -294,6 +295,14 @@
 @media (max-width: 480px) {
   .problem {
     padding: 60px 16px;
+  }
+  
+  .main-stat-number {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+  }
+  
+  .stat-unit {
+    font-size: 0.35em;
   }
   
   .problem .section-header h2 {
