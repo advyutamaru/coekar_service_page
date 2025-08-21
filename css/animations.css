@@ -213,34 +213,13 @@
   }
 }
 
-/* 明るいパルス */
-@keyframes brightPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.5;
-  }
-}
 
-/* 軽やかなフロート */
-@keyframes floatLight {
+/* 控えめなフロート */
+@keyframes subtleFloat {
   0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-15px) scale(1.02);
-  }
-}
-
-/* 数値のきらめき */
-@keyframes shimmerValue {
-  0%, 100% {
-    filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.2));
-  }
-  50% {
-    filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.4));
+    transform: translateY(-3px);
   }
 }
