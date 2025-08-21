@@ -1,0 +1,390 @@
+/* 立体的なカルテカード */
+.medical-record-animation {
+    margin-top: 60px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.record-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.02),
+        0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    padding: 32px;
+    max-width: 540px;
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* ホバー時の3D効果 */
+.record-card:hover {
+    transform: 
+        rotateX(-5deg) 
+        rotateY(3deg) 
+        translateZ(15px);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.04),
+        0 12px 24px rgba(0, 0, 0, 0.06),
+        0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* 微細な光沢効果 */
+.record-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.02) 100%
+    );
+    pointer-events: none;
+}
+
+/* ヘッダー */
+.record-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+.record-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.record-date {
+    font-size: 13px;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+/* コンテンツ */
+.record-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.record-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* セクションホバー効果 */
+.record-section:hover {
+    background: #fafbfc;
+    transform: translateX(3px);
+}
+
+/* SOAP形式ラベル */
+.section-label {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    border-radius: 8px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+/* 各ラベルの統一デザイン */
+.section-label {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #3b82f6;
+    border: 1px solid #dbeafe;
+    box-shadow: 0 1px 3px rgba(59, 130, 246, 0.08);
+}
+
+.record-section:hover .section-label {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+/* ホバー時のラベル効果 */
+.record-section:hover .section-label {
+    transform: scale(1.05);
+}
+
+/* テキスト */
+.typing-text {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #334155;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.typing-text::after {
+    content: attr(data-text);
+    display: block;
+}
+
+
+/* タブレット対応 (768px - 1024px) */
+@media (max-width: 1024px) {
+    .medical-record-animation {
+        margin-top: 50px;
+        padding: 0 20px;
+    }
+    
+    .record-card {
+        padding: 28px 24px;
+        max-width: 600px;
+    }
+}
+
+/* スマートフォン対応 (768px以下) */
+@media (max-width: 768px) {
+    .medical-record-animation {
+        margin-top: 40px;
+        padding: 0 16px;
+        perspective: none;
+    }
+    
+    .record-card {
+        padding: 20px 16px;
+        max-width: calc(100% - 32px);
+        margin: 0 auto;
+        border-radius: 12px;
+        transform: none !important;
+        box-shadow: 
+            0 1px 2px rgba(0, 0, 0, 0.02),
+            0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    
+    .record-card:hover {
+        transform: none !important;
+        box-shadow: 
+            0 1px 2px rgba(0, 0, 0, 0.02),
+            0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    
+    .record-header {
+        padding-bottom: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .record-title {
+        font-size: 15px;
+        font-weight: 600;
+    }
+    
+    .record-date {
+        font-size: 11px;
+    }
+    
+    .record-content {
+        gap: 16px;
+    }
+    
+    .record-section {
+        padding: 8px;
+        gap: 12px;
+        border-radius: 8px;
+    }
+    
+    .record-section:hover {
+        transform: none;
+        background: #f8f9fa;
+    }
+    
+    .section-label {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 6px;
+    }
+    
+    .typing-text {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+    
+    .typing-text::after {
+        font-size: 12px;
+    }
+}
+
+/* 小型スマートフォン対応 (480px以下) */
+@media (max-width: 480px) {
+    .medical-record-animation {
+        margin-top: 30px;
+        padding: 0 12px;
+    }
+    
+    .record-card {
+        padding: 16px 14px;
+        max-width: calc(100% - 24px);
+        border-radius: 10px;
+    }
+    
+    .record-header {
+        padding-bottom: 14px;
+        margin-bottom: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .record-title {
+        font-size: 14px;
+    }
+    
+    .record-date {
+        font-size: 10px;
+        color: #94a3b8;
+    }
+    
+    .record-content {
+        gap: 12px;
+    }
+    
+    .record-section {
+        padding: 6px;
+        gap: 10px;
+        border-radius: 6px;
+        background: transparent;
+    }
+    
+    .section-label {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+        min-width: 24px;
+        background: #f0f9ff;
+        border: 1px solid #e0f2fe;
+        color: #3b82f6;
+    }
+    
+    .typing-text {
+        font-size: 11px;
+        line-height: 1.5;
+        color: #475569;
+    }
+    
+    .typing-text::after {
+        font-size: 11px;
+    }
+}
+
+/* 極小画面対応 (360px以下) */
+@media (max-width: 360px) {
+    .medical-record-animation {
+        margin-top: 24px;
+        padding: 0 8px;
+    }
+    
+    .record-card {
+        padding: 14px 12px;
+        max-width: calc(100% - 16px);
+    }
+    
+    .record-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    
+    .section-label {
+        width: auto;
+        padding: 2px 8px;
+        border-radius: 4px;
+    }
+}
+
+/* タッチデバイス用 */
+@media (hover: none) and (pointer: coarse) {
+    .record-card {
+        transform: none !important;
+    }
+    
+    .record-section {
+        padding: 10px;
+    }
+    
+    .record-section:active {
+        background: #f8f9fa;
+    }
+    
+    .section-label {
+        transform: none !important;
+    }
+    
+    /* タップ領域を広げる */
+    .record-section {
+        -webkit-tap-highlight-color: rgba(59, 130, 246, 0.1);
+        touch-action: manipulation;
+    }
+}
+
+/* ダークモード */
+@media (prefers-color-scheme: dark) {
+    .record-card {
+        background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 
+            0 1px 2px rgba(0, 0, 0, 0.2),
+            0 4px 8px rgba(0, 0, 0, 0.3),
+            0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+    
+    .record-card:hover {
+        box-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.3),
+            0 8px 16px rgba(0, 0, 0, 0.4),
+            0 24px 48px rgba(0, 0, 0, 0.5);
+    }
+    
+    .record-header {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .record-title {
+        color: #f1f5f9;
+    }
+    
+    .record-date {
+        color: #94a3b8;
+        background: #334155;
+    }
+    
+    .record-section:hover {
+        background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    }
+    
+    .typing-text {
+        color: #cbd5e1;
+    }
+}
