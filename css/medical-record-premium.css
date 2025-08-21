@@ -1,616 +1,627 @@
-/* プレミアムカルテカード */
+/* ========================================
+   医療記録カード - プレミアムデザイン
+   ======================================== */
+
+/* ----------------------------------------
+   カスタムプロパティ（CSS変数）
+   ---------------------------------------- */
+:root {
+  /* カラーパレット */
+  --card-primary: #3b82f6;
+  --card-primary-dark: #2563eb;
+  --card-primary-darker: #1e40af;
+  --card-primary-light: #60a5fa;
+  --card-primary-lighter: #93bbfc;
+  
+  /* 背景グラデーション */
+  --card-bg-gradient: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #f8fbff 20%,
+    #f0f7ff 40%,
+    #e8f3ff 60%,
+    #ffffff 100%
+  );
+  
+  --card-bg-hover: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #fafcff 20%,
+    #f3f8ff 40%,
+    #ecf5ff 60%,
+    #ffffff 100%
+  );
+  
+  /* テキストカラー */
+  --card-text: #475569;
+  --card-text-light: #94a3b8;
+  
+  /* スペーシング */
+  --card-padding: 32px;
+  --card-radius: 24px;
+  --section-gap: 20px;
+  
+  /* トランジション */
+  --card-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  --card-transition-fast: all 0.3s ease;
+  
+  /* シャドウ */
+  --card-shadow: 
+    0 0 0 1px rgba(59, 130, 246, 0.08),
+    0 1px 2px rgba(59, 130, 246, 0.04),
+    0 4px 8px rgba(30, 58, 138, 0.06),
+    0 12px 24px rgba(30, 58, 138, 0.08),
+    0 24px 48px rgba(30, 58, 138, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    
+  --card-shadow-hover: 
+    0 0 0 1px rgba(59, 130, 246, 0.12),
+    0 2px 4px rgba(59, 130, 246, 0.06),
+    0 8px 16px rgba(30, 58, 138, 0.08),
+    0 20px 40px rgba(30, 58, 138, 0.12),
+    0 40px 80px rgba(30, 58, 138, 0.16);
+}
+
+/* ----------------------------------------
+   メインコンテナ
+   ---------------------------------------- */
 .medical-record-animation {
-    margin-top: 50px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: center;
-    perspective: 1200px;
-    width: 100%;
-    box-sizing: border-box;
+  margin-top: 50px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  perspective: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
 }
 
+/* フローティングシャドウ */
+.medical-record-animation::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.15) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.medical-record-animation:hover::after {
+  opacity: 1;
+}
+
+/* ----------------------------------------
+   カード本体
+   ---------------------------------------- */
 .record-card {
-    background: linear-gradient(180deg, 
-        #ffffff 0%, 
-        #fafbfd 30%,
-        #f5f5f7 60%,
-        #f0f0f3 100%
-    );
-    border-radius: 24px;
-    box-shadow: 
-        0 0 0 1px rgba(168, 162, 158, 0.1),
-        0 2px 4px rgba(0, 0, 0, 0.02),
-        0 8px 16px rgba(0, 0, 0, 0.03),
-        0 16px 32px rgba(0, 0, 0, 0.04),
-        0 24px 48px rgba(0, 0, 0, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(168, 162, 158, 0.15);
-    padding: 32px;
-    max-width: 480px;
-    width: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    will-change: transform;
-    backdrop-filter: blur(10px);
-    overflow: hidden;
+  /* レイアウト */
+  max-width: 480px;
+  width: 100%;
+  padding: var(--card-padding);
+  
+  /* ビジュアル */
+  background: var(--card-bg-gradient);
+  border-radius: var(--card-radius);
+  border: 1px solid rgba(59, 130, 246, 0.12);
+  box-shadow: var(--card-shadow);
+  
+  /* 3D効果 */
+  position: relative;
+  transform-style: preserve-3d;
+  transition: var(--card-transition);
+  will-change: transform;
+  
+  /* その他 */
+  backdrop-filter: blur(20px) saturate(1.8);
+  overflow: hidden;
 }
 
-/* プレミアムグラデーション背景 */
+/* 背景装飾レイヤー */
 .record-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(
-            circle at 20% 80%,
-            rgba(168, 162, 158, 0.04) 0%,
-            transparent 50%
-        ),
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(212, 212, 216, 0.03) 0%,
-            transparent 50%
-        ),
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(255, 255, 255, 0.9) 0%,
-            transparent 100%
-        );
-    pointer-events: none;
-    z-index: 0;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(59, 130, 246, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(37, 99, 235, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.95) 0%,
+      transparent 100%
+    );
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* 光沢効果 */
+/* 光沢効果レイヤー */
 .record-card::after {
-    content: '';
-    position: absolute;
-    top: -100%;
-    left: -100%;
-    right: -100%;
-    bottom: -100%;
-    background: linear-gradient(
-        45deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.1) 50%,
-        transparent 70%
-    );
-    transform: rotate(45deg) translateY(100%);
-    transition: transform 0.6s ease;
-    pointer-events: none;
-    z-index: 1;
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(147, 197, 253, 0.15) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg) translateY(100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ホバー状態 */
+.record-card:hover {
+  transform: 
+    rotateX(-6deg) 
+    rotateY(4deg) 
+    translateZ(20px)
+    scale(1.02);
+  box-shadow: var(--card-shadow-hover);
+  background: var(--card-bg-hover);
 }
 
 .record-card:hover::after {
-    transform: rotate(45deg) translateY(-100%);
+  transform: rotate(45deg) translateY(-100%);
 }
 
-/* ホバー時の3D効果 */
-.record-card:hover {
-    transform: 
-        rotateX(-6deg) 
-        rotateY(4deg) 
-        translateZ(20px)
-        scale(1.01);
-    box-shadow: 
-        0 0 0 1px rgba(0, 0, 0, 0.04),
-        0 4px 8px rgba(0, 0, 0, 0.02),
-        0 16px 32px rgba(0, 0, 0, 0.04),
-        0 32px 64px rgba(0, 0, 0, 0.06),
-        0 48px 96px rgba(0, 0, 0, 0.08);
-}
-
-/* ヘッダー */
+/* ----------------------------------------
+   ヘッダーセクション
+   ---------------------------------------- */
 .record-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
 }
 
-/* ヘッダー下線 */
+/* 区切り線 */
 .record-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(168, 162, 158, 0.2) 10%,
-        rgba(168, 162, 158, 0.2) 90%,
-        transparent 100%
-    );
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.15) 10%,
+    rgba(59, 130, 246, 0.15) 90%,
+    transparent 100%
+  );
 }
 
+/* タイトル */
 .record-title {
-    font-size: 17px;
-    font-weight: 600;
-    background: linear-gradient(
-        135deg,
-        #78716c 0%,
-        #a8a29e 25%,
-        #d4d4d8 50%,
-        #a8a29e 75%,
-        #78716c 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-family: 'Noto Sans JP', sans-serif;
-    letter-spacing: 0.03em;
-    position: relative;
-    z-index: 2;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  font-size: 17px;
+  font-weight: 600;
+  background: linear-gradient(
+    135deg,
+    var(--card-primary-darker) 0%,
+    var(--card-primary-dark) 50%,
+    var(--card-primary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.03em;
+  position: relative;
+  z-index: 2;
+  animation: shimmerText 3s ease-in-out infinite;
+  background-size: 200% 200%;
 }
 
+/* 日付 */
 .record-date {
-    font-size: 12px;
-    background: linear-gradient(
-        90deg,
-        #a8a29e 0%,
-        #d4d4d8 50%,
-        #a8a29e 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    position: relative;
-    z-index: 2;
+  font-size: 12px;
+  color: var(--card-text-light);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
 }
 
-/* コンテンツ */
+/* ----------------------------------------
+   コンテンツセクション
+   ---------------------------------------- */
 .record-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-    z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  position: relative;
+  z-index: 2;
 }
 
+/* 各レコードセクション */
 .record-section {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 14px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    position: relative;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.5) 0%,
-        rgba(248, 250, 252, 0.3) 100%
-    );
-    backdrop-filter: blur(10px);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px;
+  border-radius: 12px;
+  transition: var(--card-transition-fast);
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 255, 0.5) 0%,
+    rgba(240, 247, 255, 0.3) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.06);
 }
 
-/* セクションホバー効果 */
 .record-section:hover {
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.9) 0%,
-        rgba(250, 250, 252, 0.6) 100%
-    );
-    transform: translateX(3px);
-    box-shadow: 
-        0 2px 8px rgba(168, 162, 158, 0.08),
-        0 4px 16px rgba(0, 0, 0, 0.02),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 255, 0.8) 0%,
+    rgba(240, 247, 255, 0.5) 100%
+  );
+  transform: translateX(4px) translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.12),
+    0 8px 24px rgba(30, 58, 138, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: rgba(59, 130, 246, 0.15);
 }
 
-/* シルバーSOAPラベル */
+/* ----------------------------------------
+   SOAPラベル
+   ---------------------------------------- */
 .section-label {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    border-radius: 10px;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    
-    /* シルバーグラデーション */
-    background: linear-gradient(
-        145deg,
-        #e8e8e8 0%,
-        #a8a29e 45%,
-        #78716c 50%,
-        #a8a29e 55%,
-        #e8e8e8 100%
-    );
-    color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-        0 2px 4px rgba(0, 0, 0, 0.1),
-        0 4px 8px rgba(0, 0, 0, 0.05);
+  /* サイズとレイアウト */
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  /* ビジュアル */
+  background: linear-gradient(
+    145deg,
+    var(--card-primary) 0%,
+    var(--card-primary-dark) 50%,
+    var(--card-primary-darker) 100%
+  );
+  border-radius: 10px;
+  color: white;
+  
+  /* タイポグラフィ */
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 0 1px 2px rgba(30, 58, 138, 0.3);
+  
+  /* エフェクト */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(30, 58, 138, 0.3),
+    0 2px 6px rgba(59, 130, 246, 0.25),
+    0 4px 12px rgba(30, 58, 138, 0.15);
+  
+  position: relative;
+  overflow: hidden;
+  transition: var(--card-transition-fast);
 }
 
-/* ラベルの光沢効果 */
+/* ラベル光沢効果 */
 .section-label::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.3) 0%,
-        transparent 100%
-    );
-    border-radius: 10px 10px 0 0;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 100%
+  );
+  border-radius: 10px 10px 0 0;
+  pointer-events: none;
 }
 
-/* ラベルのメタリック反射 */
+/* ラベル反射効果 */
 .section-label::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent 40%,
-        rgba(255, 255, 255, 0.4) 50%,
-        transparent 60%
-    );
-    transform: rotate(45deg);
-    transition: transform 0.5s ease;
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 60%
+  );
+  transform: rotate(45deg);
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+/* ラベルホバー効果 */
+.record-section:hover .section-label {
+  transform: scale(1.1) rotate(-3deg);
+  background: linear-gradient(
+    145deg,
+    var(--card-primary-light) 0%,
+    var(--card-primary) 50%,
+    var(--card-primary-dark) 100%
+  );
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(30, 58, 138, 0.4),
+    0 4px 8px rgba(59, 130, 246, 0.35),
+    0 8px 16px rgba(30, 58, 138, 0.2);
 }
 
 .record-section:hover .section-label::after {
-    transform: rotate(45deg) translate(50%, 50%);
+  transform: rotate(45deg) translate(50%, 50%);
 }
 
-.record-section:hover .section-label {
-    transform: scale(1.08) rotate(-3deg);
-    background: linear-gradient(
-        145deg,
-        #f5f5f5 0%,
-        #b8b2ae 45%,
-        #88817c 50%,
-        #b8b2ae 55%,
-        #f5f5f5 100%
-    );
-    box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.15),
-        0 4px 8px rgba(0, 0, 0, 0.15),
-        0 8px 16px rgba(0, 0, 0, 0.1);
-}
-
-/* テキスト */
+/* ----------------------------------------
+   テキストコンテンツ
+   ---------------------------------------- */
 .typing-text {
-    flex: 1;
-    font-size: 13px;
-    line-height: 1.7;
-    font-family: 'Noto Sans JP', sans-serif;
-    letter-spacing: 0.02em;
-    position: relative;
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.7;
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.02em;
+  position: relative;
 }
 
 .typing-text::after {
-    content: attr(data-text);
-    display: block;
-    background: linear-gradient(
-        90deg,
-        #57534e 0%,
-        #78716c 20%,
-        #a8a29e 50%,
-        #78716c 80%,
-        #57534e 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 400;
+  content: attr(data-text);
+  display: block;
+  color: var(--card-text);
+  font-weight: 400;
 }
 
-/* プレミアムシャドウ効果 */
-.record-card {
-    position: relative;
+/* ----------------------------------------
+   アニメーション定義
+   ---------------------------------------- */
+@keyframes shimmerText {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
-.record-card::before {
-    content: '';
-    position: absolute;
-    bottom: -30px;
-    left: 5%;
-    right: 5%;
-    height: 30px;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(0, 0, 0, 0.05) 0%,
-        transparent 70%
-    );
-    filter: blur(15px);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-}
+/* ========================================
+   レスポンシブデザイン
+   ======================================== */
 
-.record-card:hover::before {
-    opacity: 1;
-}
-
-/* レスポンシブ対応 */
+/* タブレット（横向き） */
 @media (max-width: 1024px) {
-    .medical-record-animation {
-        margin-top: 50px;
-        padding: 0 20px;
-    }
-    
-    .record-card {
-        padding: 28px 24px;
-        max-width: 500px;
-    }
+  :root {
+    --card-padding: 28px 24px;
+  }
+  
+  .medical-record-animation {
+    margin-top: 50px;
+    padding: 0 20px;
+  }
+  
+  .record-card {
+    max-width: 500px;
+  }
 }
 
+/* タブレット（縦向き） */
 @media (max-width: 768px) {
-    .medical-record-animation {
-        margin-top: 40px;
-        padding: 0 16px;
-        perspective: none;
-    }
-    
-    .record-card {
-        padding: 24px 20px;
-        max-width: calc(100% - 32px);
-        margin: 0 auto;
-        border-radius: 20px;
-        transform: none !important;
-    }
-    
-    .record-card:hover {
-        transform: none !important;
-        box-shadow: 
-            0 0 0 1px rgba(0, 0, 0, 0.03),
-            0 2px 4px rgba(0, 0, 0, 0.01),
-            0 8px 16px rgba(0, 0, 0, 0.02),
-            0 16px 32px rgba(0, 0, 0, 0.03);
-    }
-    
-    .record-header {
-        padding-bottom: 20px;
-        margin-bottom: 24px;
-    }
-    
-    .record-title {
-        font-size: 17px;
-    }
-    
-    .record-date {
-        font-size: 12px;
-    }
-    
-    .record-content {
-        gap: 20px;
-    }
-    
-    .record-section {
-        padding: 12px;
-        gap: 16px;
-        border-radius: 12px;
-    }
-    
-    .record-section:hover {
-        transform: translateX(2px);
-    }
-    
-    .section-label {
-        width: 32px;
-        height: 32px;
-        font-size: 13px;
-        border-radius: 8px;
-    }
-    
-    .typing-text {
-        font-size: 13px;
-        line-height: 1.7;
-    }
+  :root {
+    --card-padding: 24px 20px;
+    --card-radius: 20px;
+    --section-gap: 20px;
+  }
+  
+  .medical-record-animation {
+    margin-top: 40px;
+    padding: 0 16px;
+    perspective: none;
+  }
+  
+  .record-card {
+    max-width: calc(100% - 32px);
+    margin: 0 auto;
+    transform: none !important;
+  }
+  
+  .record-card:hover {
+    transform: none !important;
+    box-shadow: 
+      0 0 0 1px rgba(0, 0, 0, 0.03),
+      0 2px 4px rgba(0, 0, 0, 0.01),
+      0 8px 16px rgba(0, 0, 0, 0.02),
+      0 16px 32px rgba(0, 0, 0, 0.03);
+  }
+  
+  .record-header {
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .record-section {
+    padding: 12px;
+    gap: 16px;
+    border-radius: 12px;
+  }
+  
+  .record-section:hover {
+    transform: translateX(2px);
+  }
+  
+  .section-label {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  
+  .typing-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
 }
 
+/* モバイル（大） */
 @media (max-width: 480px) {
-    .medical-record-animation {
-        margin-top: 30px;
-        padding: 0 12px;
-    }
-    
-    .record-card {
-        padding: 20px 16px;
-        max-width: calc(100% - 24px);
-        border-radius: 16px;
-    }
-    
-    .record-header {
-        padding-bottom: 16px;
-        margin-bottom: 20px;
-    }
-    
-    .record-title {
-        font-size: 16px;
-    }
-    
-    .record-date {
-        font-size: 11px;
-    }
-    
-    .record-content {
-        gap: 16px;
-    }
-    
-    .record-section {
-        padding: 10px;
-        gap: 14px;
-        border-radius: 10px;
-    }
-    
-    .section-label {
-        width: 28px;
-        height: 28px;
-        font-size: 12px;
-        font-weight: 600;
-        border-radius: 6px;
-    }
-    
-    .typing-text {
-        font-size: 12px;
-        line-height: 1.6;
-    }
+  :root {
+    --card-padding: 20px 16px;
+    --card-radius: 16px;
+    --section-gap: 16px;
+  }
+  
+  .medical-record-animation {
+    margin-top: 30px;
+    padding: 0 12px;
+  }
+  
+  .record-card {
+    max-width: calc(100% - 24px);
+  }
+  
+  .record-header {
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .record-title {
+    font-size: 16px;
+  }
+  
+  .record-date {
+    font-size: 11px;
+  }
+  
+  .record-section {
+    padding: 10px;
+    gap: 14px;
+    border-radius: 10px;
+  }
+  
+  .section-label {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+  
+  .typing-text {
+    font-size: 12px;
+    line-height: 1.6;
+  }
 }
 
+/* モバイル（小） */
 @media (max-width: 360px) {
-    .medical-record-animation {
-        margin-top: 24px;
-        padding: 0 8px;
-    }
-    
-    .record-card {
-        padding: 16px 14px;
-        max-width: calc(100% - 16px);
-    }
-    
-    .record-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-        padding-bottom: 14px;
-        margin-bottom: 16px;
-    }
-    
-    .record-title {
-        font-size: 15px;
-    }
-    
-    .record-section {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 8px;
-    }
-    
-    .section-label {
-        width: auto;
-        padding: 4px 10px;
-        border-radius: 4px;
-    }
+  :root {
+    --card-padding: 16px 14px;
+    --section-gap: 16px;
+  }
+  
+  .medical-record-animation {
+    margin-top: 24px;
+    padding: 0 8px;
+  }
+  
+  .record-card {
+    max-width: calc(100% - 16px);
+  }
+  
+  .record-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .record-title {
+    font-size: 15px;
+  }
+  
+  .record-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .section-label {
+    width: auto;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
 }
 
-/* タッチデバイス用 */
+/* ========================================
+   アクセシビリティとパフォーマンス
+   ======================================== */
+
+/* タッチデバイス最適化 */
 @media (hover: none) and (pointer: coarse) {
-    .record-card {
-        transform: none !important;
-    }
-    
-    .record-card::after {
-        display: none;
-    }
-    
-    .section-label::after {
-        display: none;
-    }
-    
-    .record-section {
-        padding: 14px;
-    }
-    
-    .record-section:active {
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.9) 0%,
-            rgba(248, 250, 252, 0.6) 100%
-        );
-    }
-    
-    .record-section {
-        -webkit-tap-highlight-color: rgba(168, 162, 158, 0.1);
-        touch-action: manipulation;
-    }
+  .record-card {
+    transform: none !important;
+  }
+  
+  .record-card::after,
+  .section-label::after {
+    display: none;
+  }
+  
+  .record-section {
+    padding: 14px;
+    -webkit-tap-highlight-color: rgba(59, 130, 246, 0.1);
+    touch-action: manipulation;
+  }
+  
+  .record-section:active {
+    background: linear-gradient(
+      135deg,
+      rgba(248, 250, 255, 0.9) 0%,
+      rgba(240, 247, 255, 0.6) 100%
+    );
+  }
 }
 
-/* ダークモード対応 */
-@media (prefers-color-scheme: dark) {
-    .record-card {
-        background: linear-gradient(180deg, 
-            #1e293b 0%, 
-            #1a202c 50%,
-            #0f172a 100%
-        );
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 
-            0 0 0 1px rgba(255, 255, 255, 0.05),
-            0 2px 4px rgba(0, 0, 0, 0.2),
-            0 8px 16px rgba(0, 0, 0, 0.3),
-            0 16px 32px rgba(0, 0, 0, 0.4);
-    }
-    
-    .record-header::after {
-        background: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(148, 163, 184, 0.2) 10%,
-            rgba(148, 163, 184, 0.2) 90%,
-            transparent 100%
-        );
-    }
-    
-    .record-title {
-        color: #f1f5f9;
-    }
-    
-    .record-date {
-        color: #94a3b8;
-    }
-    
-    .record-section {
-        background: linear-gradient(
-            135deg,
-            rgba(30, 41, 59, 0.5) 0%,
-            rgba(15, 23, 42, 0.3) 100%
-        );
-    }
-    
-    .record-section:hover {
-        background: linear-gradient(
-            135deg,
-            rgba(30, 41, 59, 0.8) 0%,
-            rgba(15, 23, 42, 0.5) 100%
-        );
-    }
-    
-    .section-label {
-        background: linear-gradient(
-            145deg,
-            #4a5568 0%,
-            #2d3748 45%,
-            #1a202c 50%,
-            #2d3748 55%,
-            #4a5568 100%
-        );
-    }
-    
-    .typing-text {
-        color: #cbd5e1;
-    }
+/* アニメーション無効化（パフォーマンス設定） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .record-card::after,
+  .section-label::after {
+    display: none;
+  }
 }
