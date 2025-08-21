@@ -14,7 +14,8 @@
     }
     
     .hero-visual {
-        height: 400px;
+        height: 450px;
+        perspective: 800px;
     }
     
     
@@ -55,15 +56,28 @@
     }
     
     .hero-visual {
-        height: 300px;
+        height: 350px;
+        perspective: 600px;
+    }
+    
+    .mac-wrapper {
+        left: 45%;
+        transform: translate(-50%, -50%) rotateY(0deg) scale(0.9);
+        animation: none;
+    }
+    
+    .iphone-wrapper {
+        left: 70%;
+        transform: translate(-50%, -50%) rotateY(0deg) scale(0.85);
+        animation: none;
     }
     
     .mac-image {
-        height: 280px;
+        height: 300px;
     }
     
     .iphone-image {
-        height: 240px;
+        height: 260px;
     }
     
     
@@ -94,7 +108,26 @@
     }
     
     .hero-visual {
-        display: none;
+        height: 250px;
+        margin-top: 2rem;
+    }
+    
+    .mac-wrapper {
+        left: 35%;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+    
+    .iphone-wrapper {
+        left: 65%;
+        transform: translate(-50%, -50%) scale(0.65);
+    }
+    
+    .mac-image {
+        height: 240px;
+    }
+    
+    .iphone-image {
+        height: 200px;
     }
     
     
