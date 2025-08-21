@@ -73,15 +73,24 @@
   position: relative;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 画像配置用ステージ */
+.devices-stage {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  margin: 0 auto;
 }
 
 .devices-container {
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .device-wrapper {
@@ -89,18 +98,17 @@
 }
 
 .mac-wrapper {
-  left: 45%;
+  left: 15%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   z-index: 1;
   animation: floatMac 4s ease-in-out infinite;
 }
 
 .iphone-wrapper {
-  left: 60%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  right: 20%;
+  bottom: 10%;
+  z-index: 2;
   animation: floatPhone 4s ease-in-out infinite;
   animation-delay: -2s;
 }
@@ -113,43 +121,43 @@
 }
 
 .mac-image {
-  height: 360px;
-  width: auto;
+  width: 450px;
+  height: auto;
   object-fit: contain;
   display: block;
 }
 
 .iphone-image {
-  height: 300px;
-  width: auto;
+  width: 150px;  /* Macの1/3サイズ */
+  height: auto;
   object-fit: contain;
   display: block;
 }
 
 .hero-visual:hover .mac-wrapper {
-  transform: translate(-52%, -50%) scale(1.02);
+  transform: translateY(-50%) translateX(-10px) scale(1.02);
 }
 
 .hero-visual:hover .iphone-wrapper {
-  transform: translate(-48%, -50%) scale(1.02);
+  transform: translateX(10px) scale(1.02);
 }
 
 /* 浮遊アニメーション */
 @keyframes floatMac {
   0%, 100% {
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
   }
   50% {
-    transform: translate(-50%, calc(-50% - 15px));
+    transform: translateY(calc(-50% - 15px));
   }
 }
 
 @keyframes floatPhone {
   0%, 100% {
-    transform: translate(-50%, -50%);
+    transform: translateY(0);
   }
   50% {
-    transform: translate(-50%, calc(-50% - 20px));
+    transform: translateY(-20px);
   }
 }
 

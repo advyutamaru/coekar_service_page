@@ -28,12 +28,18 @@
         font-size: 1.5rem;
     }
     
+    .devices-stage {
+        max-width: 900px;
+    }
+    
     .mac-image {
-        height: 420px;
+        width: 480px;
+        height: auto;
     }
     
     .iphone-image {
-        height: 340px;
+        width: 160px;  /* Macの1/3 */
+        height: auto;
     }
 }
 
@@ -48,11 +54,13 @@
     }
     
     .mac-image {
-        height: 380px;
+        width: 420px;
+        height: auto;
     }
     
     .iphone-image {
-        height: 320px;
+        width: 140px;  /* Macの1/3 */
+        height: auto;
     }
 }
 
@@ -92,42 +100,48 @@
         margin-top: 2rem;
     }
     
-    /* タブレットでは画像を少し小さく、中央寄せ */
+    /* タブレットではステージ内で配置 */
+    .devices-stage {
+        max-width: 600px;
+    }
+    
     .mac-wrapper {
-        left: 40%;
-        transform: translate(-50%, -50%) scale(0.9);
+        left: 20%;
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .iphone-wrapper {
-        left: 60%;
-        top: 55%;
-        transform: translate(-50%, -50%) scale(0.85);
+        right: 25%;
+        bottom: 15%;
     }
     
     .mac-image {
-        height: 340px;
+        width: 360px;
+        height: auto;
     }
     
     .iphone-image {
-        height: 280px;
+        width: 120px;  /* Macの1/3 */
+        height: auto;
     }
     
     /* タブレットではアニメーションを控えめに */
     @keyframes floatMac {
         0%, 100% {
-            transform: translate(-50%, -50%) scale(0.9);
+            transform: translateY(-50%);
         }
         50% {
-            transform: translate(-50%, calc(-50% - 10px)) scale(0.9);
+            transform: translateY(calc(-50% - 10px));
         }
     }
     
     @keyframes floatPhone {
         0%, 100% {
-            transform: translate(-50%, -50%) scale(0.85);
+            transform: translateY(0);
         }
         50% {
-            transform: translate(-50%, calc(-50% - 12px)) scale(0.85);
+            transform: translateY(-12px);
         }
     }
 }
@@ -183,17 +197,20 @@
     }
     
     /* モバイルタブレットでは配置を調整 */
+    .devices-stage {
+        max-width: 500px;
+    }
+    
     .mac-wrapper {
-        left: 40%;
-        top: 50%;
-        transform: translate(-50%, -50%) scale(0.8);
+        left: 15%;
+        top: 45%;
+        transform: translateY(-50%);
         animation: floatMacMobile 5s ease-in-out infinite;
     }
     
     .iphone-wrapper {
-        left: 58%;
-        top: 52%;
-        transform: translate(-50%, -50%) scale(0.75);
+        right: 20%;
+        bottom: 20%;
         animation: floatPhoneMobile 5s ease-in-out infinite;
         animation-delay: -2.5s;
     }
@@ -201,37 +218,39 @@
     /* モバイル用アニメーション */
     @keyframes floatMacMobile {
         0%, 100% {
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translateY(-50%);
         }
         50% {
-            transform: translate(-50%, calc(-50% - 8px)) scale(0.8);
+            transform: translateY(calc(-50% - 8px));
         }
     }
     
     @keyframes floatPhoneMobile {
         0%, 100% {
-            transform: translate(-50%, -50%) scale(0.75);
+            transform: translateY(0);
         }
         50% {
-            transform: translate(-50%, calc(-50% - 10px)) scale(0.75);
+            transform: translateY(-10px);
         }
     }
     
     .mac-image {
-        height: 300px;
+        width: 300px;
+        height: auto;
     }
     
     .iphone-image {
-        height: 250px;
+        width: 100px;  /* Macの1/3 */
+        height: auto;
     }
     
     /* ホバーエフェクトを無効化（タッチデバイス） */
     .hero-visual:hover .mac-wrapper {
-        transform: translate(-50%, -50%) scale(0.8);
+        transform: translateY(-50%);
     }
     
     .hero-visual:hover .iphone-wrapper {
-        transform: translate(-50%, -50%) scale(0.75);
+        transform: none;
     }
 }
 
@@ -291,27 +310,32 @@
         margin-right: auto;
     }
     
-    /* モバイルでは中央寄せでバランス良く配置 */
+    /* モバイルではステージ内で配置 */
+    .devices-stage {
+        max-width: 350px;
+    }
+    
     .mac-wrapper {
-        left: 42% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) scale(0.7) !important;
+        left: 10% !important;
+        top: 40% !important;
+        transform: translateY(-50%) !important;
         animation: none !important;
     }
     
     .iphone-wrapper {
-        left: 58% !important;
-        top: 52% !important;
-        transform: translate(-50%, -50%) scale(0.65) !important;
+        right: 15% !important;
+        bottom: 25% !important;
         animation: none !important;
     }
     
     .mac-image {
-        height: 260px;
+        width: 240px;
+        height: auto;
     }
     
     .iphone-image {
-        height: 220px;
+        width: 80px;  /* Macの1/3 */
+        height: auto;
     }
     
     /* シャドウを軽く */
@@ -361,25 +385,30 @@
         margin-top: 0;
     }
     
-    /* 超小型画面では中央に寄せて配置 */
+    /* 超小型画面ではステージを小さく */
+    .devices-stage {
+        max-width: 320px;
+    }
+    
     .mac-wrapper {
-        left: 40% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) scale(0.6) !important;
+        left: 8% !important;
+        top: 35% !important;
+        transform: translateY(-50%) !important;
     }
     
     .iphone-wrapper {
-        left: 60% !important;
-        top: 52% !important;
-        transform: translate(-50%, -50%) scale(0.55) !important;
+        right: 12% !important;
+        bottom: 28% !important;
     }
     
     .mac-image {
-        height: 240px;
+        width: 210px;
+        height: auto;
     }
     
     .iphone-image {
-        height: 200px;
+        width: 70px;  /* Macの1/3 */
+        height: auto;
     }
 }
 
@@ -394,14 +423,19 @@
         height: 280px;
     }
     
+    .devices-stage {
+        max-width: 450px;
+    }
+    
     .mac-wrapper {
-        left: 35%;
-        transform: translate(-50%, -50%) scale(0.6);
+        left: 20%;
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .iphone-wrapper {
-        left: 65%;
-        transform: translate(-50%, -50%) scale(0.55);
+        right: 15%;
+        bottom: 20%;
     }
 }
 
