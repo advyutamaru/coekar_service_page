@@ -421,6 +421,24 @@
   }
 }
 
+/* 浮遊アニメーション */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-10px) translateZ(10px);
+  }
+}
+
+/* スクロール中はアニメーションを一時停止 */
+body.is-scrolling .record-card,
+body.is-scrolling .record-section,
+body.is-scrolling .section-label {
+  transition: none !important;
+  animation-play-state: paused !important;
+}
+
 /* ========================================
    レスポンシブデザイン
    ======================================== */
