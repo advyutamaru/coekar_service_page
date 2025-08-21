@@ -3,7 +3,29 @@
   background: #ffffff;
   position: relative;
   overflow: hidden;
-  padding: 5rem 3rem;
+  padding: 6rem 3rem;
+}
+
+/* 微細な背景グラデーション */
+.comparison::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(59, 130, 246, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(59, 130, 246, 0.02) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
 }
 
 .compare-wrapper {
@@ -31,15 +53,15 @@
   transform: translateY(-50%);
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 10px 30px rgba(30, 58, 138, 0.3),
-    0 0 0 4px rgba(255, 255, 255, 0.9),
-    0 0 0 8px rgba(30, 58, 138, 0.1);
+    0 8px 24px rgba(59, 130, 246, 0.25),
+    0 0 0 3px rgba(255, 255, 255, 1),
+    0 0 0 6px rgba(59, 130, 246, 0.1);
   z-index: 10;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -88,9 +110,9 @@
 /* shimmerSlowアニメーションはanimations.cssに移動済み */
 
 .after-card {
-  background: white;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
   position: relative;
 }
 
@@ -98,9 +120,10 @@
 /* gradientSlideアニメーションはanimations.cssに移動済み */
 
 .after-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  background: #f0f9ff;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.12);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  border-color: rgba(59, 130, 246, 0.25);
 }
 
 .before-card:hover {
@@ -147,8 +170,8 @@
 }
 
 .after-badge {
-  background: #dbeafe;
-  color: #1e3a8a;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
   padding: 0.4rem 0.8rem;
   border-radius: 8px;
   font-size: 0.75rem;
@@ -156,6 +179,7 @@
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
 }
 
 /* カードヘッダー */
@@ -182,8 +206,9 @@
 }
 
 .after-card .compare-icon-wrapper {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--primary);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.15);
 }
 
 .compare-card h3 {
@@ -198,10 +223,8 @@
 }
 
 .after-card h3 {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1e293b;
+  font-weight: 700;
 }
 
 /* リストスタイル */
@@ -261,21 +284,23 @@
 }
 
 .after-card .compare-list li {
-  color: var(--text);
+  color: #334155;
   font-weight: 500;
 }
 
 .after-card .compare-list li::before {
   content: "✓";
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-weight: 700;
 }
 
 .after-card .compare-list li:hover::before {
   transform: scale(1.2);
-  background: rgba(16, 185, 129, 0.15);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
   animation: checkBounce 0.6s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 /* checkBounceアニメーションはanimations.cssに移動済み */
