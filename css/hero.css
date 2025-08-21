@@ -27,7 +27,7 @@
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -46,7 +46,7 @@
 }
 
 .hero .subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
   color: var(--text-light);
   line-height: 1.8;
   margin-bottom: 3rem;
@@ -97,9 +97,9 @@
 }
 
 .iphone-wrapper {
-  right: 10%;
-  top: 55%;
-  transform: translateY(-50%);
+  left: 60%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10;
   animation: floatPhone 4s ease-in-out infinite;
   animation-delay: -2s;
@@ -131,7 +131,7 @@
 }
 
 .hero-visual:hover .iphone-wrapper {
-  transform: translateY(-50%) scale(1.02);
+  transform: translate(-48%, -50%) scale(1.02);
 }
 
 /* 浮遊アニメーション */
@@ -146,10 +146,10 @@
 
 @keyframes floatPhone {
   0%, 100% {
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
   }
   50% {
-    transform: translateY(calc(-50% - 20px));
+    transform: translate(-50%, calc(-50% - 20px));
   }
 }
 

@@ -1,7 +1,67 @@
 /* ヒーローセクション レスポンシブデザイン */
 
-/* タブレット */
+/* =================================================================
+   デスクトップファースト アプローチ
+   ブレイクポイント:
+   - 1440px+ : ラージデスクトップ
+   - 1024-1439px : デスクトップ
+   - 768-1023px : タブレット
+   - 480-767px : モバイル
+   - 0-479px : スモールモバイル
+   ================================================================= */
+
+/* ラージデスクトップ (1440px以上) */
+@media (min-width: 1440px) {
+    .hero {
+        padding: 12rem 4rem 8rem;
+    }
+    
+    .hero-container {
+        max-width: 1400px;
+    }
+    
+    .hero h1 {
+        font-size: 4rem;
+    }
+    
+    .hero .subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .mac-image {
+        height: 420px;
+    }
+    
+    .iphone-image {
+        height: 340px;
+    }
+}
+
+/* デスクトップからタブレット (1024px-1439px) */
+@media (max-width: 1439px) and (min-width: 1024px) {
+    .hero {
+        padding: 10rem 3rem 6rem;
+    }
+    
+    .hero-visual {
+        height: 500px;
+    }
+    
+    .mac-image {
+        height: 380px;
+    }
+    
+    .iphone-image {
+        height: 320px;
+    }
+}
+
+/* タブレット横向き (1024px) */
 @media (max-width: 1024px) {
+    .hero {
+        padding: 9rem 2.5rem 5rem;
+    }
+    
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -9,67 +69,134 @@
     }
     
     .hero-content {
-        max-width: 600px;
+        max-width: 680px;
         margin: 0 auto;
+    }
+    
+    .hero h1 {
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+    }
+    
+    .hero .subtitle {
+        font-size: 1.25rem;
+        line-height: 1.7;
+    }
+    
+    .hero-actions {
+        justify-content: center;
+        gap: 1rem;
     }
     
     .hero-visual {
         height: 450px;
-        perspective: 800px;
+        margin-top: 2rem;
     }
     
+    /* タブレットでは画像を少し小さく、中央寄せ */
+    .mac-wrapper {
+        left: 40%;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
     
-    #hero-canvas-container {
-        opacity: 0.7;
+    .iphone-wrapper {
+        left: 60%;
+        top: 55%;
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+    
+    .mac-image {
+        height: 340px;
+    }
+    
+    .iphone-image {
+        height: 280px;
+    }
+    
+    /* タブレットではアニメーションを控えめに */
+    @keyframes floatMac {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 10px)) scale(0.9);
+        }
+    }
+    
+    @keyframes floatPhone {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(0.85);
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 12px)) scale(0.85);
+        }
     }
 }
 
-/* モバイル */
+/* タブレット縦向き (768px) */
 @media (max-width: 768px) {
     .hero {
-        padding: 8rem 1.5rem 4rem;
-        min-height: 90vh;
+        padding: 8rem 2rem 4rem;
+        min-height: auto;
     }
     
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.25rem;
         white-space: normal;
-    }
-    
-    .hero-title {
-        font-size: 2rem;
+        line-height: 1.2;
     }
     
     .hero .subtitle {
-        font-size: 1.1rem;
+        font-size: 1.125rem;
         line-height: 1.6;
+        margin-bottom: 2.5rem;
     }
     
     .hero-actions {
         flex-direction: column;
+        align-items: stretch;
         width: 100%;
-    }
-    
-    .hero-actions a {
-        width: 100%;
-        text-align: center;
+        max-width: 400px;
+        margin: 0 auto;
     }
     
     .hero-visual {
-        height: 350px;
-        perspective: 600px;
+        height: 380px;
+        margin-top: 3rem;
     }
     
+    /* モバイルタブレットでは配置を調整 */
     .mac-wrapper {
-        left: 45%;
-        transform: translate(-50%, -50%) rotateY(0deg) scale(0.9);
-        animation: none;
+        left: 40%;
+        top: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        animation: floatMacMobile 5s ease-in-out infinite;
     }
     
     .iphone-wrapper {
-        left: 70%;
-        transform: translate(-50%, -50%) rotateY(0deg) scale(0.85);
-        animation: none;
+        left: 58%;
+        top: 52%;
+        transform: translate(-50%, -50%) scale(0.75);
+        animation: floatPhoneMobile 5s ease-in-out infinite;
+        animation-delay: -2.5s;
+    }
+    
+    /* モバイル用アニメーション */
+    @keyframes floatMacMobile {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 8px)) scale(0.8);
+        }
+    }
+    
+    @keyframes floatPhoneMobile {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(0.75);
+        }
+        50% {
+            transform: translate(-50%, calc(-50% - 10px)) scale(0.75);
+        }
     }
     
     .mac-image {
@@ -77,79 +204,179 @@
     }
     
     .iphone-image {
-        height: 260px;
+        height: 250px;
     }
     
+    /* ホバーエフェクトを無効化（タッチデバイス） */
+    .hero-visual:hover .mac-wrapper {
+        transform: translate(-50%, -50%) scale(0.8);
+    }
     
-    #hero-canvas-container {
-        opacity: 0.5;
+    .hero-visual:hover .iphone-wrapper {
+        transform: translate(-50%, -50%) scale(0.75);
     }
 }
 
-/* スモールモバイル */
+/* モバイル (376px-480px) */
 @media (max-width: 480px) {
     .hero {
-        padding: 7rem 1rem 3rem;
-        min-height: 80vh;
+        padding: 7rem 1.5rem 3rem;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    .hero-container {
+        gap: 2rem;
     }
     
     .hero h1 {
-        font-size: 1.75rem;
+        font-size: 1.875rem;
         margin-bottom: 1.5rem;
-    }
-    
-    .hero-title {
-        font-size: 1.75rem;
+        letter-spacing: -0.02em;
     }
     
     .hero .subtitle {
         font-size: 1rem;
         margin-bottom: 2rem;
+        padding: 0 0.5rem;
+    }
+    
+    .hero-actions {
+        max-width: 100%;
+    }
+    
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9375rem;
     }
     
     .hero-visual {
-        height: 250px;
+        height: 320px;
         margin-top: 2rem;
+        padding: 0 1rem;
+    }
+    
+    /* モバイルでは中央寄せでバランス良く配置 */
+    .mac-wrapper {
+        left: 45% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) scale(0.65) !important;
+        animation: none !important;
+    }
+    
+    .iphone-wrapper {
+        left: 55% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) scale(0.6) !important;
+        animation: none !important;
+    }
+    
+    .mac-image {
+        height: 280px;
+    }
+    
+    .iphone-image {
+        height: 240px;
+    }
+    
+    /* シャドウを軽く */
+    .device-image {
+        filter: drop-shadow(0 10px 20px rgba(30, 58, 138, 0.15));
+    }
+}
+
+/* スモールモバイル (375px以下) */
+@media (max-width: 375px) {
+    /* !importantを使用して優先度を上げる */
+    .hero {
+        padding: 6rem 1rem 2.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    .hero .subtitle {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+    }
+    
+    .hero-visual {
+        height: 280px;
+        padding: 0 0.5rem;
+    }
+    
+    /* 超小型画面では中央に寄せて配置 */
+    .mac-wrapper {
+        left: 43% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) scale(0.55) !important;
+    }
+    
+    .iphone-wrapper {
+        left: 57% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) scale(0.5) !important;
+    }
+    
+    .mac-image {
+        height: 260px;
+    }
+    
+    .iphone-image {
+        height: 220px;
+    }
+}
+
+/* 横向きモード対応 */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        padding: 5rem 2rem 3rem;
+        min-height: auto;
+    }
+    
+    .hero-visual {
+        height: 280px;
     }
     
     .mac-wrapper {
         left: 35%;
-        transform: translate(-50%, -50%) scale(0.7);
+        transform: translate(-50%, -50%) scale(0.6);
     }
     
     .iphone-wrapper {
         left: 65%;
-        transform: translate(-50%, -50%) scale(0.65);
-    }
-    
-    .mac-image {
-        height: 240px;
-    }
-    
-    .iphone-image {
-        height: 200px;
-    }
-    
-    
-    #hero-canvas-container {
-        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.55);
     }
 }
 
-/* パフォーマンス最適化 */
+/* アクセシビリティ: アニメーション削減 */
 @media (prefers-reduced-motion: reduce) {
-    #hero-canvas-container {
+    .hero-title {
+        animation: none;
+    }
+    
+    .mac-wrapper,
+    .iphone-wrapper {
+        animation: none !important;
+    }
+    
+    .hero-cta::before {
         display: none;
     }
     
-    
-    .hero {
-        background: linear-gradient(180deg, var(--bg) 0%, var(--primary-light) 100%);
-    }
-    
-    @keyframes gradientShift {
-        0%, 100% { 
-            background-position: 0% 50%;
-        }
+    .device-image {
+        transition: none;
     }
 }
+
+/* 高解像度ディスプレイ対応 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .device-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
