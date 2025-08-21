@@ -135,14 +135,24 @@
 /* タブレット縦向き (768px) */
 @media (max-width: 768px) {
     .hero {
-        padding: 8rem 2rem 4rem;
+        padding: 6rem 2rem 3rem;
         min-height: auto;
     }
     
+    .hero-container {
+        gap: 3rem;
+    }
+    
+    .hero-content {
+        max-width: 540px;
+        margin: 0 auto;
+    }
+    
     .hero h1 {
-        font-size: 2.25rem;
+        font-size: 2.5rem;
         white-space: normal;
         line-height: 1.2;
+        margin-bottom: 1.5rem;
     }
     
     .hero .subtitle {
@@ -152,11 +162,19 @@
     }
     
     .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
         margin: 0 auto;
+        gap: 1rem;
+    }
+    
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+        flex: 1;
+        min-width: 180px;
     }
     
     .hero-visual {
@@ -220,65 +238,79 @@
 /* モバイル (376px-480px) */
 @media (max-width: 480px) {
     .hero {
-        padding: 7rem 1.5rem 3rem;
-        min-height: 100vh;
+        padding: 5rem 1.25rem 2rem;
+        min-height: calc(100vh - 60px);
         display: flex;
         align-items: center;
     }
     
     .hero-container {
-        gap: 2rem;
+        gap: 2.5rem;
+        padding: 0;
+    }
+    
+    .hero-content {
+        padding: 0 0.5rem;
     }
     
     .hero h1 {
-        font-size: 1.875rem;
-        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        margin-bottom: 1.25rem;
         letter-spacing: -0.02em;
+        line-height: 1.2;
     }
     
     .hero .subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin-bottom: 2rem;
-        padding: 0 0.5rem;
+        padding: 0;
+        line-height: 1.6;
     }
     
     .hero-actions {
         max-width: 100%;
+        gap: 0.75rem;
     }
     
     .hero-actions .btn-primary,
     .hero-actions .btn-secondary {
-        padding: 0.875rem 1.5rem;
+        padding: 1rem 1.5rem;
         font-size: 0.9375rem;
+        border-radius: 12px;
+        font-weight: 600;
     }
     
     .hero-visual {
-        height: 320px;
-        margin-top: 2rem;
-        padding: 0 1rem;
+        height: 280px;
+        margin-top: 1.5rem;
+        padding: 0;
+        width: 100%;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     /* モバイルでは中央寄せでバランス良く配置 */
     .mac-wrapper {
-        left: 45% !important;
+        left: 42% !important;
         top: 50% !important;
-        transform: translate(-50%, -50%) scale(0.65) !important;
+        transform: translate(-50%, -50%) scale(0.7) !important;
         animation: none !important;
     }
     
     .iphone-wrapper {
-        left: 55% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) scale(0.6) !important;
+        left: 58% !important;
+        top: 52% !important;
+        transform: translate(-50%, -50%) scale(0.65) !important;
         animation: none !important;
     }
     
     .mac-image {
-        height: 280px;
+        height: 260px;
     }
     
     .iphone-image {
-        height: 240px;
+        height: 220px;
     }
     
     /* シャドウを軽く */
@@ -289,44 +321,63 @@
 
 /* スモールモバイル (375px以下) */
 @media (max-width: 375px) {
-    /* !importantを使用して優先度を上げる */
     .hero {
-        padding: 6rem 1rem 2.5rem;
+        padding: 4.5rem 1rem 2rem;
+        min-height: calc(100vh - 56px);
+    }
+    
+    .hero-container {
+        gap: 2rem;
     }
     
     .hero h1 {
         font-size: 1.75rem;
+        margin-bottom: 1rem;
     }
     
     .hero .subtitle {
-        font-size: 0.9375rem;
+        font-size: 0.875rem;
         line-height: 1.5;
+        margin-bottom: 1.75rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        gap: 0.625rem;
+    }
+    
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+        width: 100%;
+        padding: 0.9375rem 1.25rem;
+        font-size: 0.875rem;
     }
     
     .hero-visual {
-        height: 280px;
-        padding: 0 0.5rem;
+        height: 250px;
+        padding: 0;
+        margin-top: 1rem;
     }
     
     /* 超小型画面では中央に寄せて配置 */
     .mac-wrapper {
-        left: 43% !important;
+        left: 40% !important;
         top: 50% !important;
-        transform: translate(-50%, -50%) scale(0.55) !important;
+        transform: translate(-50%, -50%) scale(0.6) !important;
     }
     
     .iphone-wrapper {
-        left: 57% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) scale(0.5) !important;
+        left: 60% !important;
+        top: 52% !important;
+        transform: translate(-50%, -50%) scale(0.55) !important;
     }
     
     .mac-image {
-        height: 260px;
+        height: 240px;
     }
     
     .iphone-image {
-        height: 220px;
+        height: 200px;
     }
 }
 
