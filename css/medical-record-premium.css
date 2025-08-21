@@ -1,6 +1,6 @@
 /* プレミアムカルテカード */
 .medical-record-animation {
-    margin-top: 60px;
+    margin-top: 50px;
     padding: 0 20px;
     display: flex;
     justify-content: center;
@@ -25,8 +25,8 @@
         0 24px 48px rgba(0, 0, 0, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(168, 162, 158, 0.15);
-    padding: 40px;
-    max-width: 560px;
+    padding: 32px;
+    max-width: 480px;
     width: 100%;
     position: relative;
     transform-style: preserve-3d;
@@ -108,8 +108,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 24px;
-    margin-bottom: 32px;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
     position: relative;
     z-index: 2;
 }
@@ -132,7 +132,7 @@
 }
 
 .record-title {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 600;
     background: linear-gradient(
         135deg,
@@ -153,7 +153,7 @@
 }
 
 .record-date {
-    font-size: 13px;
+    font-size: 12px;
     background: linear-gradient(
         90deg,
         #a8a29e 0%,
@@ -174,7 +174,7 @@
 .record-content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
     position: relative;
     z-index: 2;
 }
@@ -182,9 +182,9 @@
 .record-section {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
-    padding: 16px;
-    border-radius: 16px;
+    gap: 16px;
+    padding: 14px;
+    border-radius: 12px;
     transition: all 0.3s ease;
     position: relative;
     background: linear-gradient(
@@ -211,9 +211,9 @@
 
 /* シルバーSOAPラベル */
 .section-label {
-    width: 36px;
-    height: 36px;
-    font-size: 15px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -303,8 +303,8 @@
 /* テキスト */
 .typing-text {
     flex: 1;
-    font-size: 14px;
-    line-height: 1.8;
+    font-size: 13px;
+    line-height: 1.7;
     font-family: 'Noto Sans JP', sans-serif;
     letter-spacing: 0.02em;
     position: relative;
@@ -362,8 +362,8 @@
     }
     
     .record-card {
-        padding: 32px 28px;
-        max-width: 600px;
+        padding: 28px 24px;
+        max-width: 500px;
     }
 }
 
