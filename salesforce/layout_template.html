@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- ミニマルPardotフォームテンプレート（白ベース固定 / ダークモード削除） -->
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="%%description%%">
+    <meta name="color-scheme" content="light">
+    <title>%%title%%</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ##### デザインシステム ##### */
+        :root {
+            --color-primary: #1e3a8a;
+            --color-primary-light: #3b82f6;
+            --color-primary-lighter: #dbeafe;
+            --color-primary-dark: #1e40af;
+            --color-secondary: #64748b;
+            --color-error: #dc2626;
+            --color-success: #059669;
+            --color-background: #ffffff;
+            --color-surface: #f8fafc;
+            --color-border: #e2e8f0;
+            --color-text: #1e293b;
+            --color-text-secondary: #64748b;
+            --color-text-tertiary: #94a3b8;
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+
+            --font-sans: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+
+            --radius: 0.5rem;
+            --radius-lg: 1rem;
+            --transition: 0.2s ease;
+            --shadow-sm: 0 1px 3px 0 rgba(30, 58, 138, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(30, 58, 138, 0.15);
+            --shadow-lg: 0 10px 25px -3px rgba(30, 58, 138, 0.2);
+
+            color-scheme: light;
+        }
+
+        /* ##### リセット ##### */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ##### ベース ##### */
+        body {
+            font-family: var(--font-sans);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--color-text);
+            background: linear-gradient(180deg, #ffffff 0%, #f0f4f8 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ##### コンテナ ##### */
+        .form-wrapper {
+            min-height: 100vh;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 640px;
+            background: var(--color-background);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.1), 0 2px 4px -1px rgba(30, 58, 138, 0.06);
+            border: 1px solid rgba(30, 58, 138, 0.08);
+        }
+
+        /* ##### ヘッダー ##### */
+        .form-header {
+            padding: var(--spacing-2xl);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: subtle-rotate 30s linear infinite;
+        }
+
+        @keyframes subtle-rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            margin-bottom: var(--spacing-xs);
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-description {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ##### フォーム本体 ##### */
+        .form-body {
+            padding: var(--spacing-2xl);
+        }
+
+        /* フィールドグループ */
+        .field-group {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .field-group:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ラベル（上に表示） */
+        .field-label,
+        .form-field>label:not(.form-checkbox-label):not(.form-radio-label) {
+            display: block;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: 0.01em;
+        }
+
+        /* 必須マーク */
+        .required-mark {
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-left: 0.25rem;
+        }
+
+        /* 入力フィールド共通 */
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            font-family: inherit;
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            color: var(--color-text);
+            background: white;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius);
+            transition: all var(--transition);
+            appearance: none;
+            outline: none;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--color-text-tertiary);
+        }
+
+        /* フォーカス状態 */
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+            background: white;
+        }
+
+        /* ホバー状態 */
+        .form-input:hover:not(:focus):not(:disabled),
+        .form-textarea:hover:not(:focus):not(:disabled),
+        .form-select:hover:not(:focus):not(:disabled) {
+            border-color: var(--color-primary-light);
+            background: rgba(219, 234, 254, 0.2);
+        }
+
+        /* 無効状態 */
+        .form-input:disabled,
+        .form-textarea:disabled,
+        .form-select:disabled {
+            background: var(--color-surface);
+            cursor: not-allowed;
+            opacity: 0.7;
+            border-color: var(--color-border);
+        }
+
+        /* テキストエリア */
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* セレクトボックス */
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%231e3a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right var(--spacing-md) center;
+            background-size: 10px;
+            padding-right: calc(var(--spacing-md) * 2.5);
+        }
+
+        /* チェックボックス・ラジオボタン */
+        .form-checkbox-group,
+        .form-radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .form-checkbox-item,
+        .form-radio-item {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .form-checkbox,
+        .form-radio {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            margin-right: var(--spacing-sm);
+            cursor: pointer;
+            accent-color: var(--color-primary);
+        }
+
+        .form-checkbox-label,
+        .form-radio-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* エラーメッセージ（必要時のみ表示） */
+        .field-error {
+            font-size: var(--font-size-sm);
+            color: var(--color-error);
+            margin-top: var(--spacing-xs);
+            display: none;
+            font-weight: 500;
+        }
+
+        .field-group.has-error .field-error {
+            display: block;
+        }
+
+        .field-group.has-error .form-input,
+        .field-group.has-error .form-textarea,
+        .field-group.has-error .form-select {
+            border-color: var(--color-error);
+        }
+
+        .field-group.has-error .form-input:focus,
+        .field-group.has-error .form-textarea:focus,
+        .field-group.has-error .form-select:focus {
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+        }
+
+        /* グローバルエラー */
+        .form-errors {
+            padding: var(--spacing-md);
+            background: #fef2f2;
+            border-left: 4px solid var(--color-error);
+            border-radius: var(--radius);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-error);
+            font-size: var(--font-size-sm);
+        }
+
+        /* 成功メッセージ */
+        .form-success {
+            padding: var(--spacing-md);
+            background: #f0fdf4;
+            border-left: 4px solid var(--color-success);
+            border-radius: var(--radius);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-success);
+            font-size: var(--font-size-sm);
+        }
+
+        /* セクション区切り */
+        .form-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-primary-lighter), transparent);
+            margin: var(--spacing-xl) 0;
+        }
+
+        /* ボタン */
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .btn {
+            padding: var(--spacing-sm) var(--spacing-xl);
+            font-family: inherit;
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            line-height: 1.5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: 1px solid transparent;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+        }
+
+        .btn:focus-visible {
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            border-color: var(--color-primary);
+            box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--color-primary-dark) 0%, #172554 100%);
+            border-color: var(--color-primary-dark);
+            box-shadow: 0 4px 6px rgba(30, 58, 138, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-secondary {
+            background: var(--color-background);
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--color-primary-lighter);
+            border-color: var(--color-primary-dark);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* ローディング状態 */
+        .btn-loading {
+            color: transparent;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .btn-primary.btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+
+        .btn-secondary.btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* フッター */
+        .form-footer {
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            border-top: 1px solid var(--color-border);
+            background: linear-gradient(180deg, rgba(219, 234, 254, 0.2) 0%, rgba(219, 234, 254, 0.5) 100%);
+            text-align: center;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .form-footer-text {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+        }
+
+        .form-footer-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color var(--transition);
+            font-weight: 500;
+        }
+
+        .form-footer-link:hover {
+            color: var(--color-primary-dark);
+            text-decoration: underline;
+        }
+
+        /* テーブルレイアウト */
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .form-table th,
+        .form-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .form-table th {
+            background: linear-gradient(90deg, rgba(219, 234, 254, 0.5) 0%, rgba(219, 234, 254, 0.3) 100%);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            width: 30%;
+            color: var(--color-primary-dark);
+        }
+
+        .form-table td {
+            width: 70%;
+        }
+
+        .form-table tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .form-table tr:last-child {
+            border-bottom: none;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 640px) {
+            .form-wrapper {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+
+            .form-header,
+            .form-body {
+                padding: var(--spacing-xl) var(--spacing-lg);
+            }
+
+            .form-footer {
+                padding: var(--spacing-md) var(--spacing-lg);
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .form-table th,
+            .form-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .form-table th {
+                border-bottom: none;
+                padding-bottom: var(--spacing-xs);
+            }
+
+            .form-table td {
+                padding-top: var(--spacing-xs);
+                padding-bottom: var(--spacing-lg);
+            }
+        }
+
+        /* アクセシビリティ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* フォーカストラップ */
+        *:focus-visible {
+            outline: 2px solid var(--color-primary-light);
+            outline-offset: 2px;
+        }
+
+        /* WebKitのオートフィル背景を白で固定（ライトUI維持） */
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+            box-shadow: 0 0 0px 1000px #ffffff inset;
+        }
+
+        /* プリント対応 */
+        @media print {
+            .form-wrapper {
+                background: white;
+                padding: 0;
+            }
+
+            .form-container {
+                box-shadow: none;
+                border: 1px solid var(--color-border);
+            }
+
+            .btn {
+                display: none;
+            }
+        }
+
+        /* ====== 下の説明（ヘルプ等）は表示しない ====== */
+        .field-help {
+            display: none !important;
+        }
+
+        /* インラインリンクの最小スタイル（任意） */
+        .policy-inline {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .policy-inline:hover {
+            color: var(--color-primary-dark);
+        }
+    </style>
+
+    <!-- jQuery（Pardot用） -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDXZ929F');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDXZ929F" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="form-wrapper">
+        <div class="form-container">
+            <!-- ヘッダー -->
+            <header class="form-header">
+                <h1 class="form-title">お問い合わせ</h1>
+                <p class="form-description">お気軽にご相談ください。担当者より2営業日以内にご返信いたします。</p>
+            </header>
+
+            <!-- フォーム本体 -->
+            <main id="main-form" class="form-body">
+                %%content%%
+            </main>
+
+            <!-- フッター -->
+            <footer class="form-footer">
+                <p class="form-footer-text">
+                    <a href="/privacy" class="form-footer-link">プライバシーポリシー</a>
+                    ・
+                    <a href="/terms" class="form-footer-link">利用規約</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            function initializeMinimalForm() {
+                applyFormClasses();
+                setFieldPlaceholders();
+                markRequiredFields();
+                handleFormSubmission();
+                setupValidation();
+            }
+
+            // フォームクラスの適用
+            function applyFormClasses() {
+                // テキスト入力
+                $('input[type=text], input[type=email], input[type=tel], input[type=url], input[type=number], input[type=date]').each(function () {
+                    $(this).addClass('form-input');
+                    wrapInFieldGroup($(this));
+                });
+                // テキストエリア
+                $('textarea').addClass('form-textarea');
+                // セレクトボックス
+                $('select').addClass('form-select');
+                $('select option:first-child').each(function () {
+                    if ($(this).val() === '') { $(this).text('選択してください'); }
+                });
+                // チェックボックス
+                $('.pd-checkbox input[type=checkbox]').addClass('form-checkbox');
+                $('.pd-checkbox label').addClass('form-checkbox-label');
+                $('.pd-checkbox span.value').addClass('form-checkbox-group');
+                $('.pd-checkbox span.value > span').addClass('form-checkbox-item');
+                // ラジオボタン
+                $('.pd-radio input[type=radio]').addClass('form-radio');
+                $('.pd-radio label').addClass('form-radio-label');
+                $('.pd-radio span.value').addClass('form-radio-group');
+                $('.pd-radio span.value > span').addClass('form-radio-item');
+
+                // 上のラベルを明示的にスタイリング
+                $('.form-field > label:not(.form-checkbox-label):not(.form-radio-label)').addClass('field-label');
+
+                // ボタン
+                $('#pardot-form :submit').addClass('btn btn-primary');
+                $('#pardot-form :reset').addClass('btn btn-secondary');
+            }
+
+            function wrapInFieldGroup($element) {
+                const $parent = $element.closest('.form-field');
+                if ($parent.length && !$parent.hasClass('field-group')) { $parent.addClass('field-group'); }
+            }
+
+            // プレースホルダーの設定
+            function setFieldPlaceholders() {
+                const placeholders = {
+                    '.first_name input': '太郎',
+                    '.last_name input': '山田',
+                    '.email input': 'email@example.com',
+                    '.company input': '株式会社〇〇',
+                    '.phone input': '090-1234-5678',
+                    'textarea': 'ご質問やご要望をお聞かせください。'
+                };
+                Object.keys(placeholders).forEach(selector => {
+                    const $field = $(selector);
+                    if ($field.length) { $field.attr('placeholder', placeholders[selector]); }
+                });
+            }
+
+            // 必須項目のマーク（ラベル横に * を付与）
+            function markRequiredFields() {
+                $('.form-field.required').each(function () {
+                    const $label = $(this).find('.field-label, > label').first();
+                    if ($label.length && !$label.find('.required-mark').length) {
+                        $label.append('<span class="required-mark">*</span>');
+                    }
+                });
+            }
+
+            // フォーム送信処理
+            function handleFormSubmission() {
+                $('#pardot-form').on('submit', function (e) {
+                    const $form = $(this);
+                    const $submitBtn = $form.find('.btn-primary');
+                    if (!validateForm($form)) { e.preventDefault(); return false; }
+                    $submitBtn.addClass('btn-loading').prop('disabled', true);
+                    setTimeout(function () {
+                        if ($submitBtn.hasClass('btn-loading')) {
+                            $submitBtn.removeClass('btn-loading').prop('disabled', false);
+                        }
+                    }, 10000);
+                });
+                $(document).on('pardotValidateError', function () {
+                    $('.btn-primary').removeClass('btn-loading').prop('disabled', false);
+                });
+            }
+
+            // フォームバリデーション
+            function validateForm($form) {
+                let isValid = true;
+                $('.field-error').hide();
+                $('.field-group').removeClass('has-error');
+
+                // 必須チェック
+                $form.find('.required').each(function () {
+                    const $field = $(this).find('input, textarea, select').first();
+                    const value = $field.val();
+                    if (!value || String(value).trim() === '') {
+                        showFieldError($field, 'この項目は必須入力です');
+                        isValid = false;
+                    }
+                });
+
+                // メールアドレス
+                $form.find('input[type=email]').each(function () {
+                    const email = $(this).val();
+                    if (email && !isValidEmail(email)) {
+                        showFieldError($(this), '有効なメールアドレスを入力してください');
+                        isValid = false;
+                    }
+                });
+
+                return isValid;
+            }
+
+            function setupValidation() {
+                $('input[type=email]').on('blur', function () {
+                    const $this = $(this);
+                    const email = $this.val();
+                    if (email && !isValidEmail(email)) { showFieldError($this, '有効なメールアドレスを入力してください'); }
+                    else { clearFieldError($this); }
+                });
+                $('input[type=tel]').on('blur', function () {
+                    const $this = $(this);
+                    const phone = $this.val();
+                    if (phone && !isValidPhone(phone)) { showFieldError($this, '有効な電話番号（10桁以上）を入力してください'); }
+                    else { clearFieldError($this); }
+                });
+                $('input, textarea, select').on('input change', function () { clearFieldError($(this)); });
+            }
+
+            function showFieldError($field, message) {
+                const $group = $field.closest('.field-group');
+                $group.addClass('has-error');
+                let $error = $group.find('.field-error');
+                if (!$error.length) { $error = $('<div class="field-error"></div>'); $field.after($error); }
+                $error.text(message).show();
+            }
+            function clearFieldError($field) {
+                const $group = $field.closest('.field-group');
+                $group.removeClass('has-error');
+                $group.find('.field-error').hide();
+            }
+
+            function isValidEmail(email) { const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; return regex.test(email); }
+            function isValidPhone(phone) { const regex = /^[\d\-\+\(\)\s]+$/; return regex.test(phone) && phone.replace(/[^\d]/g, '').length >= 10; }
+
+            /* ▼ 追加：ラベル内の「プライバシーポリシー」テキスト自体にPDFリンクを付与する */
+            function linkifyPrivacyPolicyText(pdfUrl) {
+                // 対象となりうるラベル要素群
+                const selectors = [
+                    'label.form-checkbox-label',
+                    '.form-checkbox-item label',
+                    '.form-field > label',
+                    '.field-label',
+                    'label'
+                ];
+
+                selectors.forEach(function (sel) {
+                    $(sel).each(function () {
+                        const $el = $(this);
+
+                        // 既にリンクが含まれている場合はスキップ（多重化防止）
+                        if ($el.find('a.policy-inline, a[href*="privacy"]').length) return;
+
+                        // 内部HTMLの「プライバシーポリシー」を最初の1箇所だけリンク化
+                        const html = $el.html();
+                        const replaced = html.replace(/プライバシーポリシー(?![^<]*>)/,
+                            '<a href="' + pdfUrl + '" target="_blank" rel="noopener noreferrer" class="policy-inline" aria-label="プライバシーポリシー（PDF）を新しいタブで開く">プライバシーポリシー</a>'
+                        );
+
+                        if (replaced !== html) {
+                            $el.html(replaced);
+                        }
+                    });
+                });
+            }
+
+            // 初期化（ヘルプ説明は生成しない）
+            initializeMinimalForm();
+
+            // 追加：PDFリンクを適用（「プライバシーポリシー」という文字自体にリンク）
+            linkifyPrivacyPolicyText('https://www.advatec.co.jp/_files/ugd/5ab8f5_b9d9a60d641d482c95a684dddafa6ed3.pdf');
+        });
+    </script>
+</body>
+
+</html>
