@@ -1,0 +1,28 @@
+/* お問い合わせフォームセクション */
+.contact-form {
+    padding: 0;
+    background: #fff;
+    position: relative;
+}
+
+
+
+.contact-form iframe {
+    width: 100%;
+    height: 1000px;
+    display: block;
+    border: none;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .contact-form iframe {
+        height: 900px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form iframe {
+        height: 800px;
+    }
+}
