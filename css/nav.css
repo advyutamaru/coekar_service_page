@@ -99,11 +99,13 @@ nav.scrolled {
   transform: translateX(-50%);
 }
 
-.nav-links a:not(.nav-cta):hover {
+.nav-links a:not(.nav-cta):hover,
+.nav-links a:not(.nav-cta).active {
   color: var(--primary);
 }
 
-.nav-links a:not(.nav-cta):hover:after {
+.nav-links a:not(.nav-cta):hover:after,
+.nav-links a:not(.nav-cta).active:after {
   width: 100%;
 }
 

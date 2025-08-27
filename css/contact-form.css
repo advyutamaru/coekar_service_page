@@ -1,28 +1,205 @@
 /* お問い合わせフォームセクション */
 .contact-form {
-    padding: 0;
-    background: #fff;
+    padding: 60px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+    overflow: hidden;
+}
+
+.contact-form.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* デコレーション */
+.contact-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(0, 122, 255, 0.2) 25%, 
+        rgba(0, 122, 255, 0.3) 50%, 
+        rgba(0, 122, 255, 0.2) 75%, 
+        transparent 100%
+    );
+}
+
+/* フォームコンテナ */
+.form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     position: relative;
 }
 
-
-
-.contact-form iframe {
+/* iframeラッパー（レスポンシブ用） */
+.form-container {
+    position: relative;
     width: 100%;
-    height: 1000px;
-    display: block;
-    border: none;
+    /* アスペクト比を維持 */
+    padding-bottom: 150%; /* デフォルトの高さ比率 */
+    height: 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 122, 255, 0.08);
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    .contact-form iframe {
-        height: 900px;
+/* iframe本体 */
+.form-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 16px;
+}
+
+/* デスクトップ（大画面） */
+@media (min-width: 1440px) {
+    .contact-form {
+        padding: 80px 0;
+    }
+    
+    .form-container {
+        max-width: 1000px;
+        padding-bottom: 100%; /* 1:1比率 */
     }
 }
 
-@media (max-width: 480px) {
-    .contact-form iframe {
-        height: 800px;
+/* デスクトップ（標準） */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .form-container {
+        max-width: 900px;
+        padding-bottom: 110%; /* やや縦長 */
+    }
+}
+
+/* タブレット（横向き） */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .form-container {
+        max-width: 750px;
+        padding-bottom: 120%; /* 縦長 */
+    }
+}
+
+/* タブレット（縦向き） */
+@media (min-width: 481px) and (max-width: 768px) {
+    .contact-form {
+        padding: 40px 0;
+    }
+    
+    .form-container {
+        padding-bottom: 140%; /* より縦長 */
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 12px;
+    }
+    
+    .form-container iframe {
+        border-radius: 12px;
+    }
+}
+
+/* モバイル（大） */
+@media (min-width: 376px) and (max-width: 480px) {
+    .contact-form {
+        padding: 30px 0;
+    }
+    
+    .form-container {
+        padding-bottom: 160%; /* さらに縦長 */
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 122, 255, 0.06);
+    }
+    
+    .form-container iframe {
+        border-radius: 8px;
+    }
+}
+
+/* モバイル（小） */
+@media (max-width: 375px) {
+    .contact-form {
+        padding: 20px 0;
+    }
+    
+    .form-container {
+        padding-bottom: 180%; /* 最も縦長 */
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 122, 255, 0.06);
+    }
+    
+    .form-container iframe {
+        border-radius: 8px;
+    }
+}
+
+/* スクロール制御オプション */
+@media (max-width: 768px) {
+    /* モバイルでスクロールが必要な場合 */
+    .form-container.scrollable {
+        padding-bottom: 0;
+        height: 80vh;
+        max-height: 800px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .form-container.scrollable iframe {
+        position: relative;
+        height: auto;
+        min-height: 1200px;
+    }
+}
+
+/* ローディング表示 */
+.form-container::after {
+    content: 'フォームを読み込み中...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #999;
+    font-size: 14px;
+    z-index: -1;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* アクセシビリティ向上 */
+@media (prefers-reduced-motion: reduce) {
+    .contact-form {
+        transition: none;
+    }
+    
+    .form-container::after {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* 印刷対応 */
+@media print {
+    .contact-form {
+        display: none;
     }
 }
