@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コエカル - ポスター裏面（会社情報）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* プライマリカラーパレット（ディープブルー） */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+
+            /* ニュートラルカラー */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* A4サイズ設定 */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            font-feature-settings: "palt" 1;
+        }
+
+        .poster {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            padding: 15mm 15mm 12mm;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        /* 背景デザイン */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.02;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--primary-600) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--primary-500) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        /* 装飾ライン */
+        .decorative-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8mm;
+            background: linear-gradient(90deg, var(--primary-900) 0%, var(--primary-700) 50%, var(--primary-900) 100%);
+            z-index: 1;
+        }
+
+        /* メインコンテンツ */
+        .main-content {
+            position: relative;
+            z-index: 2;
+            margin-top: 20mm;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ヘッダー */
+        .header {
+            text-align: center;
+            margin-bottom: 12mm;
+        }
+
+        .company-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5mm;
+            margin-bottom: 6mm;
+        }
+
+        .logo-img {
+            width: 20mm;
+            height: 20mm;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 16mm;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.05em;
+        }
+
+        .company-tagline {
+            font-size: 5mm;
+            color: var(--gray-600);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+        }
+
+        /* 会社情報セクション */
+        .company-info {
+            background: var(--gray-50);
+            border-radius: 8mm;
+            padding: 10mm;
+            margin-bottom: 10mm;
+            border: 1px solid var(--gray-200);
+        }
+
+        .info-title {
+            font-size: 7mm;
+            font-weight: 700;
+            color: var(--primary-900);
+            text-align: center;
+            margin-bottom: 8mm;
+            letter-spacing: 0.08em;
+        }
+
+        .info-table {
+            width: 100%;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 4mm 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            width: 35mm;
+            font-size: 3.8mm;
+            font-weight: 600;
+            color: var(--gray-700);
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            flex: 1;
+            font-size: 3.8mm;
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+
+        /* 事業内容の特別スタイル */
+        .business-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .business-list li {
+            padding: 1.5mm 0;
+            padding-left: 5mm;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .business-list li:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: var(--primary-700);
+            font-size: 3mm;
+        }
+
+        /* 特別強調 */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary-50) 0%, white 100%);
+            border-left: 4mm solid var(--primary-700);
+            padding: 6mm 8mm;
+            margin: 10mm 0;
+            border-radius: 2mm;
+        }
+
+        .highlight-title {
+            font-size: 5mm;
+            font-weight: 700;
+            color: var(--primary-900);
+            margin-bottom: 3mm;
+        }
+
+        .highlight-text {
+            font-size: 4mm;
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+
+        /* フッター */
+        .footer {
+            margin-top: auto;
+            padding-top: 5mm;
+            border-top: 2px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 8mm;
+            margin-bottom: 3mm;
+        }
+
+        .contact-item {
+            font-size: 4mm;
+            color: var(--gray-700);
+        }
+
+        .contact-item strong {
+            color: var(--primary-800);
+            font-weight: 600;
+        }
+
+        .footer-copyright {
+            font-size: 3mm;
+            color: var(--gray-500);
+        }
+
+        /* 印刷時の設定 */
+        @media print {
+            body {
+                margin: 0;
+            }
+            .poster {
+                box-shadow: none;
+            }
+        }
+
+        /* 画面表示時 */
+        @media screen {
+            body {
+                background: var(--gray-100);
+                padding: 20px;
+            }
+            .poster {
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="bg-pattern"></div>
+        <div class="decorative-line"></div>
+        
+        <div class="main-content">
+            <!-- 会社情報 -->
+            <section class="company-info">
+                <h2 class="info-title">会社概要</h2>
+                <div class="info-table">
+                    <div class="info-row">
+                        <div class="info-label">社名</div>
+                        <div class="info-value">株式会社ADVATEC（アドバテック）</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">代表者</div>
+                        <div class="info-value">代表取締役 池田 和泉</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">設立</div>
+                        <div class="info-value">2020年7月9日</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">資本金</div>
+                        <div class="info-value">6億円（資本準備金含む）</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">従業員数</div>
+                        <div class="info-value">37名</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">所在地</div>
+                        <div class="info-value">
+                            〒150-0001<br>
+                            東京都渋谷区神宮前3-42-2 VORT外苑前Ⅲ 4F
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">事業内容</div>
+                        <div class="info-value">
+                            <ul class="business-list">
+                                <li>音声AI医療カルテ作成支援サービス事業</li>
+                                <li>AIインフルエンサープラットフォーム事業</li>
+                                <li>インフルエンサーキャスティング事業</li>
+                                <li>SNS運用代行・SNSコンサルティング事業</li>
+                                <li>Webページ制作事業</li>
+                                <li>EC制作・ECコンサルティング事業</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- フッター -->
+            <footer class="footer">
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <strong>WEB:</strong> www.advatec.co.jp
+                    </div>
+                    <div class="contact-item">
+                        <strong>TEL:</strong> 03-6459-2800
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    © 2024 ADVATEC Inc. All rights reserved.
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
