@@ -94,8 +94,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 8mm;
-            padding-bottom: 6mm;
+            margin-bottom: 6mm;
+            padding-bottom: 4mm;
             border-bottom: 1px solid var(--gray-100);
             position: relative;
             z-index: 1;
@@ -136,9 +136,11 @@
             display: flex;
             align-items: center;
             gap: 3mm;
-            margin-bottom: 8mm;
+            margin-bottom: 10mm;
             position: relative;
             z-index: 1;
+            min-height: 90mm;
+            padding: 5mm 0;
         }
 
         .hero-content {
@@ -149,10 +151,10 @@
         }
 
         .hero-title {
-            font-size: 14mm;
+            font-size: 15mm;
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 4mm;
+            margin-bottom: 6mm;
             background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -161,10 +163,10 @@
         }
 
         .hero-subtitle {
-            font-size: 3.8mm;
+            font-size: 4mm;
             color: var(--gray-600);
-            line-height: 1.5;
-            margin-bottom: 5mm;
+            line-height: 1.6;
+            margin-bottom: 8mm;
             font-weight: 400;
             max-width: 90%;
         }
@@ -172,13 +174,13 @@
         .hero-visual {
             flex: 1;
             position: relative;
-            height: 65mm;
+            height: 85mm;
             margin-left: -5mm;
             z-index: 0;
         }
 
         .device-mac {
-            width: 70mm;
+            width: 90mm;
             position: absolute;
             top: 0;
             right: -5mm;
@@ -187,7 +189,7 @@
         }
 
         .device-iphone {
-            width: 26mm;
+            width: 34mm;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -200,7 +202,7 @@
             display: flex;
             align-items: baseline;
             gap: 3mm;
-            margin-top: 6mm;
+            margin-top: 8mm;
             position: relative;
             padding-left: 3mm;
         }
@@ -251,9 +253,9 @@
         /* 課題セクション */
         .problems-section {
             background: var(--gray-50);
-            border-radius: 5mm;
-            padding: 6mm;
-            margin-bottom: 6mm;
+            border-radius: 4mm;
+            padding: 5mm;
+            margin-bottom: 5mm;
             position: relative;
             z-index: 1;
         }
@@ -302,7 +304,7 @@
 
         /* メトリクスセクション */
         .metrics-section {
-            margin-bottom: 6mm;
+            margin-bottom: 5mm;
             position: relative;
             z-index: 1;
         }
@@ -316,21 +318,21 @@
         .metric-card {
             background: white;
             border: 2px solid var(--primary-50);
-            border-radius: 4mm;
-            padding: 5mm 3mm;
+            border-radius: 3mm;
+            padding: 4mm 3mm;
             text-align: center;
             transition: all 0.3s ease;
         }
 
         .metric-value {
-            font-size: 11mm;
+            font-size: 10mm;
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1;
-            margin-bottom: 2mm;
+            margin-bottom: 1.5mm;
         }
 
         .metric-label {
@@ -399,12 +401,14 @@
         .cta-section {
             background: var(--gray-900);
             color: white;
-            border-radius: 5mm;
-            padding: 6mm;
+            border-radius: 4mm;
+            padding: 8mm 6mm;
             text-align: center;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            margin-top: auto;
+            margin-bottom: 6mm;
         }
 
         .cta-section::before {
@@ -428,9 +432,9 @@
             display: inline-block;
             background: var(--accent-amber);
             color: var(--gray-900);
-            padding: 1.5mm 5mm;
+            padding: 2mm 6mm;
             border-radius: 100px;
-            font-size: 3.5mm;
+            font-size: 4mm;
             font-weight: 700;
             margin-bottom: 5mm;
             position: relative;
@@ -438,9 +442,9 @@
         }
 
         .cta-title {
-            font-size: 7mm;
+            font-size: 8mm;
             font-weight: 800;
-            margin-bottom: 3mm;
+            margin-bottom: 4mm;
             position: relative;
             z-index: 1;
         }
@@ -449,15 +453,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 6mm;
-            margin-top: 4mm;
+            gap: 8mm;
+            margin-top: 5mm;
             position: relative;
             z-index: 1;
         }
 
         .qr-code {
-            width: 20mm;
-            height: 20mm;
+            width: 22mm;
+            height: 22mm;
             background: white;
             border-radius: 3mm;
             padding: 2mm;
@@ -476,28 +480,28 @@
         }
 
         .contact-url {
-            font-size: 4mm;
+            font-size: 4.5mm;
             font-weight: 600;
             margin-bottom: 2mm;
         }
 
         .contact-tel {
-            font-size: 3.5mm;
+            font-size: 4mm;
             opacity: 0.9;
         }
 
         /* フッター */
         .footer {
-            margin-top: auto;
-            padding-top: 3mm;
+            padding-top: 2mm;
             border-top: 1px solid var(--gray-200);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 2.5mm;
+            font-size: 2.3mm;
             color: var(--gray-500);
             position: relative;
             z-index: 1;
+            flex-shrink: 0;
         }
 
         .footer-logo {
@@ -506,7 +510,7 @@
         }
 
         .footer-address {
-            font-size: 2.5mm;
+            font-size: 2.3mm;
             color: var(--gray-500);
         }
 
