@@ -45,7 +45,10 @@ footer:before {
 .footer-brand h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1a202c;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
