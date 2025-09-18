@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コエカル - クリニック向けポスター</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        :root {
+            /* プライマリカラーパレット（ディープブルー） */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+
+            /* ニュートラルカラー */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+
+            /* アクセントカラー */
+            --accent-red: #ef4444;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* A4サイズ設定 */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            font-feature-settings: "palt" 1;
+        }
+
+        .poster {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            padding: 8mm 10mm;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+
+        /* 背景パターン */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background-image:
+                radial-gradient(circle at 20% 80%, var(--primary-600) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--primary-500) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--primary-400) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* ヘッダー */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4mm;
+            padding-bottom: 3mm;
+            border-bottom: 1px solid var(--gray-100);
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        .logo-img {
+            width: 14mm;
+            height: 14mm;
+            object-fit: contain;
+            filter: brightness(0.95);
+        }
+
+        .brand-name {
+            font-size: 8mm;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .header-tagline {
+            font-size: 3.5mm;
+            color: var(--primary-800);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        /* メインビジュアルセクション */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+            margin-bottom: 4mm;
+            position: relative;
+            z-index: 1;
+            min-height: 60mm;
+            padding: 0;
+        }
+
+        .hero-content {
+            flex: 1.2;
+            padding-right: 2mm;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 11mm;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 3mm;
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 3.5mm;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: 4mm;
+            font-weight: 400;
+            max-width: 90%;
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 55mm;
+            margin-left: -3mm;
+            z-index: 0;
+        }
+
+        .device-mac {
+            width: 65mm;
+            position: absolute;
+            top: 0;
+            right: -3mm;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+            z-index: 1;
+        }
+
+        .device-iphone {
+            width: 24mm;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+            z-index: 2;
+        }
+
+        /* 統計バッジ */
+        .stats-badge {
+            display: flex;
+            align-items: baseline;
+            gap: 3mm;
+            margin-top: 8mm;
+            position: relative;
+            padding-left: 3mm;
+        }
+
+        .stats-badge::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2mm;
+            height: 15mm;
+            background: linear-gradient(180deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            border-radius: 1mm;
+        }
+
+        .stats-number {
+            font-size: 6mm;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .stats-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5mm;
+            padding-top: 1mm;
+        }
+
+        .stats-text {
+            font-size: 3.2mm;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1;
+        }
+
+        .stats-text-small {
+            font-size: 2.6mm;
+            color: var(--gray-600);
+            font-weight: 400;
+        }
+
+        /* 課題セクション */
+        .problems-section {
+            background: var(--gray-50);
+            border-radius: 3mm;
+            padding: 3mm;
+            margin-bottom: 3mm;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            font-size: 2.8mm;
+            font-weight: 600;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 3mm;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: start;
+            gap: 2mm;
+        }
+
+        .problem-icon {
+            width: 5mm;
+            height: 5mm;
+            background: var(--accent-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3mm;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.5mm;
+        }
+
+        .problem-text {
+            font-size: 3mm;
+            color: var(--gray-700);
+            line-height: 1.3;
+        }
+
+        /* メトリクスセクション */
+        .metrics-section {
+            margin-bottom: 3mm;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4mm;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid var(--primary-50);
+            border-radius: 2mm;
+            padding: 2.5mm 2mm;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-value {
+            font-size: 7mm;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5mm;
+        }
+
+        .metric-label {
+            font-size: 2.8mm;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.5mm;
+        }
+
+        .metric-desc {
+            font-size: 2.5mm;
+            color: var(--gray-600);
+            line-height: 1.2;
+        }
+
+        /* 機能セクション */
+        .features-section {
+            display: none;
+        }
+
+        .features-title {
+            font-size: 4.5mm;
+            font-weight: 700;
+            color: var(--gray-900);
+            text-align: center;
+            margin-bottom: 4mm;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5mm;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        .feature-check {
+            width: 5mm;
+            height: 5mm;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3mm;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 3.5mm;
+            color: var(--gray-700);
+            font-weight: 500;
+        }
+
+        /* CTAセクション */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%);
+            color: white;
+            border-radius: 3mm;
+            padding: 4mm;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: auto;
+            margin-bottom: 3mm;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        .cta-header {
+            margin-bottom: 3mm;
+            padding-bottom: 2mm;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-label {
+            font-size: 2.5mm;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+            margin-bottom: 0.5mm;
+        }
+
+        .cta-subtitle {
+            font-size: 3.5mm;
+            font-weight: 700;
+        }
+
+        .cta-offer-container {
+            margin: 3mm 0;
+        }
+
+        .cta-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3mm;
+        }
+
+        .cta-price-item {
+            text-align: center;
+        }
+
+        .cta-price-label-top {
+            display: block;
+            font-size: 2.2mm;
+            opacity: 0.7;
+            margin-bottom: 0.5mm;
+        }
+
+        .cta-price-value-old {
+            font-size: 3.5mm;
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .cta-arrow-symbol {
+            font-size: 3mm;
+            opacity: 0.6;
+        }
+
+        .cta-price-highlight {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2mm 3mm;
+            border-radius: 2mm;
+        }
+
+        .cta-price-value-new {
+            font-size: 8mm;
+            font-weight: 900;
+            color: var(--accent-amber);
+            display: block;
+        }
+
+        .cta-price-label-bottom {
+            font-size: 2.5mm;
+            opacity: 0.9;
+        }
+
+        .cta-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 2mm;
+            margin: 3mm 0;
+            padding: 2mm 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-benefit-item {
+            font-size: 2.4mm;
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+            opacity: 0.9;
+        }
+
+        .cta-benefit-icon {
+            color: var(--accent-amber);
+            font-size: 3mm;
+        }
+
+        .cta-action {
+            margin: 3mm 0 2mm;
+        }
+
+        .cta-code-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2mm 3mm;
+            border-radius: 2mm;
+            display: inline-block;
+        }
+
+        .cta-code-text {
+            font-size: 3mm;
+        }
+
+        .cta-code-text strong {
+            color: var(--accent-amber);
+            font-weight: 700;
+        }
+
+        .cta-limitation {
+            font-size: 2.5mm;
+            opacity: 0.8;
+            margin-top: 2mm;
+        }
+
+        .cta-divider {
+            margin: 0 2mm;
+            opacity: 0.5;
+        }
+
+        .cta-badge {
+            display: inline-block;
+            background: var(--accent-amber);
+            color: var(--gray-900);
+            padding: 1.5mm 5mm;
+            border-radius: 100px;
+            font-size: 3.5mm;
+            font-weight: 700;
+            margin-bottom: 3mm;
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+
+
+
+
+        /* お問い合わせ担当セクション */
+        .contact-section {
+            background: white;
+            border-radius: 2.5mm;
+            padding: 0;
+            margin-bottom: 3mm;
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--primary-100);
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .contact-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4mm 6mm;
+            gap: 4mm;
+        }
+
+        .contact-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        .contact-person-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2mm;
+            margin-right: 4mm;
+        }
+
+        .contact-person-info {
+            text-align: center;
+        }
+
+        .contact-info-column {
+            flex: 1;
+        }
+
+        .contact-info-label {
+            font-size: 2.6mm;
+            font-weight: 600;
+            color: var(--primary-700);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 2mm;
+        }
+
+        .contact-icon-email,
+        .contact-icon-phone {
+            display: inline-block;
+            width: 4mm;
+            color: var(--primary-600);
+            font-size: 3mm;
+            margin-right: 1.5mm;
+        }
+
+        .contact-header-text {
+            font-size: 2.6mm;
+            font-weight: 500;
+            color: var(--primary-600);
+            letter-spacing: 0.02em;
+            margin-bottom: 2mm;
+        }
+
+        .contact-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4mm;
+        }
+
+        .contact-left-group {
+            display: flex;
+            align-items: center;
+            gap: 4mm;
+            flex: 1;
+        }
+
+        .contact-photo-large {
+            width: 22mm;
+            height: 22mm;
+            border-radius: 3mm;
+            object-fit: cover;
+            object-position: center center;
+            border: 2px solid var(--primary-100);
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-size: 4mm;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5mm;
+            letter-spacing: 0.02em;
+        }
+
+        .contact-title {
+            font-size: 2.6mm;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .contact-info-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1mm;
+        }
+
+        .contact-item {
+            font-size: 2.8mm;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-label {
+            color: var(--gray-500);
+            margin-right: 2mm;
+            font-weight: 500;
+        }
+
+        .contact-value {
+            color: var(--gray-800);
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .contact-qr-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3mm 3.5mm;
+            background: var(--primary-50);
+            border-radius: 2.5mm;
+            border: 1px solid var(--primary-100);
+        }
+
+        .qr-label {
+            font-size: 2.4mm;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-top: 1.5mm;
+            order: 2;
+        }
+
+        .qr-url {
+            font-size: 2.2mm;
+            color: var(--primary-600);
+            margin-top: 0.5mm;
+            font-weight: 500;
+            order: 3;
+        }
+
+        .qr-code-contact {
+            width: 12mm;
+            height: 12mm;
+            background: white;
+            border: 1px solid var(--primary-200);
+            border-radius: 1.5mm;
+            padding: 0.5mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            order: 1;
+        }
+
+        .qr-code-contact canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .qr-code {
+            width: 18mm;
+            height: 18mm;
+            background: white;
+            border-radius: 2mm;
+            padding: 1.5mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .qr-code canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .contact-url {
+            font-size: 4.5mm;
+            font-weight: 600;
+            margin-bottom: 1mm;
+        }
+
+        /* フッター */
+        .footer {
+            padding-top: 3mm;
+            margin-top: auto;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 2.3mm;
+            color: var(--gray-500);
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .footer-logo {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .footer-address {
+            font-size: 2.3mm;
+            color: var(--gray-500);
+        }
+
+        /* 印刷時の設定 */
+        @media print {
+            body {
+                margin: 0;
+            }
+
+            .poster {
+                box-shadow: none;
+            }
+        }
+
+        /* 画面表示時 */
+        @media screen {
+            body {
+                background: var(--gray-100);
+                padding: 20px;
+            }
+
+            .poster {
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="poster">
+        <div class="bg-pattern"></div>
+
+        <!-- ヘッダー -->
+        <header class="header">
+            <div class="logo-section">
+                <img src="image/coekar_logo.png" alt="コエカル" class="logo-img">
+                <h1 class="brand-name">コエカル</h1>
+            </div>
+            <div style="font-size: 3.5mm; color: var(--gray-700); font-weight: 500;">株式会社ADVATEC</div>
+        </header>
+
+        <!-- メインビジュアル -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2 class="hero-title">
+                    声が、<br />記録になる。
+                </h2>
+                <p class="hero-subtitle">
+                    診察中の会話を自動で医療記録に変換。<br>
+                    記録作成の負担から解放され、<br>
+                    本来の診療に集中できる環境を実現します。
+                </p>
+                <div class="stats-badge">
+                    <span class="stats-number">年間600時間</span>
+                    <div class="stats-text-wrapper">
+                        <span class="stats-text">削減可能</span>
+                        <span class="stats-text-small">（医師一人あたり）</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="image/topmac.png" alt="Mac画面" class="device-mac">
+                <img src="image/topiphone.png" alt="iPhone画面" class="device-iphone">
+            </div>
+        </section>
+
+        <!-- 課題 -->
+        <section class="problems-section">
+            <div class="section-label">カルテ記載のお悩み</div>
+            <div class="problems-grid">
+                <div class="problem-item">
+                    <div class="problem-icon">!</div>
+                    <div class="problem-text">毎日2.3時間をカルテ記載に費やしている</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">!</div>
+                    <div class="problem-text">PC入力中、患者の顔を見られない</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">!</div>
+                    <div class="problem-text">診察後の記憶頼みで詳細が抜け落ちる</div>
+                </div>
+                <div class="problem-item">
+                    <div class="problem-icon">!</div>
+                    <div class="problem-text">残業が常態化し、疲弊している</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- メトリクス -->
+        <section class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">70%</div>
+                    <div class="metric-label">記録時間削減</div>
+                    <div class="metric-desc">自動でSOAP形式に</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">認識精度</div>
+                    <div class="metric-desc">医療専門用語対応</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">5秒</div>
+                    <div class="metric-label">生成時間</div>
+                    <div class="metric-desc">リアルタイム処理</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="cta-header">
+                <div class="cta-label">特別オファー</div>
+                <div class="cta-subtitle">このお手紙をご覧の方限定</div>
+            </div>
+
+            <div class="cta-offer-container">
+                <div class="cta-price-row">
+                    <div class="cta-price-item">
+                        <span class="cta-price-label-top">通常</span>
+                        <span class="cta-price-value-old">¥150,000</span>
+                    </div>
+                    <div class="cta-arrow-symbol">▶</div>
+                    <div class="cta-price-item cta-price-highlight">
+                        <span class="cta-price-label-top">特別価格</span>
+                        <span class="cta-price-value-new">¥0</span>
+                        <span class="cta-price-label-bottom">初期費用無料</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-benefits">
+                <div class="cta-benefit-item">
+                    <span class="cta-benefit-icon">•</span>
+                    <span>オリジナルテンプレート作成</span>
+                </div>
+                <div class="cta-benefit-item">
+                    <span class="cta-benefit-icon">•</span>
+                    <span>2週間無料トライアル</span>
+                </div>
+                <div class="cta-benefit-item">
+                    <span class="cta-benefit-icon">•</span>
+                    <span>専任導入サポート</span>
+                </div>
+            </div>
+
+            <div class="cta-action">
+                <div class="cta-code-box">
+                    <div class="cta-code-text">合言葉「<strong>ポスター見た</strong>」で特典適用</div>
+                </div>
+            </div>
+
+            <div class="cta-limitation">
+                <span class="cta-limit-text">先着10院限定</span>
+                <span class="cta-divider">｜</span>
+                <span class="cta-limit-text">2025年10月末まで</span>
+            </div>
+        </section>
+
+        <!-- お問い合わせ担当 -->
+        <section class="contact-section">
+            <div class="contact-wrapper">
+                <div class="contact-main">
+                    <div class="contact-person-card">
+                        <img src="image/hashimoto.png" alt="橋本 玲音" class="contact-photo-large"
+                            onerror="this.style.background='linear-gradient(135deg, var(--primary-50), white)'; this.style.border='2px solid var(--primary-100)'; this.alt='';">
+                        <div class="contact-person-info">
+                            <div class="contact-name">橋本 玲音</div>
+                            <div class="contact-title">事業統括本部マネージャー</div>
+                        </div>
+                    </div>
+                    <div class="contact-info-column">
+                        <div class="contact-info-label">お問い合わせ</div>
+                        <div class="contact-info-items">
+                            <div class="contact-item">
+                                <span class="contact-icon-email">✉</span>
+                                <span class="contact-value">r.hashimoto@advatec.co.jp</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon-phone">☎</span>
+                                <span class="contact-value">080-7298-1448</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-qr-wrapper">
+                    <div class="qr-code-contact" id="qrcode"></div>
+                    <div class="qr-label">詳細・お申し込み</div>
+                    <div class="qr-url">info.coekar.com</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="footer">
+            <div class="footer-logo">株式会社ADVATEC</div>
+            <div class="footer-address">〒150-0001 東京都渋谷区神宮前3-42-2 VORT外苑前Ⅲ 4F</div>
+        </footer>
+    </div>
+    <script>
+        // QRコード生成
+        window.addEventListener('DOMContentLoaded', function () {
+            // お問い合わせセクションのQRコード（1箇所のみ）
+            const qrcodeContainer = document.getElementById('qrcode');
+            if (qrcodeContainer && typeof QRCode !== 'undefined') {
+                QRCode.toCanvas('https://info.coekar.com/', {
+                    width: 256,
+                    margin: 1,
+                    color: {
+                        dark: '#000000',
+                        light: '#FFFFFF'
+                    },
+                    errorCorrectionLevel: 'M'
+                }, function (err, canvas) {
+                    if (err) {
+                        console.error('QRコード生成エラー:', err);
+                        qrcodeContainer.innerHTML = '<div style="font-size: 2.5mm; color: #9ca3af;">QRコード</div>';
+                        return;
+                    }
+                    qrcodeContainer.appendChild(canvas);
+                    canvas.style.width = '100%';
+                    canvas.style.height = '100%';
+                });
+            } else {
+                console.error('QRコードライブラリが読み込まれていません');
+                if (qrcodeContainer) {
+                    qrcodeContainer.innerHTML = '<div style="font-size: 2.5mm; color: #9ca3af;">QRコード</div>';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
