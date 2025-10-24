@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コエカル - サムネイル画像 (256×190)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* プライマリカラーパレット（ディープブルー） */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+
+            /* ニュートラルカラー */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            line-height: 1.4;
+            font-feature-settings: "palt" 1;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* サムネイル画像コンテナ（256×190px） */
+        .thumb-image {
+            width: 256px;
+            height: 190px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 左側：ブランドセクション */
+        .brand-section {
+            width: 45%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景装飾 */
+        .brand-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: subtle-pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .logo-brand {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        .brand-tagline {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            margin-top: 4px;
+            text-align: center;
+        }
+
+        /* 右側：メッセージセクション */
+        .message-section {
+            width: 55%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 24px 20px;
+            position: relative;
+        }
+
+        /* 微妙なグラデーション背景 */
+        .message-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(239, 246, 255, 0.3) 100%);
+            pointer-events: none;
+        }
+
+        .message-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .thumb-title {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.02em;
+        }
+
+        .thumb-subtitle {
+            font-size: 10px;
+            color: var(--gray-600);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* アクセント装飾 */
+        .accent-line {
+            position: absolute;
+            bottom: 16px;
+            right: 20px;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-600), var(--primary-400));
+            border-radius: 2px;
+        }
+
+        /* 説明テキスト */
+        .instructions {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            color: var(--gray-700);
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .instructions strong {
+            color: var(--primary-900);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="thumb-image">
+        <!-- 左側：ブランドセクション -->
+        <div class="brand-section">
+            <div class="logo-brand">
+                <img src="image/coekar_logo.png" alt="コエカル" class="logo-img">
+                <h1 class="brand-name">コエカル</h1>
+                <p class="brand-tagline">COEKAR</p>
+            </div>
+        </div>
+
+        <!-- 右側：メッセージセクション -->
+        <div class="message-section">
+            <div class="message-content">
+                <h2 class="thumb-title">
+                    声が、<br/>記録になる。
+                </h2>
+                <p class="thumb-subtitle">
+                    診察中の会話を自動で<br/>医療記録に変換
+                </p>
+            </div>
+            <div class="accent-line"></div>
+        </div>
+    </div>
+
+    <!-- 使用方法の説明 -->
+    <div class="instructions">
+        <strong>サムネイル画像作成手順</strong>
+        この画面を256×190pxでスクリーンショット撮影してください。<br>
+        ブラウザの開発者ツールでデバイスモードを使用し、256×190に設定してスクリーンショット
+    </div>
+</body>
+</html>
