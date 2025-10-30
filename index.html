@@ -10,6 +10,78 @@
     })(window,document,'script','dataLayer','GTM-MCF8R75T');</script>
     <!-- End Google Tag Manager -->
 
+    <!-- QR ID パラメータ永続化 -->
+    <script>
+        (function() {
+            try {
+                var key = 'qr_id';
+                var url = new URL(location.href);
+                var val = url.searchParams.get(key);
+
+                // URLパラメータにqr_idがある場合は保存
+                if (val) {
+                    sessionStorage.setItem(key, val);
+                    document.cookie = key + '=' + encodeURIComponent(val) + ';path=/;max-age=' + (60 * 60 * 24 * 90);
+                }
+
+                // dataLayerに初期値を設定（GTM変数から参照可能）
+                window.dataLayer = window.dataLayer || [];
+                var persistedQrId = val || sessionStorage.getItem(key);
+                if (!persistedQrId) {
+                    var match = document.cookie.match(/(?:^|;\s*)qr_id=([^;]+)/);
+                    persistedQrId = match ? decodeURIComponent(match[1]) : undefined;
+                }
+                if (persistedQrId) {
+                    window.dataLayer.push({
+                        'qr_id': persistedQrId
+                    });
+                }
+            } catch(e) {
+                console.error('QR ID tracking error:', e);
+            }
+        })();
+    </script>
+    <!-- End QR ID パラメータ永続化 -->
+
+    <!-- CTA クリック追跡 -->
+    <script>
+        function trackCTA(ctaId, ctaText, ctaArea, pageSection) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'cta_click',
+                'cta_id': ctaId,
+                'cta_text': ctaText,
+                'cta_area': ctaArea,
+                'page_section': pageSection
+            });
+        }
+    </script>
+    <!-- End CTA クリック追跡 -->
+
+    <!-- フォーム送信完了イベント受信 -->
+    <script>
+        // iframeからのpostMessageを受信してdataLayerにpush
+        window.addEventListener('message', function(event) {
+            // セキュリティ: 信頼できるオリジンのみ処理
+            // Pardot/beee.jpからのメッセージを受け入れる
+            if (event.origin.indexOf('beee.jp') === -1 && event.origin.indexOf('go.pardot.com') === -1) {
+                return;
+            }
+
+            // フォーム送信完了メッセージを処理
+            if (event.data && event.data.event === 'form_submit_success') {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'generate_lead',
+                    'form_id': event.data.form_id || 'contact_form',
+                    'lead_type': event.data.lead_type || 'demo_request',
+                    'form_name': event.data.form_name || '無料デモ申し込み'
+                });
+            }
+        });
+    </script>
+    <!-- End フォーム送信完了イベント受信 -->
+
     <!-- Google tag (gtag.js) - コメントアウト: GTMで管理
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JN1R0QH33V"></script>
     <script>
@@ -115,7 +187,15 @@
                 <a href="#problem">課題</a>
                 <a href="#solution">ソリューション</a>
                 <a href="#features">機能</a>
-                <a href="#contact-form" class="nav-cta">無料デモを申し込む</a>
+                <a href="#contact-form"
+                   class="nav-cta"
+                   data-cta-id="nav_demo_apply"
+                   data-cta-text="無料デモを申し込む"
+                   data-cta-area="navigation"
+                   data-page-section="header"
+                   onclick="trackCTA('nav_demo_apply', '無料デモを申し込む', 'navigation', 'header')">
+                    無料デモを申し込む
+                </a>
             </div>
         </div>
     </nav>
@@ -133,7 +213,15 @@
                     記録作成の負担から解放され、診療に集中できる環境を実現します。
                 </p>
                 <div class="hero-actions">
-                    <a href="#contact-form" class="btn-primary hero-cta">無料デモを申し込む</a>
+                    <a href="#contact-form"
+                       class="btn-primary hero-cta"
+                       data-cta-id="hero_demo_apply"
+                       data-cta-text="無料デモを申し込む"
+                       data-cta-area="hero"
+                       data-page-section="hero"
+                       onclick="trackCTA('hero_demo_apply', '無料デモを申し込む', 'hero', 'hero')">
+                        無料デモを申し込む
+                    </a>
                 </div>
             </div>
             
@@ -569,7 +657,15 @@
         <div class="container">
             <h2>記録の時間をゼロに<br>対話の時間を最大に</h2>
             <p>新しい診療のかたちを、ぜひ体感してください</p>
-            <a href="#contact-form" class="btn-primary">無料デモを申し込む</a>
+            <a href="#contact-form"
+               class="btn-primary"
+               data-cta-id="cta_demo_apply"
+               data-cta-text="無料デモを申し込む"
+               data-cta-area="cta_section"
+               data-page-section="cta"
+               onclick="trackCTA('cta_demo_apply', '無料デモを申し込む', 'cta_section', 'cta')">
+                無料デモを申し込む
+            </a>
         </div>
     </section>
 
