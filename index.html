@@ -2,6 +2,20 @@
 <html lang="ja">
 
 <head>
+    <!-- alertブロック（GTMのテストタグ対策） -->
+    <script>
+        // GTMから配信されるalertを無効化（コンソールに記録）
+        (function() {
+            var originalAlert = window.alert;
+            window.alert = function(msg) {
+                console.warn('Blocked alert from GTM:', msg);
+                // デバッグ時に確認したい場合はコメントアウトを外す
+                // originalAlert.call(window, msg);
+            };
+        })();
+    </script>
+    <!-- End alertブロック -->
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
