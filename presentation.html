@@ -32,9 +32,10 @@
         .presentation {
             flex: 1;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
-            padding: 0 5%;
+            padding: 40px 5% 0;
+            position: relative;
         }
 
         .slide {
@@ -45,7 +46,26 @@
         }
 
         .slide.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide:not(.title-slide) {
+            min-height: calc(100vh - 80px);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.title-slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         @keyframes fadeIn {
@@ -322,7 +342,7 @@
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 1rem;
-            margin: 3rem 0;
+            margin: 1.5rem 0;
         }
 
         .flow-item {
@@ -352,6 +372,26 @@
             font-size: 0.9rem;
             color: #666;
             line-height: 1.4;
+        }
+
+        .slide-header {
+            border-left: 4px solid #0066cc;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            min-height: 70px;
+        }
+
+        .slide-header .header-label {
+            font-size: 0.8rem;
+            color: #666;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-header h2 {
+            margin: 0;
         }
 
         @media (max-width: 768px) {
@@ -404,124 +444,135 @@
 
             <!-- スライド2: 医療現場の声 -->
             <div class="slide">
-                <h2>医療現場の声</h2>
-                <div class="voices-grid">
-                    <div class="voice-box">
-                        <h4>医師の悩み</h4>
-                        <ul>
-                            <li>「記録作成に時間を取られ、残業が増える」</li>
-                            <li>「患者さんにもっと丁寧に説明したいのに、時間が足りない」</li>
-                            <li>「記録を書くことに気を取られて、患者さんの表情を見逃してしまう」</li>
-                        </ul>
-                    </div>
-                    <div class="voice-box">
-                        <h4>患者の悩み</h4>
-                        <ul>
-                            <li>「医師がパソコンばかり見ていた」</li>
-                            <li>「診断や薬の説明もなく処方されて診察が終わった」</li>
-                            <li>「質問したいことがあったのに、聞けなかった」</li>
-                        </ul>
+                <div class="slide-header">
+                    <span class="header-label">VOICE</span>
+                    <h2>医療現場の声</h2>
+                </div>
+                <div class="slide-content">
+                    <div class="voices-grid">
+                        <div class="voice-box">
+                            <h4>医師の悩み</h4>
+                            <ul>
+                                <li>「記録作成に時間を取られ、残業が増える」</li>
+                                <li>「患者さんにもっと丁寧に説明したいのに、時間が足りない」</li>
+                                <li>「記録を書くことに気を取られて、患者さんの表情を見逃してしまう」</li>
+                            </ul>
+                        </div>
+                        <div class="voice-box">
+                            <h4>患者の悩み</h4>
+                            <ul>
+                                <li>「医師がパソコンばかり見ていた」</li>
+                                <li>「診断や薬の説明もなく処方されて診察が終わった」</li>
+                                <li>「質問したいことがあったのに、聞けなかった」</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- スライド3: ソリューションの図解 -->
             <div class="slide">
-                <h2>コエカルのソリューション</h2>
-                <div class="solution-flow">
-                    <div class="flow-item">
-                        <div class="flow-icon">
-                            <div
-                                style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-microphone" style="font-size: 24px; color: #0066cc;"></i>
-                            </div>
-                        </div>
-                        <h3>音声録音</h3>
-                        <p>診察中の対話を<br>自動で録音</p>
-                    </div>
-                    <div class="flow-arrow">
-                        <i class="fas fa-arrow-right" style="font-size: 20px; color: #0066cc;"></i>
-                    </div>
-                    <div class="flow-item">
-                        <div class="flow-icon">
-                            <div
-                                style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-file-alt" style="font-size: 24px; color: #0066cc;"></i>
-                            </div>
-                        </div>
-                        <h3>文字起こし</h3>
-                        <p>医療用語に特化した<br>高精度な変換</p>
-                    </div>
-                    <div class="flow-arrow">
-                        <i class="fas fa-arrow-right" style="font-size: 20px; color: #0066cc;"></i>
-                    </div>
-                    <div class="flow-item">
-                        <div class="flow-icon">
-                            <div
-                                style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-brain" style="font-size: 24px; color: #0066cc;"></i>
-                            </div>
-                        </div>
-                        <h3>AI記録生成</h3>
-                        <p>SOAP形式で<br>自動生成</p>
-                    </div>
-                    <div class="flow-arrow">
-                        <i class="fas fa-arrow-right" style="font-size: 20px; color: #0066cc;"></i>
-                    </div>
-                    <div class="flow-item">
-                        <div class="flow-icon">
-                            <div
-                                style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-check" style="font-size: 24px; color: #0066cc;"></i>
-                            </div>
-                        </div>
-                        <h3>即座に完成</h3>
-                        <p>診察終了直後に<br>記録が完成</p>
-                    </div>
+                <div class="slide-header">
+                    <span class="header-label">SOLUTION</span>
+                    <h2>コエカルのソリューション</h2>
                 </div>
-                <div class="catchphrase" style="margin-top: 3rem;">
-                    医師は診察に集中、記録作成は自動化
+                <div class="slide-content">
+                    <div class="solution-flow">
+                        <div class="flow-item">
+                            <div class="flow-icon">
+                                <div
+                                    style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-microphone" style="font-size: 24px; color: #0066cc;"></i>
+                                </div>
+                            </div>
+                            <h3>音声録音</h3>
+                            <p>診察中の対話を<br>自動で録音</p>
+                        </div>
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right" style="font-size: 20px; color: #0066cc;"></i>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">
+                                <div
+                                    style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-file-alt" style="font-size: 24px; color: #0066cc;"></i>
+                                </div>
+                            </div>
+                            <h3>文字起こし</h3>
+                            <p>医療用語に特化した<br>高精度な変換</p>
+                        </div>
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right" style="font-size: 20px; color: #0066cc;"></i>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">
+                                <div
+                                    style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-brain" style="font-size: 24px; color: #0066cc;"></i>
+                                </div>
+                            </div>
+                            <h3>AI記録生成</h3>
+                            <p>SOAP形式で<br>自動生成</p>
+                        </div>
+                        <div class="flow-arrow">
+                            <i class="fas fa-arrow-right" style="font-size: 20px; color: #0066cc;"></i>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">
+                                <div
+                                    style="width: 60px; height: 60px; background: #f0f8ff; border: 2px solid #0066cc; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-check" style="font-size: 24px; color: #0066cc;"></i>
+                                </div>
+                            </div>
+                            <h3>即座に完成</h3>
+                            <p>診察終了直後に<br>記録が完成</p>
+                        </div>
+                    </div>
+                    <div class="catchphrase" style="margin-top: 2rem;">
+                        医師は診察に集中、記録作成は自動化
+                    </div>
                 </div>
             </div>
 
             <!-- スライド4: 患者と向き合う時間の創出 -->
             <div class="slide">
-                <div style="border-left: 4px solid #0066cc; padding-left: 1.5rem; margin-bottom: 2rem;">
-                    <span style="font-size: 0.8rem; color: #666; letter-spacing: 0.1em; font-weight: 500;">VALUE
-                        01</span>
-                    <h2 style="margin: 0.5rem 0;">患者と向き合う時間の創出</h2>
+                <div class="slide-header">
+                    <span class="header-label">VALUE 01</span>
+                    <h2>患者と向き合う時間の創出</h2>
                 </div>
-                <div
-                    style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin: 3rem 0;">
-                    <div style="flex: 1; text-align: center;">
-                        <h4 style="color: #cc0000; margin-bottom: 1.5rem; font-size: 1.3rem;">Before</h4>
-                        <div
-                            style="background: #fff5f5; border: 2px solid #ffdddd; border-radius: 16px; padding: 2rem;">
-                            <ul style="text-align: left;">
-                                <li>診察中にPCに向かってカルテ入力</li>
-                                <li>患者の話を聞きながらメモを取る多重タスク</li>
-                                <li>診察後に記憶を頼りに記録作成</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div style="flex: 0 0 80px; display: flex; align-items: center; justify-content: center;">
-                        <div style="position: relative;">
-                            <i class="fas fa-arrow-right" style="font-size: 36px; color: #0066cc;"></i>
+                <div class="slide-content">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
+                        <div style="flex: 1; text-align: center;">
+                            <h4 style="color: #cc0000; margin-bottom: 1.5rem; font-size: 1.3rem;">Before</h4>
                             <div
-                                style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #0066cc; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap;">
-                                コエカル導入
+                                style="background: #fff5f5; border: 2px solid #ffdddd; border-radius: 16px; padding: 2rem;">
+                                <ul style="text-align: left;">
+                                    <li>診察中にPCに向かってカルテ入力</li>
+                                    <li>患者の話を聞きながらメモを取る多重タスク</li>
+                                    <li>診察後に記憶を頼りに記録作成</li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                    <div style="flex: 1; text-align: center;">
-                        <h4 style="color: #0066cc; margin-bottom: 1.5rem; font-size: 1.3rem;">After</h4>
-                        <div
-                            style="background: #f0f8ff; border: 2px solid #ddeeff; border-radius: 16px; padding: 2rem;">
-                            <ul style="text-align: left;">
-                                <li>患者の目を見て話せる</li>
-                                <li>病状や治療方針を図解しながら丁寧に説明</li>
-                                <li>患者の不安や疑問にじっくり対応</li>
-                            </ul>
+                        <div style="flex: 0 0 80px; display: flex; align-items: center; justify-content: center;">
+                            <div style="position: relative;">
+                                <i class="fas fa-arrow-right" style="font-size: 36px; color: #0066cc;"></i>
+                                <div
+                                    style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #0066cc; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap;">
+                                    コエカル導入
+                                </div>
+                            </div>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <h4 style="color: #0066cc; margin-bottom: 1.5rem; font-size: 1.3rem;">After</h4>
+                            <div
+                                style="background: #f0f8ff; border: 2px solid #ddeeff; border-radius: 16px; padding: 2rem;">
+                                <ul style="text-align: left;">
+                                    <li>患者の目を見て話せる</li>
+                                    <li>病状や治療方針を図解しながら丁寧に説明</li>
+                                    <li>患者の不安や疑問にじっくり対応</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -529,47 +580,47 @@
 
             <!-- スライド5: 診療の文脈が伝わる記録 -->
             <div class="slide">
-                <div style="border-left: 4px solid #0066cc; padding-left: 1.5rem; margin-bottom: 2rem;">
-                    <span style="font-size: 0.8rem; color: #666; letter-spacing: 0.1em; font-weight: 500;">VALUE
-                        02</span>
-                    <h2 style="margin: 0.5rem 0;">診療の文脈が伝わる記録</h2>
+                <div class="slide-header">
+                    <span class="header-label">VALUE 02</span>
+                    <h2>診療の文脈が伝わる記録</h2>
                 </div>
-
-                <div
-                    style="display: flex; align-items: stretch; justify-content: space-between; gap: 2rem; margin: 3rem 0;">
-                    <div style="flex: 1;">
-                        <h4 style="color: #cc0000; margin-bottom: 1rem; text-align: center;">Before：断片的な記録</h4>
-                        <div
-                            style="background: #f6f8fa; border: 2px solid #ffdddd; border-radius: 12px; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.9rem; min-height: 200px;">
-                            <strong>S:</strong> 頭痛あり<br><br>
-                            <strong>O:</strong> BP 120/80<br><br>
-                            <strong>A:</strong> 頭痛片頭痛<br><br>
-                            <strong>P:</strong> トリプタン剤処方
-                        </div>
-                    </div>
-                    <div style="flex: 0 0 80px; display: flex; align-items: center; justify-content: center;">
-                        <div style="position: relative;">
-                            <i class="fas fa-arrow-right" style="font-size: 36px; color: #0066cc;"></i>
+                <div class="slide-content">
+                    <div
+                        style="display: flex; align-items: stretch; justify-content: space-between; gap: 2rem;">
+                        <div style="flex: 1;">
+                            <h4 style="color: #cc0000; margin-bottom: 1rem; text-align: center;">Before：断片的な記録</h4>
                             <div
-                                style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #0066cc; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap;">
-                                コエカル導入
+                                style="background: #f6f8fa; border: 2px solid #ffdddd; border-radius: 12px; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.9rem; min-height: 200px;">
+                                <strong>S:</strong> 頭痛あり<br><br>
+                                <strong>O:</strong> BP 120/80<br><br>
+                                <strong>A:</strong> 頭痛片頭痛<br><br>
+                                <strong>P:</strong> トリプタン剤処方
                             </div>
                         </div>
-                    </div>
-                    <div style="flex: 1;">
-                        <h4 style="color: #0066cc; margin-bottom: 1rem; text-align: center;">After：文脈が伝わる記録</h4>
-                        <div
-                            style="background: #f6f8fa; border: 2px solid #ddeeff; border-radius: 12px; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6; min-height: 200px;">
-                            <strong>S（主観的情報）:</strong><br>
-                            患者は3日前から続く拍動性の頭痛を訴え、特に朝方の痛みがひどいです。
-                            ストレスと睡眠不足が慢性的に続いています。<br><br>
-                            <strong>O（客観的情報）:</strong><br>
-                            血圧測定値は正常範囲内。神経学的所見に異常なし。<br><br>
-                            <strong>A（評価）:</strong><br>
-                            症状と経過から片頭痛と診断。ストレスと睡眠不足が誘因と考えられる。<br><br>
-                            <strong>P（計画）:</strong><br>
-                            トリプタン系薬剤を処方。副作用と服用タイミングについて説明し、<br>
-                            患者の理解を確認。2週間後に経過観察予定。
+                        <div style="flex: 0 0 80px; display: flex; align-items: center; justify-content: center;">
+                            <div style="position: relative;">
+                                <i class="fas fa-arrow-right" style="font-size: 36px; color: #0066cc;"></i>
+                                <div
+                                    style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #0066cc; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; white-space: nowrap;">
+                                    コエカル導入
+                                </div>
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #0066cc; margin-bottom: 1rem; text-align: center;">After：文脈が伝わる記録</h4>
+                            <div
+                                style="background: #f6f8fa; border: 2px solid #ddeeff; border-radius: 12px; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6; min-height: 200px;">
+                                <strong>S（主観的情報）:</strong><br>
+                                患者は3日前から続く拍動性の頭痛を訴え、特に朝方の痛みがひどいです。
+                                ストレスと睡眠不足が慢性的に続いています。<br><br>
+                                <strong>O（客観的情報）:</strong><br>
+                                血圧測定値は正常範囲内。神経学的所見に異常なし。<br><br>
+                                <strong>A（評価）:</strong><br>
+                                症状と経過から片頭痛と診断。ストレスと睡眠不足が誘因と考えられる。<br><br>
+                                <strong>P（計画）:</strong><br>
+                                トリプタン系薬剤を処方。副作用と服用タイミングについて説明し、<br>
+                                患者の理解を確認。2週間後に経過観察予定。
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -577,94 +628,100 @@
 
             <!-- スライド6: 記録作成時間の削減 -->
             <div class="slide">
-                <div style="border-left: 4px solid #0066cc; padding-left: 1.5rem; margin-bottom: 2rem;">
-                    <span style="font-size: 0.8rem; color: #666; letter-spacing: 0.1em; font-weight: 500;">VALUE
-                        03</span>
-                    <h2 style="margin: 0.5rem 0;">記録作成時間を大幅削減</h2>
+                <div class="slide-header">
+                    <span class="header-label">VALUE 03</span>
+                    <h2>記録作成時間を大幅削減</h2>
                 </div>
-                <div class="grid">
-                    <div class="metric">
-                        <div class="metric-value">70%</div>
-                        <div class="metric-label">記録作成時間を削減</div>
+                <div class="slide-content">
+                    <div class="grid">
+                        <div class="metric">
+                            <div class="metric-value">70%</div>
+                            <div class="metric-label">記録作成時間を削減</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">500時間</div>
+                            <div class="metric-label">年間で診療に還元</div>
+                        </div>
                     </div>
-                    <div class="metric">
-                        <div class="metric-value">500時間</div>
-                        <div class="metric-label">年間で診療に還元</div>
+                    <div class="card">
+                        <h3>時間削減によって</h3>
+                        <ul>
+                            <li>より多くの患者を診察可能に</li>
+                            <li>残業の削減</li>
+                            <li>患者とのコミュニケーションを創出</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="card">
-                    <h3>時間削減によって</h3>
-                    <ul>
-                        <li>より多くの患者を診察可能に</li>
-                        <li>残業の削減</li>
-                        <li>患者とのコミュニケーションを創出</li>
-                    </ul>
                 </div>
             </div>
 
             <!-- スライド7: 医療専門の独自技術 -->
             <div class="slide">
-                <h2 style="text-align: center; margin-bottom: 3rem;">コエカルの強み</h2>
-                <div
-                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; margin: 0 auto; max-width: 900px;">
-                    <div style="text-align: center;">
-                        <div
-                            style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-microphone-alt" style="font-size: 36px; color: #0066cc;"></i>
+                <div class="slide-header">
+                    <span class="header-label">STRENGTHS</span>
+                    <h2>コエカルの強み</h2>
+                </div>
+                <div class="slide-content">
+                    <div
+                        style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 0 auto; max-width: 900px;">
+                        <div style="text-align: center;">
+                            <div
+                                style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-microphone-alt" style="font-size: 36px; color: #0066cc;"></i>
+                            </div>
+                            <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
+                                医療特化音声認識
+                            </h3>
+                            <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
+                                医療用語・薬剤名・疾患名を<br>正確に認識する独自チューニング
+                            </p>
                         </div>
-                        <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
-                            医療特化音声認識
-                        </h3>
-                        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
-                            医療用語・薬剤名・疾患名を<br>正確に認識する独自チューニング
-                        </p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div
-                            style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-brain" style="font-size: 36px; color: #0066cc;"></i>
+                        <div style="text-align: center;">
+                            <div
+                                style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-brain" style="font-size: 36px; color: #0066cc;"></i>
+                            </div>
+                            <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
+                                医療特化LLM
+                            </h3>
+                            <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
+                                医療の文脈を深く理解し<br>診療ガイドラインに沿った記録を生成
+                            </p>
                         </div>
-                        <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
-                            医療特化LLM
-                        </h3>
-                        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
-                            医療の文脈を深く理解し<br>診療ガイドラインに沿った記録を生成
-                        </p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div
-                            style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-clock" style="font-size: 36px; color: #0066cc;"></i>
+                        <div style="text-align: center;">
+                            <div
+                                style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-clock" style="font-size: 36px; color: #0066cc;"></i>
+                            </div>
+                            <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
+                                リアルタイム処理
+                            </h3>
+                            <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
+                                診察が終わった直後に<br>記録が生成され、すぐに確認・編集可能
+                            </p>
                         </div>
-                        <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
-                            リアルタイム処理
-                        </h3>
-                        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">
-                            診察が終わった直後に<br>記録が生成され、すぐに確認・編集可能
-                        </p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div
-                            style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-shield-alt" style="font-size: 36px; color: #0066cc;"></i>
+                        <div style="text-align: center;">
+                            <div
+                                style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-shield-alt" style="font-size: 36px; color: #0066cc;"></i>
+                            </div>
+                            <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
+                                セキュアな設計
+                            </h3>
+                            <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">医療データの機密性を保護する<br>堅牢なセキュリティ
+                            </p>
                         </div>
-                        <h3 style="font-size: 1.2rem; color: #1a1a1a; margin-bottom: 0.8rem; font-weight: 600;">
-                            セキュアな設計
-                        </h3>
-                        <p style="color: #666; line-height: 1.6; font-size: 0.95rem;">医療データの機密性を保護する<br>堅牢なセキュリティ
-                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- スライド8: ビジョン -->
             <div class="slide title-slide">
-                <div style="text-align: center; margin-top: 4rem;">
-                    <p style="font-size: 2.5rem; font-weight: 300; line-height: 1.6; margin-bottom: 3rem;">
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p style="font-size: 2.5rem; font-weight: 300; line-height: 1.6; margin-bottom: 2rem;">
                         記録の時間を、ゼロに。<br>
                         対話の時間を、最大に。
                     </p>
-                    <div style="width: 60px; height: 1px; background: #0066cc; margin: 3rem auto;"></div>
+                    <div style="width: 60px; height: 1px; background: #0066cc; margin: 2rem auto;"></div>
                     <p style="font-size: 1.5rem; color: #333; font-weight: 400;">
                         医療の本質を、テクノロジーで支える。
                     </p>
@@ -672,13 +729,12 @@
             </div>
 
             <!-- スライド9: デモ動画 -->
-            <div class="slide">
-                <h2 style="text-align: center; margin-bottom: 2rem;">デモ動画</h2>
-                <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="slide title-slide">
+                <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
                     <iframe
                         src="https://drive.google.com/file/d/1nRZ-tR-icWhcRsdZ-RPVOaql9ylhsCC1/preview"
-                        width="960"
-                        height="540"
+                        width="1200"
+                        height="675"
                         allow="autoplay"
                         style="border: none; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
                     </iframe>
