@@ -42,7 +42,6 @@
             display: none;
             width: 100%;
             max-width: 1100px;
-            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .slide.active {
@@ -63,21 +62,9 @@
 
         .slide.title-slide {
             position: absolute;
-            top: 50%;
+            top: calc(50% - 20px);
             left: 50%;
             transform: translate(-50%, -50%);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         h1 {
@@ -729,15 +716,21 @@
             </div>
 
             <!-- スライド9: デモ動画 -->
-            <div class="slide title-slide">
-                <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-                    <iframe
-                        src="https://drive.google.com/file/d/1nRZ-tR-icWhcRsdZ-RPVOaql9ylhsCC1/preview"
-                        width="1200"
-                        height="675"
-                        allow="autoplay"
-                        style="border: none; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
-                    </iframe>
+            <div class="slide">
+                <div class="slide-header">
+                    <span class="header-label">DEMO</span>
+                    <h2>デモ動画</h2>
+                </div>
+                <div class="slide-content">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <iframe
+                            src="https://drive.google.com/file/d/1nRZ-tR-icWhcRsdZ-RPVOaql9ylhsCC1/preview"
+                            width="1000"
+                            height="563"
+                            allow="autoplay"
+                            style="border: none; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); max-width: 90vw; max-height: 70vh;">
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
