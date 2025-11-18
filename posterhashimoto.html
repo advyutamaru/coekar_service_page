@@ -14,37 +14,34 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <style>
         :root {
-            /* プライマリカラーパレット（洗練されたブルー） */
-            --primary-50: #f0f7ff;
-            --primary-100: #e0efff;
-            --primary-200: #c7e2ff;
-            --primary-300: #a5d0ff;
-            --primary-400: #6eb2ff;
+            /* プライマリカラーパレット（ディープブルー） */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
             --primary-500: #3b82f6;
             --primary-600: #2563eb;
             --primary-700: #1d4ed8;
             --primary-800: #1e40af;
             --primary-900: #1e3a8a;
-            --primary-950: #0f2554;
 
             /* ニュートラルカラー */
-            --gray-50: #fafbfc;
-            --gray-100: #f5f7fa;
-            --gray-200: #e9ecf1;
-            --gray-300: #d3d9e3;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
             --gray-400: #9ca3af;
             --gray-500: #6b7280;
             --gray-600: #4b5563;
             --gray-700: #374151;
             --gray-800: #1f2937;
             --gray-900: #111827;
-            --gray-950: #030712;
 
             /* アクセントカラー */
-            --accent-red: #dc2626;
-            --accent-green: #059669;
+            --accent-red: #ef4444;
+            --accent-green: #10b981;
             --accent-amber: #f59e0b;
-            --accent-purple: #7c3aed;
         }
 
         * {
@@ -71,7 +68,7 @@
         .poster {
             width: 210mm;
             height: 297mm;
-            background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+            background: white;
             position: relative;
             overflow: hidden;
             padding: 10mm 12mm;
@@ -88,10 +85,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            opacity: 0.02;
+            opacity: 0.03;
             background-image:
-                radial-gradient(ellipse at top left, var(--primary-400) 0%, transparent 40%),
-                radial-gradient(ellipse at bottom right, var(--primary-500) 0%, transparent 40%);
+                radial-gradient(circle at 20% 80%, var(--primary-600) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--primary-500) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--primary-400) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -102,7 +100,7 @@
             justify-content: space-between;
             margin-bottom: 4mm;
             padding-bottom: 3mm;
-            border-bottom: 2px solid var(--primary-100);
+            border-bottom: 1px solid var(--gray-100);
             position: relative;
             z-index: 1;
             flex-shrink: 0;
@@ -124,7 +122,7 @@
         .brand-name {
             font-size: 7mm;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary-950) 0%, var(--primary-700) 100%);
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -166,7 +164,7 @@
             font-weight: 900;
             line-height: 1.15;
             margin-bottom: 3mm;
-            background: linear-gradient(135deg, var(--primary-950) 0%, var(--primary-600) 100%);
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -229,7 +227,7 @@
         .stats-number {
             font-size: 5.8mm;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary-950) 0%, var(--primary-600) 100%);
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -259,28 +257,22 @@
 
         /* 課題セクション */
         .problems-section {
-            background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+            background: var(--gray-50);
             border-radius: 3mm;
             padding: 4mm;
             margin-bottom: 5mm;
             position: relative;
             z-index: 1;
-            border: 1px solid rgba(239, 68, 68, 0.1);
-            box-shadow: 0 1px 4px rgba(239, 68, 68, 0.04);
             flex-shrink: 0;
         }
 
         .section-label {
             font-size: 2.8mm;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--accent-red);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 3mm;
-            display: inline-block;
-            padding: 0.8mm 2.5mm;
-            background: rgba(239, 68, 68, 0.08);
-            border-radius: 2mm;
         }
 
         .problems-grid {
@@ -298,7 +290,7 @@
         .problem-icon {
             width: 5mm;
             height: 5mm;
-            background: linear-gradient(135deg, var(--accent-red) 0%, #b91c1c 100%);
+            background: var(--accent-red);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -308,14 +300,13 @@
             font-weight: bold;
             flex-shrink: 0;
             margin-top: 0.3mm;
-            box-shadow: 0 1px 3px rgba(239, 68, 68, 0.15);
         }
 
         .problem-text {
             font-size: 2.8mm;
-            color: var(--gray-800);
+            color: var(--gray-700);
             line-height: 1.25;
-            font-weight: 500;
+            font-weight: 400;
         }
 
         /* メトリクスセクション */
@@ -333,31 +324,18 @@
         }
 
         .metric-card {
-            background: linear-gradient(135deg, white 0%, var(--primary-50) 100%);
-            border: 1.5px solid var(--primary-100);
+            background: white;
+            border: 2px solid var(--primary-50);
             border-radius: 2.5mm;
             padding: 2.5mm 2mm;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 1px 4px rgba(37, 99, 235, 0.06);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .metric-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-600) 0%, var(--primary-400) 100%);
         }
 
         .metric-value {
             font-size: 6mm;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary-950) 0%, var(--primary-600) 100%);
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -368,8 +346,8 @@
 
         .metric-label {
             font-size: 2.6mm;
-            font-weight: 700;
-            color: var(--gray-900);
+            font-weight: 600;
+            color: var(--gray-800);
             margin-bottom: 0.5mm;
             letter-spacing: 0.01em;
         }
@@ -426,7 +404,7 @@
 
         /* CTAセクション */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary-950) 0%, var(--primary-700) 100%);
+            background: var(--gray-900);
             color: white;
             border-radius: 3mm;
             padding: 3.5mm;
@@ -436,8 +414,6 @@
             z-index: 1;
             margin-top: 1mm;
             margin-bottom: 4mm;
-            border: none;
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
             flex-shrink: 0;
         }
 
@@ -445,16 +421,17 @@
             content: "";
             position: absolute;
             top: -50%;
-            right: -50%;
+            left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            animation: pulse 3s ease-in-out infinite;
+            background: radial-gradient(circle, var(--primary-800) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse-rotate 20s linear infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
+        @keyframes pulse-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
 
@@ -593,17 +570,15 @@
 
         .cta-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            background: var(--accent-amber);
             color: var(--gray-900);
             padding: 1.5mm 5mm;
             border-radius: 100px;
             font-size: 3.5mm;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 3mm;
             position: relative;
             z-index: 1;
-            box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
-            letter-spacing: 0.03em;
         }
 
 
@@ -832,21 +807,20 @@
         .footer {
             padding-top: 2mm;
             margin-top: auto;
-            border-top: 1.5px solid var(--primary-100);
+            border-top: 1px solid var(--gray-200);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 2.2mm;
-            color: var(--gray-600);
+            color: var(--gray-500);
             position: relative;
             z-index: 1;
             flex-shrink: 0;
         }
 
         .footer-logo {
-            font-weight: 700;
-            color: var(--primary-800);
-            letter-spacing: 0.02em;
+            font-weight: 600;
+            color: var(--gray-700);
         }
 
         .footer-address {
