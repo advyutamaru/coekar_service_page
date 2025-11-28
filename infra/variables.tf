@@ -13,7 +13,7 @@ variable "site_subdomain" {
 variable "github_owner" {
   description = "GitHub organization or user name"
   type        = string
-  default     = "advatec"
+  default     = "advyutamaru"
 }
 
 variable "github_repo" {

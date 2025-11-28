@@ -12,7 +12,7 @@
 
 - `coekar.com` の DNS を Route 53 で管理している
 - AWS アカウントがあり、S3 / CloudFront / ACM / IAM にアクセスできる
-- GitHub リポジトリ: `advatec/coekar_service_page`
+- GitHub リポジトリ: `advyutamaru/coekar_service_page`
 
 ---
 
