@@ -14,6 +14,9 @@ out/
 .env.local
 .env.production
 
+# Lambda deployment package
+lambda/*.zip
+
 # IDE
 .vscode/
 .idea/
