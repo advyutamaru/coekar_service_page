@@ -1,205 +1,165 @@
 /* お問い合わせフォームセクション */
+.contact-section {
+  padding: 5rem 2rem;
+  background: var(--bg);
+}
+
+.contact-form-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* フォーム本体 */
 .contact-form {
-    padding: 60px 0;
-    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-    position: relative;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-    overflow: hidden;
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
-.contact-form.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* フォームグループ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
 }
 
-/* デコレーション */
-.contact-form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(0, 122, 255, 0.2) 25%, 
-        rgba(0, 122, 255, 0.3) 50%, 
-        rgba(0, 122, 255, 0.2) 75%, 
-        transparent 100%
-    );
+/* ラベル */
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.5rem;
 }
 
-/* フォームコンテナ */
-.form-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
+.required {
+  font-size: 0.75rem;
+  color: #ef4444;
+  font-weight: 500;
+  margin-left: 0.25rem;
 }
 
-/* iframeラッパー（レスポンシブ用） */
-.form-container {
-    position: relative;
-    width: 100%;
-    /* アスペクト比を維持 */
-    padding-bottom: 150%; /* デフォルトの高さ比率 */
-    height: 0;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 122, 255, 0.08);
+/* 入力フィールド共通 */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: #fafbfc;
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
 }
 
-/* iframe本体 */
-.form-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 16px;
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
 }
 
-/* デスクトップ（大画面） */
-@media (min-width: 1440px) {
-    .contact-form {
-        padding: 80px 0;
-    }
-    
-    .form-container {
-        max-width: 1000px;
-        padding-bottom: 100%; /* 1:1比率 */
-    }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: white;
 }
 
-/* デスクトップ（標準） */
-@media (min-width: 1024px) and (max-width: 1439px) {
-    .form-container {
-        max-width: 900px;
-        padding-bottom: 110%; /* やや縦長 */
-    }
+/* セレクトボックス */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
 }
 
-/* タブレット（横向き） */
-@media (min-width: 769px) and (max-width: 1023px) {
-    .form-container {
-        max-width: 750px;
-        padding-bottom: 120%; /* 縦長 */
-    }
+/* テキストエリア */
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
-/* タブレット（縦向き） */
-@media (min-width: 481px) and (max-width: 768px) {
-    .contact-form {
-        padding: 40px 0;
-    }
-    
-    .form-container {
-        padding-bottom: 140%; /* より縦長 */
-        padding-left: 15px;
-        padding-right: 15px;
-        border-radius: 12px;
-    }
-    
-    .form-container iframe {
-        border-radius: 12px;
-    }
+/* チェックボックス */
+.checkbox-group {
+  margin-top: 0.5rem;
 }
 
-/* モバイル（大） */
-@media (min-width: 376px) and (max-width: 480px) {
-    .contact-form {
-        padding: 30px 0;
-    }
-    
-    .form-container {
-        padding-bottom: 160%; /* さらに縦長 */
-        padding-left: 10px;
-        padding-right: 10px;
-        border-radius: 8px;
-        box-shadow: 0 5px 20px rgba(0, 122, 255, 0.06);
-    }
-    
-    .form-container iframe {
-        border-radius: 8px;
-    }
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-light);
 }
 
-/* モバイル（小） */
-@media (max-width: 375px) {
-    .contact-form {
-        padding: 20px 0;
-    }
-    
-    .form-container {
-        padding-bottom: 180%; /* 最も縦長 */
-        padding-left: 10px;
-        padding-right: 10px;
-        border-radius: 8px;
-        box-shadow: 0 5px 20px rgba(0, 122, 255, 0.06);
-    }
-    
-    .form-container iframe {
-        border-radius: 8px;
-    }
+.checkbox-label input[type="checkbox"] {
+  display: none;
 }
 
-/* スクロール制御オプション */
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-light);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+  content: "✓";
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.checkbox-text a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.checkbox-text a:hover {
+  text-decoration: none;
+}
+
+/* 送信ボタン */
+.form-submit {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn-submit {
+  min-width: 200px;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* レスポンシブ */
 @media (max-width: 768px) {
-    /* モバイルでスクロールが必要な場合 */
-    .form-container.scrollable {
-        padding-bottom: 0;
-        height: 80vh;
-        max-height: 800px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .form-container.scrollable iframe {
-        position: relative;
-        height: auto;
-        min-height: 1200px;
-    }
-}
+  .contact-section {
+    padding: 4rem 1rem;
+  }
 
-/* ローディング表示 */
-.form-container::after {
-    content: 'フォームを読み込み中...';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #999;
-    font-size: 14px;
-    z-index: -1;
-    opacity: 0;
-    animation: fadeIn 0.5s ease 0.5s forwards;
-}
+  .contact-form {
+    padding: 2rem 1.5rem;
+  }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-/* アクセシビリティ向上 */
-@media (prefers-reduced-motion: reduce) {
-    .contact-form {
-        transition: none;
-    }
-    
-    .form-container::after {
-        animation: none;
-        opacity: 1;
-    }
-}
-
-/* 印刷対応 */
-@media print {
-    .contact-form {
-        display: none;
-    }
+  .form-group {
+    margin-bottom: 1rem;
+  }
 }
