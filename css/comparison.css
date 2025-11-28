@@ -1,306 +1,148 @@
-/* 比較セクション - ミニマル調和デザイン */
+/* 比較セクション - フルワイド背景色区切り */
 .comparison {
-  background: #ffffff;
   position: relative;
   overflow: hidden;
-  padding: 6rem 3rem;
+  padding-top: 4rem;
 }
 
-/* 微細な背景グラデーション */
-.comparison::before {
+.comparison .section-header {
+  text-align: center;
+  padding: 0 2rem 3rem;
+}
+
+/* フルワイドコンテナ */
+.compare-fullwidth {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+/* 中央のグラデーション境界線 */
+.compare-fullwidth::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(
-      circle at 20% 50%,
-      rgba(59, 130, 246, 0.02) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 50%,
-      rgba(59, 130, 246, 0.02) 0%,
-      transparent 50%
-    );
-  pointer-events: none;
-}
-
-.compare-wrapper {
-  position: relative;
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.compare-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: stretch;
-  width: 100%;
-}
-
-/* 中央の矢印コンテナ */
-.arrow-container {
-  position: absolute;
-  left: calc(50% - 30px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 8px 24px rgba(59, 130, 246, 0.25),
-    0 0 0 3px rgba(255, 255, 255, 1),
-    0 0 0 6px rgba(59, 130, 246, 0.1);
-  z-index: 10;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.arrow-icon {
-  color: white;
-  font-size: 1.8rem;
-  font-weight: 700;
-  animation: slideRight 2s ease-in-out infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
   height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(59, 130, 246, 0.3) 20%,
+    rgba(59, 130, 246, 0.5) 50%,
+    rgba(59, 130, 246, 0.3) 80%,
+    transparent
+  );
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.3),
+    0 0 24px rgba(59, 130, 246, 0.15);
+  z-index: 1;
 }
 
-/* slideRightアニメーションはanimations.cssに移動済み */
-
-.compare-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+/* 左右のサイド */
+.compare-side {
+  flex: 1;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.compare-card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.compare-card:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-/* fadeInUpアニメーションはanimations.cssに移動済み */
-
-.before-card {
-  background: #fafbfc;
-  border: 1px solid #e2e8f0;
-}
-
-
-/* shimmerSlowアニメーションはanimations.cssに移動済み */
-
-.after-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.08);
-  position: relative;
-}
-
-
-/* gradientSlideアニメーションはanimations.cssに移動済み */
-
-.after-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.12);
-  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-  border-color: rgba(59, 130, 246, 0.25);
-}
-
-.before-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.compare-before {
   background: #f8fafc;
 }
 
-/* バッジシステム */
-.compare-badge {
-  position: absolute;
-  top: -2px;
-  right: 2rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0 0 16px 16px;
-  font-size: 0.75rem;
+.compare-after {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+/* タイトル */
+.compare-side h3 {
+  font-size: 1.25rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.compare-badge::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-.before-badge {
-  background: #f1f5f9;
-  color: #64748b;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-}
-
-.after-badge {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: #ffffff;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
-}
-
-/* カードヘッダー */
-.compare-card-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
-.compare-icon-wrapper {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  font-size: 24px;
-}
-
-.before-card .compare-icon-wrapper {
-  background: rgba(148, 163, 184, 0.1);
+.compare-before h3 {
   color: #64748b;
 }
 
-.after-card .compare-icon-wrapper {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.15);
+.compare-after h3 {
+  color: var(--primary-dark);
 }
 
-.compare-card h3 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin: 0;
-  flex: 1;
-}
-
-.before-card h3 {
-  color: #475569;
-}
-
-.after-card h3 {
-  color: #1e293b;
-  font-weight: 700;
-}
-
-/* リストスタイル */
+/* リスト */
 .compare-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  max-width: 400px;
 }
 
 .compare-list li {
-  padding: 1.25rem 0 1.25rem 3rem;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+  padding: 1rem 0 1rem 2.5rem;
   font-size: 0.95rem;
-  position: relative;
   line-height: 1.7;
-  transition: all 0.3s ease;
+  position: relative;
 }
 
-.compare-list li:last-child {
-  border-bottom: none;
-}
-
-.compare-list li:hover {
-  padding-left: 3.5rem;
-}
-
-/* アイコンバッジ */
 .compare-list li::before {
   position: absolute;
   left: 0;
-  top: 1.25rem;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
+  top: 1rem;
+  font-size: 1rem;
   font-weight: 700;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
 }
 
-.before-card .compare-list li {
+.compare-before .compare-list li {
   color: #64748b;
 }
 
-.before-card .compare-list li::before {
+.compare-before .compare-list li::before {
   content: "✕";
-  background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #94a3b8;
 }
 
-.before-card .compare-list li:hover::before {
-  transform: rotate(90deg) scale(1.1);
-  background: rgba(239, 68, 68, 0.15);
-}
-
-.after-card .compare-list li {
+.compare-after .compare-list li {
   color: #334155;
   font-weight: 500;
 }
 
-.after-card .compare-list li::before {
+.compare-after .compare-list li::before {
   content: "✓";
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  font-weight: 700;
+  color: var(--primary);
 }
 
-.after-card .compare-list li:hover::before {
-  transform: scale(1.2);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
-  animation: checkBounce 0.6s ease;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
-}
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .compare-fullwidth {
+    flex-direction: column;
+  }
 
-/* checkBounceアニメーションはanimations.cssに移動済み */
+  .compare-fullwidth::after {
+    width: 80%;
+    height: 1px;
+    top: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.3) 20%,
+      rgba(59, 130, 246, 0.5) 50%,
+      rgba(59, 130, 246, 0.3) 80%,
+      transparent
+    );
+  }
+
+  .compare-side {
+    padding: 3rem 2rem;
+  }
+
+  .compare-list {
+    max-width: 100%;
+  }
+}
