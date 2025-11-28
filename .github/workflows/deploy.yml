@@ -1,207 +1,183 @@
-name: Deploy
+name: Deploy to S3 and CloudFront
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
-# Pagesデプロイに必要な権限
 permissions:
   contents: read
-  pages: write
   id-token: write
 
-# 同時実行を防ぐ
 concurrency:
-  group: "pages"
+  group: "deploy"
   cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
-    - uses: actions/checkout@v4
-    
-    # Node.js環境のセットアップ
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-    
-    # 依存関係のインストール
-    - name: Install dependencies
-      run: |
-        npm init -y
-        npm install --save-dev \
-          html-minifier-terser \
-          clean-css-cli \
-          terser \
-          imagemin-cli \
-          imagemin-webp \
-          imagemin-pngquant \
-          imagemin-mozjpeg \
-          postcss \
-          postcss-cli \
-          autoprefixer \
-          cssnano
-    
-    # HTMLの最適化
-    - name: Minify HTML
-      run: |
-        npx html-minifier-terser \
-          --collapse-whitespace \
-          --remove-comments \
-          --remove-optional-tags \
-          --remove-redundant-attributes \
-          --remove-script-type-attributes \
-          --remove-tag-whitespace \
-          --use-short-doctype \
-          --minify-css true \
-          --minify-js true \
-          -o index.html \
-          index.html
-    
-    # CSSの最適化
-    - name: Optimize CSS
-      run: |
-        # PostCSSの設定を作成
-        echo '{
-          "plugins": {
-            "autoprefixer": {},
-            "cssnano": {
-              "preset": ["default", {
-                "discardComments": { "removeAll": true },
-                "normalizeWhitespace": true,
-                "colormin": true,
-                "mergeLonghand": true,
-                "mergeRules": true,
-                "minifyFontValues": true,
-                "minifyGradients": true,
-                "minifyParams": true,
-                "minifySelectors": true,
-                "normalizeCharset": true,
-                "normalizeUrl": true,
-                "reduceTransforms": true
-              }]
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install --save-dev \
+            html-minifier-terser \
+            clean-css-cli \
+            terser \
+            imagemin-cli \
+            imagemin-webp \
+            imagemin-pngquant \
+            imagemin-mozjpeg \
+            postcss \
+            postcss-cli \
+            autoprefixer \
+            cssnano
+
+      - name: Minify HTML
+        run: |
+          npx html-minifier-terser \
+            --collapse-whitespace \
+            --remove-comments \
+            --remove-optional-tags \
+            --remove-redundant-attributes \
+            --remove-script-type-attributes \
+            --remove-tag-whitespace \
+            --use-short-doctype \
+            --minify-css true \
+            --minify-js true \
+            -o index.html \
+            index.html
+
+      - name: Optimize CSS
+        run: |
+          echo '{
+            "plugins": {
+              "autoprefixer": {},
+              "cssnano": {
+                "preset": ["default", {
+                  "discardComments": { "removeAll": true },
+                  "normalizeWhitespace": true,
+                  "colormin": true,
+                  "mergeLonghand": true,
+                  "mergeRules": true,
+                  "minifyFontValues": true,
+                  "minifyGradients": true,
+                  "minifyParams": true,
+                  "minifySelectors": true,
+                  "normalizeCharset": true,
+                  "normalizeUrl": true,
+                  "reduceTransforms": true
+                }]
+              }
             }
-          }
-        }' > postcss.config.json
-        
-        # 各CSSファイルを最適化
-        for file in css/*.css; do
-          if [ -f "$file" ]; then
-            npx postcss "$file" -o "$file"
-          fi
-        done
-    
-    # JavaScriptの最適化
-    - name: Minify JavaScript
-      run: |
-        for file in js/*.js; do
-          if [ -f "$file" ]; then
-            npx terser "$file" \
-              --compress \
-              --mangle \
-              --output "$file"
-          fi
-        done
-    
-    # 画像の最適化とWebP変換
-    - name: Optimize Images
-      run: |
-        # WebP変換用ディレクトリ作成
-        mkdir -p image/webp
-        
-        # PNG/JPG画像を最適化
-        npx imagemin 'image/*.{jpg,jpeg,png}' \
-          --out-dir=image \
-          --plugin=pngquant \
-          --plugin=mozjpeg
-        
-        # WebP版を生成
-        for file in image/*.{jpg,jpeg,png}; do
-          if [ -f "$file" ]; then
-            filename=$(basename "$file")
-            name="${filename%.*}"
-            npx imagemin "$file" \
-              --out-dir=image/webp \
-              --plugin=webp
-            mv "image/webp/${filename}" "image/webp/${name}.webp" 2>/dev/null || true
-          fi
-        done
-    
-    # 不要なファイルの削除
-    - name: Clean up
-      run: |
-        # 開発用ファイルを削除
-        rm -f .gitignore README.md package*.json postcss.config.json
-        
-        # ソースマップを削除
-        find . -name "*.map" -type f -delete
-    
-    # gzip圧縮版の作成
-    - name: Create compressed versions
-      run: |
-        # HTML, CSS, JSファイルのgzip版を作成
-        find . -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" \) \
-          -exec gzip -9 -k {} \;
-    
-    # ビルド結果のサイズレポート
-    - name: Generate size report
-      run: |
-        echo "## 📊 Build Size Report" >> $GITHUB_STEP_SUMMARY
-        echo "| File Type | Count | Total Size |" >> $GITHUB_STEP_SUMMARY
-        echo "|-----------|-------|------------|" >> $GITHUB_STEP_SUMMARY
-        
-        # HTML
-        html_count=$(find . -name "*.html" -type f | wc -l)
-        html_size=$(find . -name "*.html" -type f -exec du -ch {} + | grep total$ | cut -f1)
-        echo "| HTML | $html_count | $html_size |" >> $GITHUB_STEP_SUMMARY
-        
-        # CSS
-        css_count=$(find css -name "*.css" -type f | wc -l)
-        css_size=$(find css -name "*.css" -type f -exec du -ch {} + | grep total$ | cut -f1)
-        echo "| CSS | $css_count | $css_size |" >> $GITHUB_STEP_SUMMARY
-        
-        # JavaScript
-        js_count=$(find js -name "*.js" -type f | wc -l)
-        js_size=$(find js -name "*.js" -type f -exec du -ch {} + | grep total$ | cut -f1)
-        echo "| JavaScript | $js_count | $js_size |" >> $GITHUB_STEP_SUMMARY
-        
-        # Images
-        img_count=$(find image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) | wc -l)
-        img_size=$(find image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) -exec du -ch {} + | grep total$ | cut -f1)
-        echo "| Images | $img_count | $img_size |" >> $GITHUB_STEP_SUMMARY
-    
-    # GitHub Pages設定（mainブランチのみ）
-    - name: Setup Pages
-      if: github.ref == 'refs/heads/main'
-      uses: actions/configure-pages@v4
-    
-    # Pagesアーティファクトアップロード（mainブランチのみ）
-    - name: Upload Pages artifact
-      if: github.ref == 'refs/heads/main'
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: .
-    
-    # GitHub Pagesへデプロイ（mainブランチのみ）
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main'
-      id: deployment
-      uses: actions/deploy-pages@v4
-    
-    # デプロイ完了通知
-    - name: Deployment summary
-      if: github.ref == 'refs/heads/main'
-      run: |
-        echo "## ✅ Deployment Complete!" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "🚀 Site has been deployed to GitHub Pages" >> $GITHUB_STEP_SUMMARY
-        echo "📍 URL: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          }' > postcss.config.json
+
+          for file in css/*.css; do
+            if [ -f "$file" ]; then
+              npx postcss "$file" -o "$file"
+            fi
+          done
+
+      - name: Minify JavaScript
+        run: |
+          for file in js/*.js; do
+            if [ -f "$file" ]; then
+              npx terser "$file" \
+                --compress \
+                --mangle \
+                --output "$file"
+            fi
+          done
+
+      - name: Optimize Images
+        run: |
+          mkdir -p image/webp
+
+          npx imagemin 'image/*.{jpg,jpeg,png}' \
+            --out-dir=image \
+            --plugin=pngquant \
+            --plugin=mozjpeg
+
+          for file in image/*.{jpg,jpeg,png}; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              name="${filename%.*}"
+              npx imagemin "$file" \
+                --out-dir=image/webp \
+                --plugin=webp
+              mv "image/webp/${filename}" "image/webp/${name}.webp" 2>/dev/null || true
+            fi
+          done
+
+      - name: Prepare dist directory
+        run: |
+          mkdir -p dist
+          cp -r index.html css js image dist/
+          # poster ディレクトリがあればコピー
+          [ -d poster ] && cp -r poster dist/ || true
+
+      - name: Clean up dist
+        run: |
+          cd dist
+          find . -name "*.map" -type f -delete
+          find . -name ".DS_Store" -type f -delete
+
+      - name: Generate size report
+        run: |
+          echo "## Build Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "| File Type | Count | Total Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|-------|------------|" >> $GITHUB_STEP_SUMMARY
+
+          html_count=$(find dist -name "*.html" -type f | wc -l)
+          html_size=$(find dist -name "*.html" -type f -exec du -ch {} + 2>/dev/null | grep total$ | cut -f1 || echo "0")
+          echo "| HTML | $html_count | $html_size |" >> $GITHUB_STEP_SUMMARY
+
+          css_count=$(find dist/css -name "*.css" -type f 2>/dev/null | wc -l)
+          css_size=$(find dist/css -name "*.css" -type f -exec du -ch {} + 2>/dev/null | grep total$ | cut -f1 || echo "0")
+          echo "| CSS | $css_count | $css_size |" >> $GITHUB_STEP_SUMMARY
+
+          js_count=$(find dist/js -name "*.js" -type f 2>/dev/null | wc -l)
+          js_size=$(find dist/js -name "*.js" -type f -exec du -ch {} + 2>/dev/null | grep total$ | cut -f1 || echo "0")
+          echo "| JavaScript | $js_count | $js_size |" >> $GITHUB_STEP_SUMMARY
+
+          img_count=$(find dist/image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) 2>/dev/null | wc -l)
+          img_size=$(find dist/image -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) -exec du -ch {} + 2>/dev/null | grep total$ | cut -f1 || echo "0")
+          echo "| Images | $img_count | $img_size |" >> $GITHUB_STEP_SUMMARY
+
+      # S3 + CloudFront デプロイ (main ブランチのみ)
+      - name: Configure AWS credentials
+        if: github.ref == 'refs/heads/main'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        if: github.ref == 'refs/heads/main'
+        run: |
+          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }} --delete
+
+      - name: Invalidate CloudFront cache
+        if: github.ref == 'refs/heads/main'
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
+
+      - name: Deployment summary
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "## Deployment Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Site has been deployed to S3 + CloudFront" >> $GITHUB_STEP_SUMMARY
+          echo "URL: https://info.coekar.com" >> $GITHUB_STEP_SUMMARY
