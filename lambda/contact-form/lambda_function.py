@@ -4,12 +4,17 @@ import urllib.request
 from datetime import datetime, timezone, timedelta
 
 SLACK_WEBHOOK_URL = os.environ.get('SLACK_WEBHOOK_URL')
-ALLOWED_ORIGIN = os.environ.get('ALLOWED_ORIGIN', 'https://coekar.com')
+# カンマ区切りで複数オリジン指定可能
+ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', 'https://coekar.com,https://info.coekar.com').split(',')
 
 
-def get_cors_headers():
+def get_cors_headers(origin=None):
+    # リクエスト元が許可リストにあれば、そのオリジンを返す
+    allowed_origin = ALLOWED_ORIGINS[0]
+    if origin and origin in ALLOWED_ORIGINS:
+        allowed_origin = origin
     return {
-        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+        'Access-Control-Allow-Origin': allowed_origin,
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Content-Type': 'application/json'
@@ -17,11 +22,15 @@ def get_cors_headers():
 
 
 def lambda_handler(event, context):
+    # リクエスト元のオリジンを取得
+    headers = event.get('headers', {})
+    origin = headers.get('origin') or headers.get('Origin')
+
     # CORS preflight
     if event.get('requestContext', {}).get('http', {}).get('method') == 'OPTIONS':
         return {
             'statusCode': 200,
-            'headers': get_cors_headers(),
+            'headers': get_cors_headers(origin),
             'body': ''
         }
 
@@ -38,7 +47,7 @@ def lambda_handler(event, context):
         if not all([organization, department, name, email, phone]):
             return {
                 'statusCode': 400,
-                'headers': get_cors_headers(),
+                'headers': get_cors_headers(origin),
                 'body': json.dumps({'error': 'Required fields are missing'})
             }
 
@@ -101,7 +110,7 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'headers': get_cors_headers(),
+            'headers': get_cors_headers(origin),
             'body': json.dumps({'success': True})
         }
 
@@ -109,6 +118,6 @@ def lambda_handler(event, context):
         print(f'Error: {e}')
         return {
             'statusCode': 500,
-            'headers': get_cors_headers(),
+            'headers': get_cors_headers(origin),
             'body': json.dumps({'error': 'Internal server error'})
         }
