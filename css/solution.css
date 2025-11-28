@@ -88,8 +88,6 @@
     0 8px 24px rgba(0, 0, 0, 0.1),
     0 2px 8px rgba(0, 0, 0, 0.05);
   border: 2px solid var(--border-light);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
   width: 220px;
   z-index: 2;
 }
@@ -158,29 +156,6 @@
   border-bottom: none;
 }
 
-.bubble-step:hover {
-  box-shadow:
-    0 12px 32px rgba(30, 58, 138, 0.15),
-    0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: var(--primary);
-  z-index: 100;
-}
-
-.bubble-step-1:hover {
-  transform: translateX(-50%) scale(1.05);
-}
-
-.bubble-step-2:hover {
-  transform: translateY(-50%) scale(1.05);
-}
-
-.bubble-step-3:hover {
-  transform: translateX(-50%) scale(1.05);
-}
-
-.bubble-step-4:hover {
-  transform: translateY(-50%) scale(1.05);
-}
 
 /* 番号バッジ */
 .bubble-number {
@@ -226,24 +201,6 @@
   font-size: 0.8rem;
   color: var(--text-light);
   line-height: 1.3;
-  margin-bottom: 0.4rem;
-}
-
-.bubble-detail {
-  font-size: 0.7rem;
-  color: var(--primary);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: all 0.3s ease;
-}
-
-.bubble-step:hover .bubble-detail {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* 非表示要素 */
