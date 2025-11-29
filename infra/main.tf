@@ -177,7 +177,7 @@ data "aws_iam_policy_document" "site_bucket_policy" {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
       values = [
-        "arn:aws:cloudfront:${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.site.id}"
+        "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.site.id}"
       ]
     }
   }
@@ -203,7 +203,7 @@ data "aws_iam_policy_document" "site_bucket_policy" {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
       values = [
-        "arn:aws:cloudfront:${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.site.id}"
+        "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.site.id}"
       ]
     }
   }
@@ -317,4 +317,3 @@ resource "aws_iam_role_policy" "github_actions" {
   role   = aws_iam_role.github_actions.id
   policy = data.aws_iam_policy_document.github_actions_permissions.json
 }
-
