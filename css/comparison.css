@@ -86,23 +86,37 @@
   font-size: 0.95rem;
   line-height: 1.7;
   position: relative;
+  transition: all 0.2s ease;
+  border-radius: 8px;
 }
 
 .compare-list li::before {
   position: absolute;
   left: 0;
   top: 1rem;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .compare-before .compare-list li {
   color: #64748b;
 }
 
+.compare-before .compare-list li:hover {
+  padding-left: 3rem;
+  background: rgba(148, 163, 184, 0.05);
+}
+
 .compare-before .compare-list li::before {
   content: "✕";
-  color: #94a3b8;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
 }
 
 .compare-after .compare-list li {
@@ -110,9 +124,15 @@
   font-weight: 500;
 }
 
+.compare-after .compare-list li:hover {
+  padding-left: 3rem;
+  background: rgba(59, 130, 246, 0.05);
+}
+
 .compare-after .compare-list li::before {
   content: "✓";
-  color: var(--primary);
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
 }
 
 /* レスポンシブ */

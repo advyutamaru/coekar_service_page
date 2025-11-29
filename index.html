@@ -138,8 +138,8 @@
     <meta name="description" content="医療現場の記録業務を革新。AI音声認識で診療記録を自動作成し、医師の業務負担を大幅に軽減します。">
     
     <!-- ファビコン設定 -->
-    <link rel="icon" type="image/png" href="/image/coekar_logo.png">
-    <link rel="apple-touch-icon" href="/image/coekar_logo.png">
+    <link rel="icon" type="image/png" href="image/coekar_logo.png">
+    <link rel="apple-touch-icon" href="image/coekar_logo.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -197,6 +197,14 @@
                 <img src="image/coekar_logo.png" alt="コエカル" class="logo-icon">
                 コエカル
             </a>
+
+            <!-- ハンバーガーボタン -->
+            <button class="mobile-menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
             <div class="nav-links">
                 <a href="#problem">課題</a>
                 <a href="#solution">ソリューション</a>
@@ -266,36 +274,7 @@
             </div>
             
             <div class="voice-visualizer">
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
-                <div class="voice-bar"></div>
+                <!-- voice-barはJavaScriptで動的生成 -->
             </div>
             
             <div class="conversion-text">
@@ -399,7 +378,7 @@
             <!-- CTA -->
             <div class="problem-cta">
                 <p class="cta-message">この課題、コエカルが解決します</p>
-                <i data-feather="arrow-down" class="cta-arrow"></i>
+                <i data-feather="arrow-down" class="cta-arrow" aria-hidden="true"></i>
             </div>
         </div>
     </section>
@@ -420,16 +399,16 @@
                         <!-- アイコン群 -->
                         <div class="visual-icons">
                             <div class="visual-icon">
-                                <i data-feather="mic"></i>
+                                <i data-feather="mic" aria-hidden="true"></i>
                             </div>
                             <div class="visual-icon">
-                                <i data-feather="message-circle"></i>
+                                <i data-feather="message-circle" aria-hidden="true"></i>
                             </div>
                             <div class="visual-icon">
-                                <i data-feather="file-text"></i>
+                                <i data-feather="file-text" aria-hidden="true"></i>
                             </div>
                             <div class="visual-icon">
-                                <i data-feather="save"></i>
+                                <i data-feather="save" aria-hidden="true"></i>
                             </div>
                         </div>
                         <!-- 中央メッセージ -->
@@ -444,7 +423,7 @@
                         <div class="bubble-number">1</div>
                         <div class="bubble-content">
                             <div class="bubble-title">
-                                <i data-feather="mic" class="bubble-icon"></i>
+                                <i data-feather="mic" class="bubble-icon" aria-hidden="true"></i>
                                 録音開始
                             </div>
                             <p class="bubble-text">診察開始時にワンタップ<br>特別な機器は不要</p>
@@ -456,7 +435,7 @@
                         <div class="bubble-number">2</div>
                         <div class="bubble-content">
                             <div class="bubble-title">
-                                <i data-feather="message-circle" class="bubble-icon"></i>
+                                <i data-feather="message-circle" class="bubble-icon" aria-hidden="true"></i>
                                 自動文字起こし
                             </div>
                             <p class="bubble-text">医療特化AIが<br>リアルタイムでテキスト化</p>
@@ -468,7 +447,7 @@
                         <div class="bubble-number">3</div>
                         <div class="bubble-content">
                             <div class="bubble-title">
-                                <i data-feather="file-text" class="bubble-icon"></i>
+                                <i data-feather="file-text" class="bubble-icon" aria-hidden="true"></i>
                                 SOAP記録生成
                             </div>
                             <p class="bubble-text">文脈を理解して<br>構造化された記録を作成</p>
@@ -480,7 +459,7 @@
                         <div class="bubble-number">4</div>
                         <div class="bubble-content">
                             <div class="bubble-title">
-                                <i data-feather="save" class="bubble-icon"></i>
+                                <i data-feather="save" class="bubble-icon" aria-hidden="true"></i>
                                 確認・保存
                             </div>
                             <p class="bubble-text">必要に応じて編集し<br>ワンクリックで保存</p>
@@ -552,7 +531,7 @@
             <div class="features-cross-grid">
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i data-feather="mic"></i>
+                        <i data-feather="mic" aria-hidden="true"></i>
                     </div>
                     <h3>医療特化音声認識</h3>
                     <p>医療用語、薬剤名、疾患名を正確に認識。専門用語の誤変換を最小限に抑え、高精度な文字起こしを実現します。</p>
@@ -560,7 +539,7 @@
 
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i data-feather="zap"></i>
+                        <i data-feather="zap" aria-hidden="true"></i>
                     </div>
                     <h3>リアルタイム処理</h3>
                     <p>診察終了と同時に記録が完成。待ち時間なく、すぐに確認・編集が可能です。</p>
@@ -568,7 +547,7 @@
 
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i data-feather="cpu"></i>
+                        <i data-feather="cpu" aria-hidden="true"></i>
                     </div>
                     <h3>医療特化AI</h3>
                     <p>診療ガイドラインに基づいた適切な記録を自動生成。文脈を理解し、SOAP形式で整理された記録を作成します。</p>
@@ -576,7 +555,7 @@
 
                 <div class="feature-item">
                     <div class="feature-icon">
-                        <i data-feather="shield"></i>
+                        <i data-feather="shield" aria-hidden="true"></i>
                     </div>
                     <h3>セキュリティ</h3>
                     <p>医療データの機密性を最優先。エンドツーエンド暗号化と厳格なアクセス制御で患者情報を保護します。</p>
@@ -712,7 +691,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2024 ADVATEC. All rights reserved.</p>
+            <p>© 2025 ADVATEC. All rights reserved.</p>
         </div>
     </footer>
     
@@ -733,6 +712,12 @@
     
     <!-- スムーズスクロール -->
     <script src="js/smooth-scroll.js"></script>
+
+    <!-- モバイルナビゲーション -->
+    <script src="js/mobile-nav.js"></script>
+
+    <!-- 音声ビジュアライザー -->
+    <script src="js/voice-visualizer.js"></script>
 
     <!-- お問い合わせフォーム -->
     <script src="js/contact-form.js"></script>
