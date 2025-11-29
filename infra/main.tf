@@ -119,13 +119,22 @@ resource "aws_cloudfront_distribution" "site" {
 
     compress = true
 
-    forwarded_values {
-      query_string = false
+    # Managed-CachingOptimized policy
+    cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+  }
 
-      cookies {
-        forward = "none"
-      }
-    }
+  custom_error_response {
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/index.html"
+    error_caching_min_ttl = 10
+  }
+
+  custom_error_response {
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
+    error_caching_min_ttl = 10
   }
 
   restrictions {
